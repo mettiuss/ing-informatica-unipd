@@ -1,0 +1,2 @@
+Inserisci dei numeri interi
+La somma dei valori introdotti e': 21
