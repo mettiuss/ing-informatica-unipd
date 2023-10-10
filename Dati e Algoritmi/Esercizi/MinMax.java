@@ -2,64 +2,41 @@
   usando (SEMPRE) un numero di confronti (tra elementi dell’insieme) minore di 3n/2 */
 
 public class MinMax {
-    public static double[] findMinMax(double[] array) {
+    public static double[] findMinMax(double[] a) {
         // Precondizione
-        if (array.length == 0) {
-            double[] returnArray = { 0, 0 };
-            return returnArray;
-        }
-
-        // caso banale
-        if (array.length == 1) {
-            double[] returnArray = { array[0], array[0] };
-            return returnArray;
+        if (a == null || a.length == 0) {
+            throw new IllegalArgumentException();
         }
 
         // Crea due array confrontando coppie di valori, così da ottenere due array, uno
         // con valori generalmente più alti e uno con valori generalmente più bassi
         // Questo richiede un numero di confronti pari a n/2
-        int mid = array.length / 2;
-        int higherIndex = 0;
-        double[] higherArray = new double[mid];
-        int lowerIndex = 0;
-        double[] lowerArray = new double[array.length - mid];
+        double[] mins = new double[(a.length+1)/2];
+        double[] maxs = new double[(a.length+1)/2];
 
-        for (int i = 0; i < array.length; i += 2) {
-            if ((i + 1) == array.length) {
-                lowerArray[lowerIndex++] = array[i];
-                continue;
-            }
-
-            if (array[i] > array[i + 1]) {
-                higherArray[higherIndex++] = array[i];
-                lowerArray[lowerIndex++] = array[i + 1];
+        for (int i = 0; i < a.length; i += 2) {
+            if (a[i] < a[i + 1]) {
+                mins[i/2] = a[i];
+                maxs[i/2] = a[i+1];
             } else {
-                higherArray[higherIndex++] = array[i + 1];
-                lowerArray[lowerIndex++] = array[i];
+                mins[i/2] = a[i+1];
+                maxs[i/2] = a[i];
             }
         }
 
-        // Trovo ora il minimo dall'array dei numeri più bassi, che conincide con il
-        // minimo dell'array iniziale
-        // Questa operazione richiede un numero di confronti pari a n/2
-        double min = lowerArray[0];
-        for (int i = 0; i < lowerArray.length; i++) {
-            if (lowerArray[i] < min) {
-                min = lowerArray[i];
-            }
+        if (a.length % 2 == 1) // se lunghezza dispari...
+            mins[mins.length-1] = maxs[maxs.length-1] = a[a.length-1];
+
+        // Trovo ora il minimo e il massimo a partire dagli array di mins e max, l'operazione richiede n confronti
+        double min = mins[0];
+        double max = maxs[0];
+        for (int i = 1; i < mins.length; i++)
+        {  
+            if (mins[i] < min) min = mins[i];
+            if (maxs[i] > max) max = maxs[i];
         }
 
-        // Nello stesso modo cerco il massimo, usando ancora un numero di confronti pari
-        // a n/2
-        double max = higherArray[0];
-        for (int i = 0; i < higherArray.length; i++) {
-            if (higherArray[i] > max) {
-                max = higherArray[i];
-            }
-        }
-
-        double[] returnArray = { min, max };
-        return returnArray;
+        return new double[] {min, max};
     }
 
     public static void main(String[] args) {
