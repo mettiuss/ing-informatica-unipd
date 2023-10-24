@@ -1,0 +1,12 @@
+a) La variabile locale automatica appare nella sezione "text" in quanto il suo valore viene
+   scritto direttamente nel codice e verrà inizializzata all'esecuzione della funzione.
+   
+b) Perché la memoria viene gestita in modo "automatico" infatti ad ogni chiamata di funzione
+   viene aggiunta alla memoria e poi viene rimossa in automatico alla fine dell'esecuzione della funzione.
+
+c) Variabili statiche non inizializzate vanno nell'uninitialized data segment (BSS) e la 
+   porzione di memoria viene inizializzata a 0, è quindi sicuro usare questo tipo di variabili.
+
+d) Le variabli esterne alla funzione main hanno scope globale, le variabili statiche definite 
+   all'interno della funzione main hanno uno scope locale alla funzione stessa infine le 
+   variabili locali automatiche hanno scope locale alla specifica istanza della funzione
