@@ -1,3 +1,5 @@
+# Notazione Binaria
+
 **Tipi di dato in Java**
 
 -   Tipi primitivi
@@ -10,6 +12,7 @@
 
 **Le variabili**
 Spazi di memoria, identificati da un _**nome**,_ che possono conservare _**valori**_ di un _determinato **tipo**_
+
 -   Attributi
     -   visibilità: public, protected, private
     -   tipi particolari: static final
@@ -18,15 +21,17 @@ Spazi di memoria, identificati da un _**nome**,_ che possono conservare _**valor
 -   Prima di usare una determinata variabile è necessario inizializzarla
 
 **Commenti**
-// o / *   * /
+// o / \* \* /
 
 **Costanti**
 Basta usare la keyword `final` prima del tipo di variabile
+
 -   Questo aumenta la leggibilità
 -   Per convenzione il nome della variabile finale dovrebbe essere tutto maiuscolo
 -   Il vantaggio è che se lo stesso dato va usato più volte nello stesso programma lo possiamo modificare facilmente
 
 I _literals_ sono i valori costanti (valori scritti direttamenta dall’utente nel programma), vengono sempre interpretati in int32, a meno che non venga specificato in modo diverso:
+
 -   Se voglio assegnare un valore long ad una variabile long devo specificarlo aggiungendo `L` alla fine del numero `long numerone = 43877374218992932L`
 -   Stessa cosa per i float `float number = 2.35f`
 -   Per i char dobbiamo usare gli apici singoli (’), mentre per le stringhe quelli doppi (")

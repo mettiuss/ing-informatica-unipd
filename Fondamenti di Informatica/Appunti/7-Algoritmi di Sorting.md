@@ -1,11 +1,13 @@
+# Algoritmi di Sorting
+
 ```java
 public class Sorting {
     public static void main(String[] args) {
         //test array
         double[] array = new double[] {8, 3, 5, 7, 2};
-		
+
         insertionSort(array);
-		
+
         //print array
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + " ");
@@ -62,7 +64,7 @@ public class Sorting {
 
     public static void selectionSort(double[] array) {
         for (int i = 0; i < array.length; i++) {
-			
+
             //search the position of the min, without looking at the already sorted positions
             int minPos = i;
             for (int j = i; j < array.length; j++) {
@@ -70,7 +72,7 @@ public class Sorting {
                     minPos = j;
                 }
             }
-			
+
             //swapping the two positions
             double t = array[i];
             array[i] = array[minPos];

@@ -1,3 +1,5 @@
+#DMA
+
 Per alcuni dispositivi la gestione ad interrupt non è consigliabile, in particolare per dispositivi con un alto "data rate"
 
 In casi particolari, con data rate che eccedono il tempo che il processore impiega a processare il dato, si può avere una perdita di alcuni dati
@@ -6,10 +8,11 @@ Anche se questo non accade è possibile che la cpu debba usare una gran parte de
 Per risolvere questo problema si può dare _Direct Memory Access_ al dispositivo, così che esso possa scrivere direttamente i dati in memoria
 
 Il processore quindi deve solo indicare:
-- il device da cui leggere/scrivere
-- l'indirizzo da cui iniziare
-- quanti dati vanno trasferiti
-- Dare il comando di start
+
+-   il device da cui leggere/scrivere
+-   l'indirizzo da cui iniziare
+-   quanti dati vanno trasferiti
+-   Dare il comando di start
 
 Tutto il resto viene gestito dal DMA che si occupa del trasferimento usando la tecnica del busy waiting
 Alla fine del processo di trasferimento invia un interrupt alla cpu
