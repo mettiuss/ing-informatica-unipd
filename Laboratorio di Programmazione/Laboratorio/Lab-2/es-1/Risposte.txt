@@ -1,0 +1,10 @@
+1. Una classe ha due sezioni principali, "public" e "private", la prima contiene variabili e funzioni accessibili agli utenti della classe, la seconda contiene invece dati e funzioni che possono essere utilizzati solo dai metodi della classe stessa.
+
+2. L'interfaccia comunica agli utenti quali funzioni sono disponibili all'uso, senza però definire l'implementazione di tale funzione che viene poi scritta a parte.
+
+3. Viene usato il costruttore invece di una funzione helper per costringere l'utente ad inizializzare la data ad un valore corretto 
+
+4. Un'invariante è una condizione che è sempre vera, nel caso della classe Date il suo invariante è che il suo stato deve essere sempre valido, deve quindi contenere sempre una data valida
+
+5. Le funzioni dovrebbero essere implementate all'interno della classe solo nel caso in cui la loro implementazione è banale, come una funzione che ritorna una certa variabile privata della classe, in tutti gli altri casi vanno definite all'esterno della classe.
+
