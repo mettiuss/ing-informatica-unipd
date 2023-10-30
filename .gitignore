@@ -1,9 +1,14 @@
-.DS_Store
-.prettierrc.json
-.vscode
-
 #cpp
+*
+!/**/
+!*.*
 *.out
+*.o
 
 #java
 *.class
+
+#general
+.DS_Store
+.prettierrc.json
+.vscode
