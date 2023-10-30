@@ -1,4 +1,9 @@
 .DS_Store
-*.out
 .prettierrc.json
 .vscode
+
+#cpp
+*.out
+
+#java
+*.class
