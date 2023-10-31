@@ -1,31 +1,7 @@
 #include <iostream>
+#include "Rational.h"
 
 using namespace std;
-
-class Rational {
-public:
-	Rational(): numerator{0}, denominator{1} {}
-	Rational(int num): numerator{num}, denominator{1} {}
-	Rational(int num, int denom): numerator{num}, denominator{denom} {}
-	int getNumerator() { return numerator; }
-	int getDenominator() { return denominator; }
-	void operator=(const Rational& element);
-	Rational operator+(Rational operand);
-    Rational operator+(int operand);
-	Rational operator-(Rational element);
-	Rational operator*(Rational element);
-	Rational operator/(Rational element);
-	bool operator==(Rational element);
-	bool operator>(Rational element);
-	bool operator<(Rational element);
-	double to_double();
-private:
-	int numerator, denominator;
-};
-
-ostream& operator<< (ostream& stream, Rational r) {
-	return stream << r.getNumerator() << "/" << r.getDenominator();
-}
 
 int mcd(int a, int b) {
 	while (b != 0) {
@@ -40,65 +16,78 @@ int mcm(int a, int b) {
 	return (a * b) / mcd(a, b);
 }
 
-void Rational::operator=(const Rational& element) {
-	numerator = element.numerator;
-	denominator = element.denominator;
+Rational::Rational(int num, int denom) {
+    if (denom == 0) throw std::invalid_argument("Cannot divide by 0");
+    numerator = num;
+    denominator = denom;
 }
 
-Rational Rational::operator+(Rational operand) {
-	int denom = mcm(denominator, operand.denominator);
+int Rational::getNumerator() const {
+    return numerator;
+}
+
+int Rational::getDenominator() const {
+    return denominator;
+}
+
+void Rational::setNumerator(int num) {
+    numerator = num;
+}
+
+void Rational::setDenominator(int denom) {
+    if (denom == 0) throw std::invalid_argument("Cannot divide by 0");
+    denominator = denom;
+}
+
+ostream& operator<<(ostream& stream, Rational operand) {
+    return stream << operand.getNumerator() << "/" << operand.getDenominator();
+}
+
+void Rational::operator=(const Rational& operand) {
+    numerator = operand.getNumerator();
+    denominator = operand.getDenominator();
+}
+
+Rational operator+(Rational lvalue, Rational rvalue) {
+    int denom = mcm(lvalue.getDenominator(), rvalue.getDenominator());
 	
-	int first_numerator = (denom / denominator) * numerator;
-	int second_numerator = (denom / operand.denominator) * operand.numerator;
+	int first_numerator =  (denom / lvalue.getDenominator()) * lvalue.getNumerator();
+	int second_numerator = (denom / rvalue.getDenominator()) * rvalue.getNumerator();
 	return Rational(first_numerator + second_numerator, denom);
 }
 
-Rational Rational::operator+(int operand) {
-    Rational o = Rational(operand, 1);
-	
-    int denom = mcm(denominator, o.denominator);
-	
-	int first_numerator = (denom / denominator) * numerator;
-	int second_numerator = (denom / o.denominator) * o.numerator;
-	return Rational(first_numerator + second_numerator, denom);
+Rational operator+(Rational lvalue, int rvalue) {
+	int second_numerator = lvalue.getDenominator() * rvalue;
+	return Rational(lvalue.getNumerator() + second_numerator, lvalue.getDenominator());
 }
 
-Rational Rational::operator-(Rational element) {
-	int denom = mcm(denominator, element.denominator);
-	
-	int first_numerator = (denom / denominator) * numerator;
-	int second_numerator = (denom / element.denominator) * element.numerator;
-	return Rational(first_numerator - second_numerator, denom);
+Rational operator-(Rational lvalue, Rational rvalue) {
+    rvalue.setNumerator(-rvalue.getNumerator());
+	return lvalue + rvalue;
 }
 
-Rational Rational::operator*(Rational element) {
-	return Rational(numerator * element.numerator, denominator * element.denominator);
+Rational operator*(Rational lvalue, Rational rvalue) {
+	return Rational(lvalue.getNumerator() * rvalue.getNumerator(), lvalue.getDenominator() * rvalue.getDenominator());
 }
 
-Rational Rational::operator/(Rational element) {
-	return Rational(numerator * element.denominator, denominator * element.numerator);
+Rational operator/(Rational lvalue, Rational rvalue) {
+	return Rational(lvalue.getNumerator() * rvalue.getDenominator(), lvalue.getDenominator() * rvalue.getNumerator());
 }
 
-bool Rational::operator==(Rational element) {
-	return element.numerator == numerator && element.denominator == denominator;
+bool operator==(Rational lvalue, Rational rvalue) {
+	return lvalue.getNumerator() == rvalue.getNumerator() && lvalue.getDenominator() == rvalue.getDenominator();
 }
 
-bool Rational::operator>(Rational element) {
-	return to_double() > element.to_double();
+bool operator>(Rational lvalue, Rational rvalue) {
+	return (lvalue.getNumerator() * rvalue.getDenominator()) > (rvalue.getNumerator() * lvalue.getDenominator());
 }
 
-bool Rational::operator<(Rational element) {
-	return to_double() < element.to_double();
+bool operator<(Rational lvalue, Rational rvalue) {
+	return !(lvalue > rvalue);
 }
 
-
-double Rational::to_double() { 
-	double n = numerator;
-	double d = denominator;
-	return n / d;
+double to_double(Rational operand) {
+    double num = operand.getNumerator();
+    double denom = operand.getDenominator();
+    return num/denom;
 }
-
-int main() {
-	return 0;
-}
-
