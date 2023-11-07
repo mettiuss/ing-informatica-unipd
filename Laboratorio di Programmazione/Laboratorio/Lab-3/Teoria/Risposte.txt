@@ -1,0 +1,21 @@
+1) What is a dereference operator and why do we nedd one?
+
+	Il dereference operator è un operatore indicato con *, che 
+	permette di dichiarare una variabile come contenitore di un 
+	indirizzo di memoria, dove sarà salvato il valore assegnato.
+	Un esempio è: int* num = 5;
+		in cui si definisce num come puntatore ad una cella di 
+		memoria contenente il valore intero 5.
+		
+2) What is an address? How are memory addresses manipulated in c++?
+	
+	Un' indirizzo è appunto l'indirizzo di una cella di memoria, 
+	permette l'accesso ai dati direttatemente attraverso la memoria.
+	Gli indirizzi sono utili per passare oggetti di grandi dimensioni,
+	per esempio a funzioni, senza passare una copia del dato stesso,
+	accedendovi direttamente attraverso la memoria.
+	
+3) What information about a pointed-to object does a pointer have?
+   What usefull information does it lack?  
+   
+   	
