@@ -18,4 +18,22 @@
 3) What information about a pointed-to object does a pointer have?
    What usefull information does it lack?  
    
-   	
+   	Un puntatore può fornire l'indirizzo di memoria dell'oggetto puntato
+    e il suo tipo, consentendo così l'accesso e la manipolazione dell'oggetto.
+    Tuttavia esso non è a conoscenza della dimensione dell'oggetto puntato
+    e del suo contenuto, a cui si può accedere usando l'operatore *.
+
+4) What can a pointer point to?
+
+    Un puntatore può puntare ad un tipo primitivo (int, double, char..),
+    ad un tipo definito dall'utente, ad una funzione oppure si può definire come
+    puntatore a void, che punta ad una regione di memoria raw, disabilitando
+    ogni tipo di type-check sulla variabile.
+
+5) When do we need a pointer (instead of a reference or a named object)?
+
+    I puntatori sono necessari in situazioni in cui è richiesta la gestione
+    esplicita della memoria o l'accesso diretto a indirizzi di memoria.
+    Ad esempio per utilizzare la memoria dinamica (heap) per creare degli
+    array di dimensione definita al runtime oppure nella gestione di array
+    in stile C, con il puntatore è possibile scorrere tra tutti gli elementi dell'array.
