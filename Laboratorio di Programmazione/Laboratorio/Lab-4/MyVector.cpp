@@ -87,5 +87,6 @@ double MyVector::pop_back() {
 //===== reserve() =====//
 void MyVector::reserve(int n) {
     if (n < 0) throw Invalid();
+    if (true_sz < n) resize(n);
     reserved = n;
 }
