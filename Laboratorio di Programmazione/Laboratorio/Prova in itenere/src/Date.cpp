@@ -11,8 +11,8 @@ Date::Date(int yy, Month mm, int dd) {
   if (dd == 31 && (mm == 4 || mm == 6 || mm == 9 || mm == 11)) throw Invalid();
 
   // Controllo su Febbraio
-  if (mm == 2 && dd > 29) throw Invalid();
-  if (mm == 2 && dd == 29 && !isLeapYear(yy)) throw Invalid();
+  // if (mm == 2 && dd > 29) throw Invalid();
+  if (mm == 2 && ((dd == 29 && !isLeapYear(yy)) || dd > 29)) throw Invalid();
 
   y = yy;
   m = mm;
