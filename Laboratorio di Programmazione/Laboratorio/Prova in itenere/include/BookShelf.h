@@ -23,9 +23,9 @@ class BookShelf {
   Book pop_back();             // remove and return the last element
 
   void reserve(int dimension);  // set the minimum dimension for the buffer
-  void resize(int newDim);
 
  private:
   int size = 0, max_size = 0, reserved = 0;
   Book *b = nullptr;
+  void resize(int newDim);
 };
