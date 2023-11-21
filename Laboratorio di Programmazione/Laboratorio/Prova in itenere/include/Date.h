@@ -1,7 +1,7 @@
 #include <iostream>
 
 class Date {
-public:
+ public:
   class Invalid {};
   enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
   Date() : y{0}, m{jan}, d{1} {}
@@ -10,7 +10,7 @@ public:
   int getDay() { return d; }
   int getYear() { return y; }
 
-private:
+ private:
   int y, d;
   Month m;
 };

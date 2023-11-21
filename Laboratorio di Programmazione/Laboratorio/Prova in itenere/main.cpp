@@ -1,12 +1,12 @@
-#include "./include/BookShelf.h"
 #include <iostream>
+
+#include "./include/BookShelf.h"
 
 // Date class tester
 
-
 void test_bookshelf() {
   Date invalidDate(2008, Date::feb, 29);
-  Date d2(1950, Date::dec, 30); // nascita di Bjarne Stroustrup
+  Date d2(1950, Date::dec, 30);  // nascita di Bjarne Stroustrup
 
   BookShelf b = BookShelf();
   Book book1("Francesca", "Rossi", "Title1", d2, "__CODICEISBN1");
@@ -26,7 +26,6 @@ void test_bookshelf() {
   b[1].rentBook();
   b[1].returnBook();
   b[1].returnBook();
-
 }
 
 int main() {

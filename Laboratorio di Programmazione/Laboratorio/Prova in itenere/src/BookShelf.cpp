@@ -1,14 +1,15 @@
 #include "../include/BookShelf.h"
+
 #include <iostream>
 
-//Costruttore di default
+// Costruttore di default
 BookShelf::BookShelf() {
   size = 0;
   max_size = 10;
   b = new Book[max_size];
 }
 
-//Costruttore di BookShelf
+// Costruttore di BookShelf
 BookShelf::BookShelf(int dimension) {
   size = 0;
   max_size = dimension;
@@ -18,7 +19,7 @@ BookShelf::BookShelf(int dimension) {
 // Distruttore di BookShelf
 BookShelf::~BookShelf() { delete[] b; }
 
-//Safe_set
+// Safe_set
 void BookShelf::safe_set(int index, Book value) {
   if (index < 0 || index >= size) throw Invalid();
   b[index] = value;
@@ -93,7 +94,7 @@ void BookShelf::resize(int dimension) {
   }
 
   std::copy(b, b + size, newArray);
-  
+
   delete[] b;
 
   b = newArray;

@@ -1,20 +1,24 @@
 #include "../include/Book.h"
+
 #include <iostream>
 
 Book::Book(std::string aName, std::string aSurname, std::string title,
            std::string ISBN)
-    : authorName{aName}, authorSurname{aSurname}, bookTitle{title}, bookISBN{
-                                                                        ISBN} {
-  if (bookISBN.length() != 13)
-    throw Invalid();
+    : authorName{aName},
+      authorSurname{aSurname},
+      bookTitle{title},
+      bookISBN{ISBN} {
+  if (bookISBN.length() != 13) throw Invalid();
 }
 
 Book::Book(std::string aName, std::string aSurname, std::string title,
            Date data, std::string ISBN)
-    : authorName{aName}, authorSurname{aSurname}, bookTitle{title},
-      copyrightDate{data}, bookISBN{ISBN} {
-  if (bookISBN.length() != 13)
-    throw Invalid();
+    : authorName{aName},
+      authorSurname{aSurname},
+      bookTitle{title},
+      copyrightDate{data},
+      bookISBN{ISBN} {
+  if (bookISBN.length() != 13) throw Invalid();
 }
 
 void Book::rentBook() {
@@ -22,7 +26,8 @@ void Book::rentBook() {
     std::cout << "Il libro " << bookTitle << " è stato prestato" << std::endl;
     status = Fuori;
   } else {
-    std::cout << "Il libro " << bookTitle << " non disponibile per il prestito" << std::endl;
+    std::cout << "Il libro " << bookTitle << " non disponibile per il prestito"
+              << std::endl;
   }
 }
 
@@ -31,7 +36,8 @@ void Book::returnBook() {
     std::cout << "Il libro " << bookTitle << " è stato ritirato" << std::endl;
     status = Disponibile;
   } else {
-    std::cout << "Il libro " << bookTitle << " non era stato prestato" << std::endl;
+    std::cout << "Il libro " << bookTitle << " non era stato prestato"
+              << std::endl;
   }
 }
 

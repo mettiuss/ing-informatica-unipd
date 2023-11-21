@@ -1,9 +1,11 @@
-#include "Date.h"
 #include <iostream>
 
+#include "Date.h"
+
 class Book {
-    class Invalid {};
-public:
+  class Invalid {};
+
+ public:
   enum Status { Disponibile = true, Fuori = false };
 
   Book() : authorName{""}, authorSurname{""}, bookTitle{""}, bookISBN{""} {}
@@ -23,7 +25,7 @@ public:
   void returnBook();
   Status bookStatus() { return status; }
 
-private:
+ private:
   std::string authorName, authorSurname, bookTitle, bookISBN;
   Date copyrightDate = Date();
   Status status = Disponibile;
