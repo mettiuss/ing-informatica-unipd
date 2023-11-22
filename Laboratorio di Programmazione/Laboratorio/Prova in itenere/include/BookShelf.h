@@ -16,8 +16,8 @@ class BookShelf {
   Book operator[](int index) const;
 
   Book &at(int index);  // return a reference to a specific address
-  const Book &at(
-      int index) const;  // return a const_reference to a specific address
+  // return a const_reference to a specific address
+  const Book &at(int index) const;
 
   void push_back(Book value);  // add an element at the end of the vector
   Book pop_back();             // remove and return the last element

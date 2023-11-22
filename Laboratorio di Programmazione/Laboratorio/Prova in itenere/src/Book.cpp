@@ -2,11 +2,12 @@
 
 #include <iostream>
 
-void Book::registerCopyright(Date data){
-  if(copyrightDate == Date()){
+void Book::registerCopyright(Date data) {
+  if (copyrightDate == Date()) {
     copyrightDate = data;
   } else {
-    std::cout << "Errore! La data di copyright era già stata impostata" << std::endl;
+    std::cout << "Errore! La data di copyright era già stata impostata"
+              << std::endl;
   }
 }
 
@@ -63,6 +64,6 @@ std::ostream &operator<<(std::ostream &os, Book book) {
   return os << "Title: " << book.getTitle() << std::endl
             << "Author: " << book.getAuthor() << std::endl
             << "ISBN: " << book.getIsbn() << std::endl
-            << "Copyrigth®: " << book.getDate() << std::endl
+            << "Copyrigth®: " << book.getCopyrightDate() << std::endl
             << "Disponibilità: " << stato << std::endl;
 }

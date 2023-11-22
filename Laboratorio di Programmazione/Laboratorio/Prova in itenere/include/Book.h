@@ -18,7 +18,7 @@ class Book {
   std::string getAuthorName() { return authorName; }
   std::string getAuthorSurname() { return authorSurname; }
   std::string getTitle() { return bookTitle; }
-  Date getDate() { return copyrightDate; }
+  Date getCopyrightDate() { return copyrightDate; }
   std::string getIsbn() { return bookISBN; }
 
   void registerCopyright(Date data);
