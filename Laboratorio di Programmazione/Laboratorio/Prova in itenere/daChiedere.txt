@@ -1,0 +1,7 @@
+La funzione rent, deve stampare qualcosa se il libro è già fuori e non può essere prestato?
+    Sennò devo lanciare un eccezione?
+
+Per la funzione return devo fare la stessa cosa?
+
+Può essere una buona idea creare delle funzioni rent e return di tipo int, in modo da poter fare il return con dei codici errore?
+
