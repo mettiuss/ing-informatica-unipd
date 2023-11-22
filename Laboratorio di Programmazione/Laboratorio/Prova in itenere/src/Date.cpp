@@ -28,6 +28,10 @@ bool isLeapYear(int year) {
   return false;
 }
 
+bool operator==(Date firstDate, Date secondDate){
+  return (firstDate.getDay() == secondDate.getDay() && firstDate.getMonth() == secondDate.getMonth() && firstDate.getYear() == secondDate.getYear());
+}
+
 std::ostream &operator<<(std::ostream &stream, Date operand) {
   return stream << operand.getDay() << "/" << operand.getMonth() << "/"
                 << operand.getYear();

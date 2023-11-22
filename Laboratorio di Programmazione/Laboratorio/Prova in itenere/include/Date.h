@@ -15,5 +15,6 @@ class Date {
   Month m;
 };
 
+bool operator==(Date firstDate, Date secondDate);
 std::ostream &operator<<(std::ostream &stream, Date operand);
 bool isLeapYear(int year);

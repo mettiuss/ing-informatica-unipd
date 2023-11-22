@@ -21,6 +21,8 @@ class Book {
   Date getDate() { return copyrightDate; }
   std::string getIsbn() { return bookISBN; }
 
+  void registerCopyright(Date data);
+
   void rentBook();
   void returnBook();
   Status bookStatus() { return status; }

@@ -2,6 +2,14 @@
 
 #include <iostream>
 
+void Book::registerCopyright(Date data){
+  if(copyrightDate == Date()){
+    copyrightDate = data;
+  } else {
+    std::cout << "Errore! La data di copyright era già stata impostata" << std::endl;
+  }
+}
+
 Book::Book(std::string aName, std::string aSurname, std::string title,
            std::string ISBN)
     : authorName{aName},
