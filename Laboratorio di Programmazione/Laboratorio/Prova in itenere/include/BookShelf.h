@@ -8,7 +8,7 @@ class BookShelf {
   BookShelf(int dimension);  // constructor with reserve
   ~BookShelf();              // destructor
 
-  int getSize() { return size; }  // return how many items are saved
+  int getSize() const { return size; }  // return how many items are saved
   void safe_set(int index, Book value);
   Book safe_get(int index) const;
 
@@ -16,8 +16,8 @@ class BookShelf {
   Book operator[](int index) const;
 
   Book &at(int index);  // return a reference to a specific address
-  // return a const_reference to a specific address
-  const Book &at(int index) const;
+  const Book &at(
+      int index) const;  // return a const_reference to a specific address
 
   void push_back(Book value);  // add an element at the end of the vector
   Book pop_back();             // remove and return the last element

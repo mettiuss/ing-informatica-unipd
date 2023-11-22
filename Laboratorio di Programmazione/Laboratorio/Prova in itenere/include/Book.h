@@ -14,18 +14,18 @@ class Book {
   Book(std::string aName, std::string aSurname, std::string title, Date data,
        std::string ISBN);
 
-  std::string getAuthor() { return authorName + " " + authorSurname; }
-  std::string getAuthorName() { return authorName; }
-  std::string getAuthorSurname() { return authorSurname; }
-  std::string getTitle() { return bookTitle; }
-  Date getCopyrightDate() { return copyrightDate; }
-  std::string getIsbn() { return bookISBN; }
+  std::string getAuthor() const { return authorName + " " + authorSurname; }
+  std::string getAuthorName() const { return authorName; }
+  std::string getAuthorSurname() const { return authorSurname; }
+  std::string getTitle() const { return bookTitle; }
+  Date getCopyrightDate() const { return copyrightDate; }
+  std::string getIsbn() const { return bookISBN; }
 
   void registerCopyright(Date data);
 
   void rentBook();
   void returnBook();
-  Status bookStatus() { return status; }
+  Status bookStatus() const { return status; }
 
  private:
   std::string authorName, authorSurname, bookTitle, bookISBN;
