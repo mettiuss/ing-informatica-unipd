@@ -18,7 +18,10 @@ class Date {
   enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
   
   //===== Costruttori =====//
+    /* Costruttore di default, la data di default è 01/01/0000*/
     Date() : y{0}, m{jan}, d{1} {}
+
+    /* Costruttore con parametri, setta anno/mese/giorno */
     Date(int yy, Month mm, int dd);
   //=======================//
   
