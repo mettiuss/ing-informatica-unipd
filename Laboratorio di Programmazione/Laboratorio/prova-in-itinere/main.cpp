@@ -61,8 +61,8 @@ void test_bookshelf() {
 }
 
 int main() {
-  // test_date();
-  // test_book();
+  test_date();
+  test_book();
   test_bookshelf();
   return 0;
 }
