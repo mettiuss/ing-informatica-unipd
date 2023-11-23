@@ -37,7 +37,7 @@ class Date {
   Month m;
 };
 
-//===== Overload operatori =====//
+//============= Overload operatori ===============
 /* Overload operatore di confronto uguaglianza
    ritorna true <=> le due date sono uguali */
 bool operator==(Date firstDate, Date secondDate);
@@ -45,10 +45,8 @@ bool operator==(Date firstDate, Date secondDate);
 /* Overload operatore di out stream
    permette di stampare a stream l'oggetto Date */
 std::ostream &operator<<(std::ostream &stream, Date operand);
-//==============================//
 
-//===== LeapYear =====//
+//============= LeapYear =========================
 /* Funzione che ritorna una valore booleano a seconda
-   se l'anno è bisestelo o no. True <=> l'anno è bisestile*/
+   se l'anno è bisestile o no. True <=> l'anno è bisestile*/
 bool isLeapYear(int year);
-//====================//
