@@ -14,6 +14,8 @@ I Anno I semestre, 12 CFU
 
 docente: [PIZZI CINZIA](https://didattica.unipd.it/off/docente/27EE4CFD8568343318097E9B75C69E8F)
 
+---
+
 ## Algebra Lineare e Geometria
 
 I Anno II semestre, 12 CFU
@@ -31,6 +33,8 @@ docente: [SFONDRINI ALESSANDRO](https://www.sns.ias.edu/~alessandro/)
 I Anno II semestre, 9 CFU
 
 docente: [COMIN MATTEO](http://www.dei.unipd.it/~ciompin/)
+
+---
 
 ## Dati e Algoritmi
 
