@@ -2,11 +2,29 @@
 
 Raccolta di esercizi e progetti svolti durante il corso di ingegneria informatica presso l'Università degli Studi di Padova
 
+## Analisi 1
+
+I Anno I semestre, 12 CFU
+
+docente: [CIRANT MARCO E GOFFI ALESSANDRO](https://www.math.unipd.it/dipartimento/persone/alessandro.goffi/)
+
 ## Fondamenti di Informatica
 
 I Anno I semestre, 12 CFU
 
 docente: [PIZZI CINZIA](https://didattica.unipd.it/off/docente/27EE4CFD8568343318097E9B75C69E8F)
+
+## Algebra Lineare e Geometria
+
+I Anno II semestre, 12 CFU
+
+docente: [COSTANTINI MAURO](https://www.math.unipd.it/~costanti/)
+
+## Fisica 1
+
+I Anno II semestre, 12 CFU
+
+docente: [SFONDRINI ALESSANDRO](https://www.sns.ias.edu/~alessandro/)
 
 ## Architettura degli Elaboratori
 
