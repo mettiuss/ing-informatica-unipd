@@ -19,8 +19,9 @@ void test_date() {
   } catch (Date::Invalid) {
     std::cout << "Successo! Data invalida per giorno trovata" << std::endl;
   }
-  // default date
   std::cout << "Testing output:" << std::endl;
+
+  // default date
   Date d3;
   std::cout << d3 << std::endl;
 
@@ -40,9 +41,9 @@ void test_book() {
   Book book3("Pietro", "Rossi", "Title2", "__CODICEISBN2");
 
   if (book1 == book2 && book1 != book3 && book2 != book3) {
-    std::cout << "operator== okay" << std::endl;
+    std::cout << "Successo! operator== okay" << std::endl;
   } else {
-    std::cout << "Problema nell'operator==" << std::endl;
+    std::cout << "Test Fallito! Problema nell'operator==" << std::endl;
   }
   std::cout << "Testing output:" << std::endl << book1 << std::endl;
 }
@@ -57,9 +58,12 @@ void test_bookshelf() {
   b.push_back(book1);
   b.push_back(book2);
 
+  // test getters
   std::cout << "Posizione 1: " << b.safe_get(0).getTitle() << std::endl;
+  std::cout << "Posizione 1: " << b.at(0).getTitle() << std::endl;
   std::cout << "Posizione 2: " << b[1].getTitle() << std::endl;
 
+  // test setting
   std::cout << "Metto Book1 al posto di Book2" << std::endl;
   b.safe_set(1, book1);
   std::cout << "Posizione 2: " << b[1].getTitle() << std::endl << std::endl;

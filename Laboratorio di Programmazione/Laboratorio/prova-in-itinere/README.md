@@ -27,7 +27,7 @@ Testing output:
 Book tester:
 Il libro Another Book è stato prestato
 Il libro Another Book è stato ritirato
-operator== okay
+Successo! operator== okay
 Testing output:
 Title: Title1
 Author: Francesca Rossi
@@ -36,6 +36,7 @@ Copyrigth®: 1/1/0
 Disponibilità: Disponibile
 
 Bookshelf tester:
+Posizione 1: Book1Title
 Posizione 1: Book1Title
 Posizione 2: Book2Title
 Metto Book1 al posto di Book2
