@@ -9,7 +9,8 @@ Book::Book(std::string aName, std::string aSurname, std::string title,
       authorSurname{aSurname},
       bookTitle{title},
       bookISBN{ISBN} {
-  // L'ISBN deve rispettare lo standard a 13 caratteri, se non è valido, lancia l'eccezione Invalid      
+  // L'ISBN deve rispettare lo standard a 13 caratteri, se non è valido, lancia
+  // l'eccezione Invalid
   if (bookISBN.length() != 13) throw Invalid();
 }
 
@@ -27,9 +28,8 @@ Book::Book(std::string aName, std::string aSurname, std::string title,
 
 // Funzione per registrare la data di copyright
 void Book::registerCopyright(Date data) {
-
-  /* La data viene impostata solo se la data di registrazione copyright del libro
-     è una data nulla */
+  /* La data viene impostata solo se la data di registrazione copyright del
+     libro è una data nulla */
   if (copyrightDate == Date()) {
     copyrightDate = data;
   } else {
@@ -74,7 +74,6 @@ bool operator!=(Book firstBook, Book secondBook) {
 
 // Overload operatore di print a stream
 std::ostream &operator<<(std::ostream &os, Book book) {
-
   // Scrittura su stringa dello stato attuale del prestito
   std::string stato = book.bookStatus() ? "Disponibile" : "Fuori";
 

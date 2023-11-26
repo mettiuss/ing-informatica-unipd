@@ -74,7 +74,7 @@ void BookShelf::reserve(int dimension) {
   /* Lo spazio viene riservato solo se la nuova dimensione è
   maggiore della dimensione attuale del vettore */
   if (dimension > max_size) resize(dimension);
-  
+
   reserved = dimension;
 }
 

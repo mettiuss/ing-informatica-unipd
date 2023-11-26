@@ -31,8 +31,10 @@ bool isLeapYear(int year) {
 }
 
 // Overload operatore di confronto (uguaglianza)
-bool operator==(Date firstDate, Date secondDate){
-  return (firstDate.getDay() == secondDate.getDay() && firstDate.getMonth() == secondDate.getMonth() && firstDate.getYear() == secondDate.getYear());
+bool operator==(Date firstDate, Date secondDate) {
+  return (firstDate.getDay() == secondDate.getDay() &&
+          firstDate.getMonth() == secondDate.getMonth() &&
+          firstDate.getYear() == secondDate.getYear());
 }
 
 // Overload operatore di print a stream
