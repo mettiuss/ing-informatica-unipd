@@ -12,7 +12,8 @@ Date::Date(int yy, Month mm, int dd) {
   if (dd == 31 && (mm == 4 || mm == 6 || mm == 9 || mm == 11)) throw Invalid();
 
   // Controllo su Febbraio, se l'anno è bisestile ha 29, se no 28
-  if (mm == 2 && ((dd == 29 && !isLeapYear(yy)) || dd > 29)) throw Invalid();
+  if ((mm == 2 && dd > 29) || (mm == 2 && !isLeapYear(yy) && dd == 29))
+    throw Invalid();
 
   y = yy;
   m = mm;
@@ -27,7 +28,8 @@ bool isLeapYear(int year) {
     return false;
   else if (year % 4 == 0)
     return true;
-  return false;
+  else
+    return false;
 }
 
 // Overload operatore di confronto (uguaglianza)
