@@ -8,6 +8,9 @@
 #java
 *.class
 
+#cmake
+build
+
 #general
 .DS_Store
 .prettierrc.json
