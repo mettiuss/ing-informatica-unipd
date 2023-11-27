@@ -4,7 +4,7 @@ project(Bookshelf VERSION 1.0.0 LANGUAGES CXX)
 
 add_library(Date include/Date.h src/Date.cpp)
 add_library(Book include/Book.h src/Book.cpp)
-add_library(Bookshelf include/Bookshelf.h src/Bookshelf.cpp)
+add_library(Bookshelf include/BookShelf.h src/BookShelf.cpp)
 
 add_executable(Test test.cpp)
 
