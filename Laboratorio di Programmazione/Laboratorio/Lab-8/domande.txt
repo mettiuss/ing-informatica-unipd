@@ -1,0 +1,13 @@
+1. Un template permette di non specificare il tipo di dati che vengono trattati da una classe o da una funzione,
+   lasciando che vengano decisi al tempo di compilazione.
+   
+2. Una classe è astratta quando il costruttore di default è definito come protected. Quindi accessibile solo alle classi figlio
+
+3. Le funzioni virtuali sono funzioni che vengono definite sia nella classe base che in quelle derivate. Poi al runtime 
+   viene deciso quale delle due funzioni verrà chiamata.
+   
+4. Una classe da cui si ottengono delle classi derivate si dice classe base
+
+5. Quando è derivata da una classe base
+
+6. Una funzione virtuale pura non è definita nella classe base, ma solo nelle derivate ed è obbligatorio l'override
