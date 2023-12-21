@@ -44,16 +44,15 @@ Maze::Maze(std::string fileName) {
 }
 
 bool Maze::isPosValid(Position pos) {
-  if (pos.getX() > 8 || pos.getY() > 8) return false;
+  if (pos.getX() > 8 || pos.getY() > 8 || pos.getX() < 0 || pos.getY() < 0)
+    return false;
   if (matrix[pos.getY()][pos.getX()]) return false;
   return true;
 }
 
 void Maze::setRobotPos(Position pos) {
-  if (std::abs(pos.getX() - robot.getX()) > 1) throw Invalid();
-  if (std::abs(pos.getY() - robot.getY()) > 1) throw Invalid();
-  if (!isPosValid(pos)) throw Invalid();
-  robot = Position(pos.getX(), pos.getY());
+  if (!isRobotValidPos(pos)) throw Invalid();
+  robot = pos;
 }
 
 bool Maze::isRobotValidPos(Position pos) {
@@ -74,21 +73,27 @@ std::ostream &operator<<(std::ostream &stream, Maze operand) {
   for (int y = 0; y < operand.getMatrix().size(); y++) {
     for (int x = 0; x < operand.getMatrix()[y].size(); x++) {
       Position currentPos = Position(x, y);
-      bool item = false;
+      bool robot = false;
+      bool exit = false;
 
       for (int i = 0; i < operand.getExits().size(); i++) {
         if (currentPos == operand.getExits()[i]) {
-          stream << "E";
-          item = true;
+          exit = true;
         }
       }
 
       if (currentPos == operand.getRobot()) {
-        stream << "S";
-        item = true;
+        robot = true;
       }
 
-      if (!item) stream << (operand.getMatrix()[y][x] ? '+' : ' ');
+      if (robot && exit)
+        stream << "&";
+      else if (robot)
+        stream << "R";
+      else if (exit)
+        stream << "E";
+      else
+        stream << (operand.getMatrix()[y][x] ? '+' : ' ');
     }
     stream << std::endl;
   }
