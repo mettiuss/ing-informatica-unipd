@@ -1,7 +1,7 @@
 
 ```cpp
 class Tabellone {
- vector<Casella> caselle; //lunghezza fissa, 28
+    vector<Casella> caselle; //lunghezza fissa, 28
 }
 
 
