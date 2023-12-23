@@ -1,56 +1,30 @@
-
 ```cpp
-class Tabellone {
+class Board {
     vector<Casella> caselle; //lunghezza fissa, 28
 }
 
 
-class Casella {
+class Tile {
 }
 
-class CasellaAngolare: public Casella {
+class CornerTile: public Tile {
 }
 
-class CasellaPartenza: public CasellaAngolare{
-}
-
-class CasellaLaterale {
+class LateralTile: public Tile {
 	Edificio edificio;
 }
 
-class CasellaEconomica: public CasellaLaterale {
-}
-
-class CasellaStandard: public CasellaLaterale {
-}
-
-class CasellaLusso: public CasellaLaterale {
+class Building {
 }
 
 
-class Edificio {
-}
-
-class Casa: public Edificio {
-}
-
-class Albergo: public Edificio {
-}
-
-
-class Giocatore {
+class Player {
 	int denaro;
+    PlayerType type;
 }
-
-class GiocatoreUmano: public Giocatore {
-}
-
-class GiocatoreComputer: public Giocatore {
-}
-
 
 class Game { //quella grossa
-	Tabellone tabellone;
-	vector<Giocatore> giocatori;
+	Board board;
+	vector<Player> players;
 }
 ```
