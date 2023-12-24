@@ -7,7 +7,7 @@
 
 class HumanPlayer : public Player {
  public:
-  HumanPlayer(std::string n) : Player(n){};
+  HumanPlayer(std::string n);
 
   bool wantBuy() const override;
 };

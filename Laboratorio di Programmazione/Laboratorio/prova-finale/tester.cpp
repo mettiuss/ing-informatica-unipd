@@ -1,11 +1,14 @@
 #include <iostream>
 
-#include "./include/HumanPlayer.h"
-#include "./include/AIPlayer.h"
+#include "./include/Player/HumanPlayer.h"
+#include "./include/Player/AIPlayer.h"
+#include "./include/Dice.h"
 
 using namespace std;
 
 void PlayerTester(){
+    Dice dice = Dice();
+
     AIPlayer ai("CPU1");
     HumanPlayer human("TopG");
 
@@ -33,11 +36,13 @@ void PlayerTester(){
 
     cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
 
-    cout << "Il giocatore " << human.getName() << " avanza di 4 posizioni" << endl;
-    human.advance(4);
+    int steps = dice.throwDice();
+    cout << "Il giocatore " << human.getName() << " avanza di " << steps << " posizioni" << endl;
+    human.advance(steps);
     
-    cout << "Il giocatore " << ai.getName() << " avanza di 6 posizioni" << endl;
-    ai.advance(6);
+    steps = dice.throwDice();
+    cout << "Il giocatore " << ai.getName() << " avanza di " << steps << " posizioni" << endl;
+    ai.advance(steps);
 
     cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
 

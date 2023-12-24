@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/Player.h"
+#include "../../include/Player/Player.h"
 
 void Player::advance(int steps){
     position = (position + steps) % 29;

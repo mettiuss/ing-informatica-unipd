@@ -1,6 +1,8 @@
-#include "../include/HumanPlayer.h"
+#include "../../include/Player/HumanPlayer.h"
 
 #include <iostream>
+
+HumanPlayer::HumanPlayer(std::string n) : Player(n) {}
 
 bool HumanPlayer::wantBuy() const {
   char response = 'y';
@@ -22,6 +24,8 @@ bool HumanPlayer::wantBuy() const {
   return response == 'y';
 }
 
-std::ostream& operator<<(std::ostream& os, HumanPlayer player){
-  return os << "Nome: " << player.getName() << std::endl << "Posizione: " << player.getPosition() << ", Saldo: " << player.getMoney();
+std::ostream& operator<<(std::ostream& os, HumanPlayer player) {
+  return os << "Nome: " << player.getName() << std::endl
+            << "Posizione: " << player.getPosition()
+            << ", Saldo: " << player.getMoney();
 }
