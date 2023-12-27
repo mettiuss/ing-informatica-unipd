@@ -8,6 +8,7 @@
 #define TILE_H
 
 #include <iostream>
+#include <memory>
 
 #include "./Player/Player.h"
 
@@ -20,20 +21,20 @@ class Tile {
   enum TileType { Corner, StartingCorner, Economic, Standard, Luxury };
   enum Building { None, House, Hotel };
 
-  Tile(TileType t) : type{t}, building{None} {};
+  Tile(TileType t) : type{t}, building{None}, owner{nullptr} {};
 
   TileType getType() const { return type; };
 
   void setBuilding(Building b) { building = b; };
   Building getBuilding() { return building; };
 
-  void setOwner(Player p) { owner = p; };
-  Player getOwner() { return owner; };
+  void setOwner(std::shared_ptr<Player> p) { owner = p; };
+  std::shared_ptr<Player> getOwner() { return owner; };
 
  private:
   TileType type;
   Building building;
-  Player owner;
+  std::shared_ptr<Player> owner;
 };
 
 std::ostream& operator<<(std::ostream& os, Tile t);
