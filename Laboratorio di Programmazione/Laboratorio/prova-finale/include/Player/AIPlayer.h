@@ -2,6 +2,7 @@
 #define AIPLAYER_H
 
 #include <iostream>
+
 #include "Player.h"
 
 class AIPlayer : public Player {
@@ -9,7 +10,6 @@ class AIPlayer : public Player {
   AIPlayer(std::string n);
 
   bool wantBuy() const override;
-
 };
 
 std::ostream& operator<<(std::ostream& os, AIPlayer player);

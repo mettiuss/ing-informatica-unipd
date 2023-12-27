@@ -7,13 +7,6 @@ class Board {
 class Tile {
 }
 
-class CornerTile: public Tile {
-}
-
-class LateralTile: public Tile {
-	Edificio edificio;
-}
-
 class Building {
 }
 
