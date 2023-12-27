@@ -11,15 +11,15 @@ class Player {
   void pay(int amount, Player &player);
   void getPayed(int amount);
 
-   virtual bool wantBuy() const = 0;
+  virtual bool wantBuy() const = 0;
 
   std::string getName() const { return name; }
   int getMoney() const { return money; }
   int getPosition() const { return position; }
 
  protected:
-  Player(std::string n): name{n}, money{100}, position{0} {}
-  
+  Player(std::string n) : name{n}, money{100}, position{0} {}
+
   std::string name;
   int money, position;
 };

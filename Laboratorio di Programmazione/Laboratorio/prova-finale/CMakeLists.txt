@@ -7,7 +7,9 @@ add_library(Player include/Player/Player.h src/Player/Player.cpp)
 add_library(HumanPlayer include/Player/HumanPlayer.h src/Player/HumanPlayer.cpp)
 add_library(AIPlayer include/Player/AIPlayer.h src/Player/AIPlayer.cpp)
 add_library(Dice include/Dice.h src/Dice.cpp)
+add_library(Board include/Board.h src/Board.cpp)
+add_library(Tile include/Tile.h src/Tile.cpp)
 
 add_executable(Tester tester.cpp)
 
-target_link_libraries(Tester Player HumanPlayer AIPlayer Dice)
+target_link_libraries(Tester Player HumanPlayer AIPlayer Dice Board Tile)

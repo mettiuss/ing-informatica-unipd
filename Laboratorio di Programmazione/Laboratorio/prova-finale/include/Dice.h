@@ -1,10 +1,8 @@
 #include <iostream>
 
-class Dice{
+class Dice {
+ public:
+  Dice();
 
-    public:
-        Dice();
-
-        int throwDice() const;
-
+  int throwDice() const;
 };
