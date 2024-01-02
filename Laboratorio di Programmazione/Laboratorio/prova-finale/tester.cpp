@@ -2,6 +2,7 @@
 
 #include "./include/Board.h"
 #include "./include/Dice.h"
+#include "./include/Game.h"
 #include "./include/Player/AIPlayer.h"
 #include "./include/Player/HumanPlayer.h"
 
@@ -10,26 +11,26 @@ using namespace std;
 void PlayerTester() {
   Dice dice = Dice();
 
-  AIPlayer ai("CPU1");
-  HumanPlayer human("TopG");
+  AIPlayer ai = AIPlayer();
+  HumanPlayer human = HumanPlayer();
 
   cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
 
-  cout << human.getName() << " paga 20€ a " << ai.getName() << endl;
+  cout << "human paga 20€ a ai" << endl;
 
   human.pay(20, ai);
 
   cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
 
   bool response = ai.wantBuy();
-  cout << ai.getName() << " vuoi comprare la proprietà? " << response << endl;
+  cout << "ai vuoi comprare la proprietà? " << response << endl;
   if (response) {
     ai.pay(40);
   }
 
   cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
 
-  cout << human.getName() << " vuoi comprare la proprietà? Y/n" << endl;
+  cout << "human vuoi comprare la proprietà? Y/n" << endl;
   response = human.wantBuy();
   if (response) {
     human.pay(40);
@@ -38,13 +39,11 @@ void PlayerTester() {
   cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
 
   int steps = dice.throwDice();
-  cout << "Il giocatore " << human.getName() << " avanza di " << steps
-       << " posizioni" << endl;
+  cout << "Il giocatore human avanza di " << steps << " posizioni" << endl;
   human.advance(steps);
 
   steps = dice.throwDice();
-  cout << "Il giocatore " << ai.getName() << " avanza di " << steps
-       << " posizioni" << endl;
+  cout << "Il giocatore ai avanza di " << steps << " posizioni" << endl;
   ai.advance(steps);
 
   cout << "I due giocatori sono:" << endl << human << endl << ai << endl;

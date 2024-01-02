@@ -4,8 +4,8 @@
 //  Creato da Matteo Cuzzolin (2066701)
 //
 
-#ifndef BOARD
-#define BOARD
+#ifndef BOARD_H
+#define BOARD_H
 
 #include <iostream>
 #include <memory>

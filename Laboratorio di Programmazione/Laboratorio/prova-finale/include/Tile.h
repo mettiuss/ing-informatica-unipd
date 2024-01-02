@@ -30,7 +30,7 @@ class Tile {
   TileType getType() const { return type; };
 
   void setBuilding(Building b) { building = b; };
-  Building getBuilding() { return building; };
+  Building getBuilding() const { return building; };
 
   void setOwner(std::shared_ptr<Player> p) { owner = p; };
   std::shared_ptr<Player> getOwner() { return owner; };

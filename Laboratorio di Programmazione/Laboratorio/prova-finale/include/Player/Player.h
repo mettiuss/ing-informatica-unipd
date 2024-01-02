@@ -13,14 +13,12 @@ class Player {
 
   virtual bool wantBuy() const = 0;
 
-  std::string getName() const { return name; }
   int getMoney() const { return money; }
   int getPosition() const { return position; }
 
  protected:
-  Player(std::string n) : name{n}, money{100}, position{0} {}
+  Player() : money{100}, position{0} {}
 
-  std::string name;
   int money, position;
 };
 

@@ -1,13 +1,13 @@
 #ifndef HUMANPLAYER_H
 #define HUMANPLAYER_H
 
-#include "Player.h"
-
 #include <iostream>
+
+#include "Player.h"
 
 class HumanPlayer : public Player {
  public:
-  HumanPlayer(std::string n);
+  HumanPlayer();
 
   bool wantBuy() const override;
 };

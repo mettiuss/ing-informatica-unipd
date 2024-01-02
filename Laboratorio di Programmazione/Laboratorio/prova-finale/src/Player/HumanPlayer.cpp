@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-HumanPlayer::HumanPlayer(std::string n) : Player(n) {}
+HumanPlayer::HumanPlayer() : Player() {}
 
 bool HumanPlayer::wantBuy() const {
   char response = 'y';
@@ -25,7 +25,6 @@ bool HumanPlayer::wantBuy() const {
 }
 
 std::ostream& operator<<(std::ostream& os, HumanPlayer player) {
-  return os << "Nome: " << player.getName() << std::endl
-            << "Posizione: " << player.getPosition()
+  return os << "Posizione: " << player.getPosition()
             << ", Saldo: " << player.getMoney();
 }

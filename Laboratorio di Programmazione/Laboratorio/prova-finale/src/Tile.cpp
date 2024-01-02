@@ -1,3 +1,9 @@
+//
+//  Tile.cpp
+//
+//  Creato da Matteo Cuzzolin (2066701)
+//
+
 #include "../include/Tile.h"
 
 #include <iostream>
@@ -5,16 +11,35 @@
 std::ostream& operator<<(std::ostream& os, Tile t) {
   switch (t.getType()) {
     case Tile::Economic:
-      return os << "|E|";
+      os << "|E";
+      break;
     case Tile::Standard:
-      return os << "|S|";
+      os << "|S";
+      break;
     case Tile::Luxury:
-      return os << "|L|";
+      os << "|L";
+      break;
     case Tile::Corner:
-      return os << "| |";
+      os << "| ";
+      break;
     case Tile::StartingCorner:
-      return os << "|>|";
+      os << "|>";
+      break;
     default:
-      return os;
+      break;
   }
+
+  switch (t.getBuilding()) {
+    case Tile::House:
+      os << "*|";
+      break;
+    case Tile::Hotel:
+      os << "^|";
+      break;
+    default:
+      os << "|";
+      break;
+  }
+
+  return os;
 }

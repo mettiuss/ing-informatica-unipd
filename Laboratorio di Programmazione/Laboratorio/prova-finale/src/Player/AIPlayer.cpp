@@ -3,7 +3,7 @@
 #include <ctime>
 #include <iostream>
 
-AIPlayer::AIPlayer(std::string n) : Player(n) {
+AIPlayer::AIPlayer() : Player() {
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
 }
 
@@ -14,7 +14,6 @@ bool AIPlayer::wantBuy() const {
 }
 
 std::ostream& operator<<(std::ostream& os, AIPlayer player) {
-  return os << "Nome: " << player.getName() << std::endl
-            << "Posizione: " << player.getPosition()
+  return os << "Posizione: " << player.getPosition()
             << ", Saldo: " << player.getMoney();
 }

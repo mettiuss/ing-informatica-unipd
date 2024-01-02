@@ -7,7 +7,7 @@
 
 class AIPlayer : public Player {
  public:
-  AIPlayer(std::string n);
+  AIPlayer();
 
   bool wantBuy() const override;
 };
