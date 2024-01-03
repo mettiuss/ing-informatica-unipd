@@ -20,6 +20,7 @@
 // viene scelto HumanPlayer o AIPlayer. E lo shared_ptr può essere condiviso tra
 // più oggetti di tipo Tile, cosa che accade di continuo nel gioco.
 // Non memorizza la posizione dei giocatori, compito della classe Player
+
 class Tile {
  public:
   enum TileType { Corner, StartingCorner, Economic, Standard, Luxury };
