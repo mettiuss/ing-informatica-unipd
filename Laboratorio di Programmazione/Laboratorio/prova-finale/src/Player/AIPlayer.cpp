@@ -14,6 +14,7 @@ bool AIPlayer::wantBuy() const {
 }
 
 std::ostream& operator<<(std::ostream& os, AIPlayer player) {
-  return os << "Posizione: " << player.getPosition()
+  return os << "Id: " << player.getId()
+            << ", Posizione: " << player.getPosition()
             << ", Saldo: " << player.getMoney();
 }

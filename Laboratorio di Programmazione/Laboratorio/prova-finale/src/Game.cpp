@@ -52,6 +52,21 @@ std::string printPlayers(int pos, Game game) {
   return value;
 }
 
+  const std::vector<int>& Game::getPlayerProperties(std::shared_ptr<Player> p) const{
+    std::vector<Tile> tiles = getTiles();
+    std::vector<int> properties;
+
+    for(int i=0; i<tiles.size(); i++){
+      if(tiles[i].getOwner() == p){
+        std::cout << i << std::endl;
+        properties.push_back(i);
+      }
+    }
+
+    return properties;
+  }
+
+
 std::ostream& operator<<(std::ostream& os, Game game) {
   os << "   ";
 

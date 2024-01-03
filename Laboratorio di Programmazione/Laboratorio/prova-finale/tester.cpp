@@ -54,6 +54,11 @@ void BoardTester() {
   cout << board;
 }
 
+void GameTester(){
+  Game game = Game(true);
+  //game.getPlayerProperties();
+}
+
 int main() {
   PlayerTester();
   BoardTester();
