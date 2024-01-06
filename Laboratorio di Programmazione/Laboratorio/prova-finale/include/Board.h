@@ -33,6 +33,7 @@ class Board {
  public:
   Board();
 
+  std::vector<Tile>& getTiles() { return tiles; };
   const std::vector<Tile>& getTiles() const { return tiles; };
 
  private:

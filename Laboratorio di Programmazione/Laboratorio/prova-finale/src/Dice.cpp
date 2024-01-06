@@ -3,15 +3,11 @@
 #include <ctime>
 #include <iostream>
 
-Dice::Dice() { std::srand(static_cast<unsigned int>(std::time(nullptr))); }
+Dice::Dice() {  }
 
 int Dice::throwDice() const {
-  int result = 0;
+  int dice1 = (rand() % 6) + 1;
+  int dice2 = (rand() % 6) + 1;
 
-  while (result < 1) {
-    result = rand() % 12;
-    std::cout << result << std::endl;
-  }
-
-  return result;
+  return dice1 + dice2;
 }

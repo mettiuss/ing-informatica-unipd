@@ -1,15 +1,15 @@
 #include <iostream>
 
-#include "./include/Board.h"
-#include "./include/Dice.h"
-#include "./include/Game.h"
+// #include "./include/Board.h"
+// #include "./include/Dice.h"
+// #include "./include/Game.h"
 #include "./include/Player/AIPlayer.h"
 #include "./include/Player/HumanPlayer.h"
 
 using namespace std;
 
 void PlayerTester() {
-  Dice dice = Dice();
+  /*Dice dice = Dice();
 
   AIPlayer ai = AIPlayer();
   HumanPlayer human = HumanPlayer();
@@ -46,22 +46,27 @@ void PlayerTester() {
   cout << "Il giocatore ai avanza di " << steps << " posizioni" << endl;
   ai.advance(steps);
 
-  cout << "I due giocatori sono:" << endl << human << endl << ai << endl;
+  cout << "I due giocatori sono:" << endl << human << endl << ai << endl;*/
+
+  HumanPlayer player1 = HumanPlayer();
+  AIPlayer player2 = AIPlayer();
+
+  std::cout << player1 << std::endl << player2 << std::endl;
 }
 
-void BoardTester() {
+/*void BoardTester() {
   Board board = Board();
   cout << board;
 }
 
-void GameTester(){
+void GameTester() {
   Game game = Game(true);
-  //game.getPlayerProperties();
-}
+  // game.getPlayerProperties();
+}*/
 
 int main() {
   PlayerTester();
-  BoardTester();
+  // BoardTester();
 
   return 0;
 }

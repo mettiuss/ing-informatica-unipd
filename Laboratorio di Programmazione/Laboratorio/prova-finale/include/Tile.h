@@ -8,6 +8,7 @@
 #define TILE_H
 
 #include <iostream>
+#include <map>
 #include <memory>
 
 #include "./Player/Player.h"
@@ -25,6 +26,16 @@ class Tile {
  public:
   enum TileType { Corner, StartingCorner, Economic, Standard, Luxury };
   enum Building { None, House, Hotel };
+  std::map<TileType, int> propertyPrice = {
+      {Economic, 6}, {Standard, 10}, {Luxury, 20}};
+  std::map<TileType, int> housePrice = {
+      {Economic, 3}, {Standard, 5}, {Luxury, 10}};
+  std::map<TileType, int> hotelPrice = {
+      {Economic, 3}, {Standard, 5}, {Luxury, 10}};
+  std::map<TileType, int> rentPriceHouse = {
+      {Economic, 2}, {Standard, 4}, {Luxury, 7}};
+  std::map<TileType, int> rentPriceHotel = {
+      {Economic, 4}, {Standard, 8}, {Luxury, 14}};
 
   Tile(TileType t) : type{t}, building{None}, owner{nullptr} {};
 
@@ -34,13 +45,19 @@ class Tile {
   Building getBuilding() const { return building; };
 
   void setOwner(std::shared_ptr<Player> p) { owner = p; };
-  std::shared_ptr<Player> getOwner() { return owner; };
+  std::shared_ptr<Player> getOwner() const { return owner; };
 
  private:
   TileType type;
   Building building;
   std::shared_ptr<Player> owner;
 };
+
+void buyOrUpgrade(Tile& tile, std::shared_ptr<Player> player);
+
+void rent(Tile& tile, std::shared_ptr<Player> player);
+
+bool canRent(Tile& tile, std::shared_ptr<Player> player);
 
 std::ostream& operator<<(std::ostream& os, Tile t);
 

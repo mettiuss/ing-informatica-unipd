@@ -5,9 +5,11 @@
 //
 
 #ifndef DICE_H
-#define DIC_H
+#define DICE_H
 
 #include <iostream>
+
+// Commento sul perché è una classe
 
 class Dice {
  public:

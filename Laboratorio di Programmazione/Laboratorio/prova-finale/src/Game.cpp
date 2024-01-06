@@ -1,14 +1,31 @@
 #include "../include/Game.h"
 
+#include <iostream>
+#include <map>
 #include <memory>
 
+#include "../include/Dice.h"
 #include "../include/Player/AIPlayer.h"
 #include "../include/Player/HumanPlayer.h"
 
-Game::Game(bool humanPlayer) {
+Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
   board = Board();
-  if (humanPlayer) players.push_back(std::make_shared<HumanPlayer>());
-  while (players.size() < 4) players.push_back(std::make_shared<AIPlayer>());
+
+  std::multimap<int, std::shared_ptr<Player>> playerMap;
+
+  if (humanPlayer) {
+    int res = dice.throwDice();
+    playerMap.insert(std::make_pair(res, std::make_shared<HumanPlayer>()));
+  };
+
+  while (playerMap.size() < 4) {
+    int res = dice.throwDice();
+    playerMap.insert(std::make_pair(res, std::make_shared<AIPlayer>()));
+  }
+
+  for (auto pair = playerMap.rbegin(); pair != playerMap.rend(); ++pair) {
+    players.push_back(pair->second);
+  }
 }
 
 std::string printPlayers(int pos, Game game) {
@@ -52,20 +69,27 @@ std::string printPlayers(int pos, Game game) {
   return value;
 }
 
-  const std::vector<int>& Game::getPlayerProperties(std::shared_ptr<Player> p) const{
-    std::vector<Tile> tiles = getTiles();
-    std::vector<int> properties;
+std::vector<int> Game::getPlayerProperties(std::shared_ptr<Player> p) const {
+  auto tiles = getTiles();
+  std::vector<int> properties;
 
-    for(int i=0; i<tiles.size(); i++){
-      if(tiles[i].getOwner() == p){
-        std::cout << i << std::endl;
-        properties.push_back(i);
-      }
+  for (int i = 0; i < tiles.size(); i++) {
+    if (tiles[i].getOwner() == p) {
+      std::cout << i << std::endl;
+      properties.push_back(i);
     }
-
-    return properties;
   }
 
+  return properties;
+}
+
+void Game::nextTurn() {
+  if (!human) turn++;
+}
+
+bool isOver(Game& game) {
+  return (game.getPlayers().size() <= 1 || (game.getTurn() > game.getLimit()));
+}
 
 std::ostream& operator<<(std::ostream& os, Game game) {
   os << "   ";
@@ -110,4 +134,19 @@ std::ostream& operator<<(std::ostream& os, Game game) {
   os << std::endl;
 
   return os;
+}
+
+void Game::removePlayer(std::shared_ptr<Player> player) {
+  auto properties = getPlayerProperties(player);
+
+  for (auto property : properties) {
+    getTiles()[property].setOwner(nullptr);
+    getTiles()[property].setBuilding(Tile::None);
+  }
+
+  for (int i = 0; i < players.size(); i++) {
+    if (players[i] == player) {
+      players.erase(players.begin() + i);
+    }
+  }
 }

@@ -12,7 +12,7 @@
 #include "Player.h"
 
 // Classe HumanPlayer: (estende Player)
-// Rapresenta il giocatore umano, 
+// Rapresenta il giocatore umano,
 // eredita da player tutte le funzioni e le variabili membro.
 // Overloada la funzione wantBuy(), la quale decide se acquistare
 // una proprietà, con una probabilità d'acquisto del 25%
@@ -23,7 +23,5 @@ class AIPlayer : public Player {
 
   bool wantBuy() const override;
 };
-
-std::ostream& operator<<(std::ostream& os, AIPlayer player);
 
 #endif

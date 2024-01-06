@@ -23,9 +23,3 @@ bool HumanPlayer::wantBuy() const {
 
   return response == 'y';
 }
-
-std::ostream& operator<<(std::ostream& os, HumanPlayer player) {
-  return os << "Id: " << player.getId()
-            << ", Posizione: " << player.getPosition()
-            << ", Saldo: " << player.getMoney();
-}
