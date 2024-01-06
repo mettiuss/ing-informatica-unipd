@@ -34,7 +34,7 @@ class Player {
   // Funzioni const get
   int getMoney() const { return money; }
   int getPosition() const { return position; }
-  int getId() const { return id; }
+  int getId() const { return playerid; }
 
  protected:
   // Costruttore
