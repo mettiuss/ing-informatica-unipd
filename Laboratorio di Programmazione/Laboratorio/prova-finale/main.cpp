@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
   // turno di gioco
   int iPlayer = 0;
 
-  while (!isOver(game)) {  // TODO definire la funzione
+  while (!isOver(game)) {
     auto currentPlayer = game.getPlayers()[iPlayer];
     int steps = dice.throwDice();
     std::cout << "Giocatore " << currentPlayer->getId()
@@ -63,11 +63,7 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
-    std::cout << "ciao" << std::endl;
-    std::cout << currentTile.getOwner() << std::endl;
-    // std::cout << currentTile.getOwner() << std::endl;
-
-    /*if (currentTile.getOwner() == currentPlayer ||
+    if (currentTile.getOwner() == currentPlayer ||
         currentTile.getOwner() == nullptr) {
       if (currentTile.getBuilding() != Tile::Hotel &&
           currentPlayer->wantBuy()) {
@@ -78,7 +74,7 @@ int main(int argc, char *argv[]) {
         rent(currentTile, currentPlayer);
       else
         game.removePlayer(currentPlayer);
-    }*/
+    }
 
     if ((iPlayer + 1) % game.getPlayers().size() == 3) game.nextTurn();
     iPlayer = (iPlayer + 1) % game.getPlayers().size();

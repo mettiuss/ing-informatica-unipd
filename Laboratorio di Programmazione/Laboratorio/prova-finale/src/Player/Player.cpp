@@ -20,10 +20,12 @@ void pay(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2,
 }
 
 bool operator==(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
+  if (p1 == nullptr || p2 == nullptr) return false;
   return p1->getId() == p2->getId();
 }
 
 std::ostream& operator<<(std::ostream& os, std::shared_ptr<Player> p) {
+  if (p == nullptr) return os << "nullptr";
   return os << "Id: " << p->getId()
             << ", Posizione: " << p->positions[p->getPosition()]
             << ", Saldo: " << p->getMoney();
