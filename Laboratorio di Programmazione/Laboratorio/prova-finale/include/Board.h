@@ -44,6 +44,16 @@ class Board {
   std::vector<Tile> tiles;
 };
 
+bool canBuyOrUpgrade(Board& board, std::shared_ptr<Player> player);
+
+void buyOrUpgrade(Board& board, std::shared_ptr<Player> player,
+                  void (*writeLog)(std::shared_ptr<Player>, std::string));
+
+bool canRent(Board& board, std::shared_ptr<Player> player);
+
+void rent(Board& board, std::shared_ptr<Player> player,
+          void (*writeLog)(std::shared_ptr<Player>, std::string));
+
 std::ostream& operator<<(std::ostream& os, Board board);
 
 #endif

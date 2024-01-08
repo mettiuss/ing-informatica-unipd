@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
     // Check casella di un altro giocatore
     if (currentTile.getOwner() != nullptr &&
         currentTile.getOwner() != currentPlayer) {
-      if (!canRent(currentTile, currentPlayer)) {
+      if (!canRent(game.getBoard(), currentPlayer)) {
         // eliminazione del giocatore
         game.removePlayer(currentPlayer);
         writeLog(currentPlayer, "è stato eliminato");
@@ -91,13 +91,13 @@ int main(int argc, char *argv[]) {
         continue;
       }
       // pagamento affitto
-      rent(currentTile, currentPlayer, writeLog);
+      rent(game.getBoard(), currentPlayer, writeLog);
       nextTurn(game, currentPlayer, playerIndex);
       continue;
     }
 
     if (currentTile.getBuilding() != Tile::Hotel &&
-        canBuyOrUpgrade(currentTile, currentPlayer) &&
+        canBuyOrUpgrade(game.getBoard(), currentPlayer) &&
         currentPlayer->wantBuy()) {
       buyOrUpgrade(game.getBoard(), currentPlayer, writeLog);
     }

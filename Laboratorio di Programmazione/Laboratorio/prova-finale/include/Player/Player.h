@@ -47,13 +47,9 @@ class Player {
   static int playerId;
 };
 
-std::string getHumanPosition(std::shared_ptr<Player> player);
-
 void pay(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2,
          int amount);
 
 bool operator==(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2);
-
-std::ostream& operator<<(std::ostream& os, std::shared_ptr<Player> p);
 
 #endif
