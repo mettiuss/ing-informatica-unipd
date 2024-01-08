@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+#include "../include/Board.h"
+
 std::ostream& operator<<(std::ostream& os, Tile t) {
   switch (t.getType()) {
     case Tile::Economic:
@@ -44,15 +46,16 @@ std::ostream& operator<<(std::ostream& os, Tile t) {
   return os;
 }
 
-void buyOrUpgrade(Tile& tile, int tileIndex, std::shared_ptr<Player> player,
+void buyOrUpgrade(Board& board, std::shared_ptr<Player> player,
                   void (*writeLog)(std::shared_ptr<Player>, std::string)) {
+  Tile tile = board.getTiles()[player->getPosition()];
   if (tile.getOwner() == nullptr) {
     // acquisto
     tile.setOwner(player);
     player->removeBalance(tile.propertyPrice[tile.getType()]);
 
-    writeLog(player,
-             "ha acquistato il terreno " + player->positions[tileIndex]);
+    writeLog(player, "ha acquistato il terreno " +
+                         board.positions[player->getPosition()]);
     return;
   }
   if (tile.getBuilding() == Tile::None) {
@@ -60,7 +63,7 @@ void buyOrUpgrade(Tile& tile, int tileIndex, std::shared_ptr<Player> player,
     tile.setBuilding(Tile::House);
     player->removeBalance(tile.housePrice[tile.getType()]);
     writeLog(player, "ha costruito una casa sul terreno " +
-                         player->positions[tileIndex]);
+                         board.positions[player->getPosition()]);
     return;
   }
   if (tile.getBuilding() == Tile::House) {
@@ -68,7 +71,7 @@ void buyOrUpgrade(Tile& tile, int tileIndex, std::shared_ptr<Player> player,
     tile.setBuilding(Tile::Hotel);
     player->removeBalance(tile.hotelPrice[tile.getType()]);
     writeLog(player, "ha migliorato una casa in albergo sul terreno" +
-                         player->positions[tileIndex]);
+                         board.positions[player->getPosition()]);
     return;
   }
 }
@@ -97,8 +100,9 @@ bool canRent(Tile& tile, std::shared_ptr<Player> player) {
   }
 }
 
-void rent(Tile& tile, std::shared_ptr<Player> player,
+void rent(Board& board, std::shared_ptr<Player> player,
           void (*writeLog)(std::shared_ptr<Player>, std::string)) {
+  Tile tile = board.getTiles()[player->getPosition()];
   int payedAmount;
   switch (tile.getBuilding()) {
     case Tile::House:
@@ -116,5 +120,5 @@ void rent(Tile& tile, std::shared_ptr<Player> player,
                        " fiorini a giocatore " +
                        std::to_string(tile.getOwner()->getId()) +
                        " per pernottamento nella casella " +
-                       player->positions[player->getPosition()]);
+                       board.positions[player->getPosition()]);
 }

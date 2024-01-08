@@ -66,11 +66,12 @@ int main(int argc, char *argv[]) {
       currentPlayer->addBalance(20);
     }
 
-    Tile &currentTile = game.getTiles()[currentPlayer->getPosition()];
+    Tile &currentTile =
+        game.getBoard().getTiles()[currentPlayer->getPosition()];
 
     writeLog(currentPlayer,
              "è arrivato alla casella " +
-                 currentPlayer->positions[currentPlayer->getPosition()]);
+                 game.getBoard().positions[currentPlayer->getPosition()]);
 
     // Check casella angolare
     if (currentTile.getType() == Tile::Corner ||
@@ -98,16 +99,20 @@ int main(int argc, char *argv[]) {
     if (currentTile.getBuilding() != Tile::Hotel &&
         canBuyOrUpgrade(currentTile, currentPlayer) &&
         currentPlayer->wantBuy()) {
-      buyOrUpgrade(currentTile, currentPlayer->getPosition(), currentPlayer,
-                   writeLog);
+      buyOrUpgrade(game.getBoard(), currentPlayer, writeLog);
     }
 
-    writeLog(currentPlayer, "ha finito il turno");
-    playerIndex = (playerIndex + 1) % game.getPlayers().size();
-    if ((playerIndex + 1) % game.getPlayers().size() == 0) game.nextTurn();
+    nextTurn(game, currentPlayer, playerIndex);
   }
 
   // schermata vittoria o pareggio
+  if (game.getPlayers().size() == 1) {
+    writeLog(game.getPlayers()[0], "ha vinto la partita");
+  } else {
+    for (auto player : game.getPlayers()) {
+      writeLog(player, "ha pareggiato");
+    }
+  }
 
   return 0;
 }

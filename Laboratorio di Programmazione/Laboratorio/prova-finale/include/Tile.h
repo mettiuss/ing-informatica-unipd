@@ -11,6 +11,7 @@
 #include <map>
 #include <memory>
 
+#include "./Board.h"
 #include "./Player/Player.h"
 
 // Specifica una singola Casella della tabella di Gioco, memorizza
@@ -53,7 +54,7 @@ class Tile {
   std::shared_ptr<Player> owner;
 };
 
-void buyOrUpgrade(Tile& tile, int tileIndex, std::shared_ptr<Player> player,
+void buyOrUpgrade(Board& board, std::shared_ptr<Player> player,
                   void (*writeLog)(std::shared_ptr<Player>, std::string));
 
 bool canBuyOrUpgrade(Tile& tile, std::shared_ptr<Player> player);

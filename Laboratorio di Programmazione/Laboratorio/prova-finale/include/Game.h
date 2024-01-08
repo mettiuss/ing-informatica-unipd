@@ -14,15 +14,16 @@ class Game {
  public:
   Game(Dice dice, bool humanPlayer);
 
-  std::vector<Tile>& getTiles() { return board.getTiles(); };
-  const std::vector<Tile>& getTiles() const { return board.getTiles(); };
   const std::vector<std::shared_ptr<Player>>& getPlayers() const {
     return players;
   };
   void removePlayer(std::shared_ptr<Player> player);
 
+  // getters
   int getTurn() const { return turn; }
   int getLimit() const { return limit; }
+  Board& getBoard() { return board; }
+  const Board& getBoard() const { return board; }
 
   std::vector<int> getPlayerProperties(std::shared_ptr<Player> p) const;
 

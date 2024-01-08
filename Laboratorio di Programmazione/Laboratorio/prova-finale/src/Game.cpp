@@ -30,7 +30,7 @@ Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
 
 std::string printPlayers(int pos, Game game) {
   std::string value = "";
-  switch (game.getTiles()[pos].getType()) {
+  switch (game.getBoard().getTiles()[pos].getType()) {
     case Tile::Economic:
       value += "|E";
       break;
@@ -50,7 +50,7 @@ std::string printPlayers(int pos, Game game) {
       break;
   }
 
-  switch (game.getTiles()[pos].getBuilding()) {
+  switch (game.getBoard().getTiles()[pos].getBuilding()) {
     case Tile::House:
       value += "*";
       break;
@@ -70,7 +70,7 @@ std::string printPlayers(int pos, Game game) {
 }
 
 std::vector<int> Game::getPlayerProperties(std::shared_ptr<Player> p) const {
-  auto tiles = getTiles();
+  auto tiles = board.getTiles();
   std::vector<int> properties;
 
   for (int i = 0; i < tiles.size(); i++) {
@@ -140,8 +140,8 @@ void Game::removePlayer(std::shared_ptr<Player> player) {
   auto properties = getPlayerProperties(player);
 
   for (auto property : properties) {
-    getTiles()[property].setOwner(nullptr);
-    getTiles()[property].setBuilding(Tile::None);
+    board.getTiles()[property].setOwner(nullptr);
+    board.getTiles()[property].setBuilding(Tile::None);
   }
 
   for (int i = 0; i < players.size(); i++) {
