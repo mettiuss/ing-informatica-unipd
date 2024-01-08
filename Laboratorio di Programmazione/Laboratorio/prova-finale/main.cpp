@@ -6,78 +6,105 @@
 #include "./include/Dice.h"
 #include "./include/Game.h"
 
+bool isValidInput(const std::string &input) {
+  return input == "human" || input == "computer";
+}
+
 bool humanPlayer(int argc, char *argv[]) {
-  if (argc != 2) {
+  if (argc != 2 || !isValidInput(argv[1])) {
     throw std::runtime_error(
-        "Errore! Specificare uno e un solo parametro per chi giocherà la "
-        "partita (human/computer)");
+        "Error! Specify one and only one parameter for the player "
+        "(human/computer)");
   }
+  return std::string(argv[1]) == "human";
+}
 
-  std::string stringa = argv[1];
+void writeLog(std::shared_ptr<Player> p, std::string value) {
+  std::cout << "Giocatore " << p->getId() << " " << value << std::endl;
+}
 
-  if (stringa != "human" && stringa != "computer")
-    throw std::runtime_error(
-        "Errore! Specificare uno e un solo parametro per chi giocherà la "
-        "partita (human/computer)");
-
-  return stringa == "human";
+void nextTurn(Game &game, std::shared_ptr<Player> currentPlayer,
+              int &playerIndex) {
+  writeLog(currentPlayer, "ha finito il turno");
+  playerIndex = (playerIndex + 1) % game.getPlayers().size();
+  if ((playerIndex + 1) % game.getPlayers().size() == 0) game.nextTurn();
 }
 
 int main(int argc, char *argv[]) {
+  // inizializzazione rand
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
-  bool human;
-  try {
-    human = humanPlayer(argc, argv);
-  } catch (const std::runtime_error &e) {
-    std::cout << e.what() << std::endl;
+
+  // Lettura args
+  if (argc != 2 || !isValidInput(argv[1])) {
+    std::cout << "Error! Specify one and only one parameter for the player "
+                 "(human/computer)"
+              << std::endl;
     return 1;
   }
 
-  // creare Dice
+  // creazione Dice
   Dice dice = Dice();
 
+  // creazione Game
+  bool human = (std::string(argv[1]) == "human");
   Game game = Game(dice, human);
 
-  // turno di gioco
-  int iPlayer = 0;
+  int playerIndex = 0;
 
   while (!isOver(game)) {
-    auto currentPlayer = game.getPlayers()[iPlayer];
+    std::shared_ptr<Player> currentPlayer = game.getPlayers()[playerIndex];
+
     int steps = dice.throwDice();
-    std::cout << "Giocatore " << currentPlayer->getId()
-              << " ha tirato i dadi ottenendo un valore di " << steps
-              << std::endl;
+    writeLog(currentPlayer, "ha tirato i dadi ottenendo un valore di " +
+                                std::to_string(steps));
 
     int previousPos = currentPlayer->getPosition();
     currentPlayer->advance(steps);
 
     if (previousPos > currentPlayer->getPosition()) {
-      std::cout << "Giocatore " << currentPlayer->getId()
-                << " è passato dal via e ha ritirato 20 fiorini" << std::endl;
+      writeLog(currentPlayer, "è passato dal via e ha ritirato 20 fiorini");
       currentPlayer->addBalance(20);
     }
 
-    auto &currentTile = game.getTiles()[currentPlayer->getPosition()];
+    Tile &currentTile = game.getTiles()[currentPlayer->getPosition()];
+
+    writeLog(currentPlayer,
+             "è arrivato alla casella " +
+                 currentPlayer->positions[currentPlayer->getPosition()]);
+
+    // Check casella angolare
     if (currentTile.getType() == Tile::Corner ||
         currentTile.getType() == Tile::StartingCorner) {
+      nextTurn(game, currentPlayer, playerIndex);
       continue;
     }
 
-    if (currentTile.getOwner() == currentPlayer ||
-        currentTile.getOwner() == nullptr) {
-      if (currentTile.getBuilding() != Tile::Hotel &&
-          currentPlayer->wantBuy()) {
-        buyOrUpgrade(currentTile, currentPlayer);
-      }
-    } else {
-      if (canRent(currentTile, currentPlayer))
-        rent(currentTile, currentPlayer);
-      else
+    // Check casella di un altro giocatore
+    if (currentTile.getOwner() != nullptr &&
+        currentTile.getOwner() != currentPlayer) {
+      if (!canRent(currentTile, currentPlayer)) {
+        // eliminazione del giocatore
         game.removePlayer(currentPlayer);
+        writeLog(currentPlayer, "è stato eliminato");
+        nextTurn(game, currentPlayer, playerIndex);
+        continue;
+      }
+      // pagamento affitto
+      rent(currentTile, currentPlayer, writeLog);
+      nextTurn(game, currentPlayer, playerIndex);
+      continue;
     }
 
-    if ((iPlayer + 1) % game.getPlayers().size() == 3) game.nextTurn();
-    iPlayer = (iPlayer + 1) % game.getPlayers().size();
+    if (currentTile.getBuilding() != Tile::Hotel &&
+        canBuyOrUpgrade(currentTile, currentPlayer) &&
+        currentPlayer->wantBuy()) {
+      buyOrUpgrade(currentTile, currentPlayer->getPosition(), currentPlayer,
+                   writeLog);
+    }
+
+    writeLog(currentPlayer, "ha finito il turno");
+    playerIndex = (playerIndex + 1) % game.getPlayers().size();
+    if ((playerIndex + 1) % game.getPlayers().size() == 0) game.nextTurn();
   }
 
   // schermata vittoria o pareggio

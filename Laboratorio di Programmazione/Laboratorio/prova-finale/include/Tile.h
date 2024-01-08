@@ -53,9 +53,13 @@ class Tile {
   std::shared_ptr<Player> owner;
 };
 
-void buyOrUpgrade(Tile& tile, std::shared_ptr<Player> player);
+void buyOrUpgrade(Tile& tile, int tileIndex, std::shared_ptr<Player> player,
+                  void (*writeLog)(std::shared_ptr<Player>, std::string));
 
-void rent(Tile& tile, std::shared_ptr<Player> player);
+bool canBuyOrUpgrade(Tile& tile, std::shared_ptr<Player> player);
+
+void rent(Tile& tile, std::shared_ptr<Player> player,
+          void (*writeLog)(std::shared_ptr<Player>, std::string));
 
 bool canRent(Tile& tile, std::shared_ptr<Player> player);
 

@@ -9,9 +9,13 @@ int Player::playerId = 0;
 
 void Player::advance(int steps) { position = (position + steps) % 28; }
 
-void Player::removeBalance(int amount) { money -= amount; }
+void Player::removeBalance(int amount) { balance -= amount; }
 
-void Player::addBalance(int amount) { money += amount; }
+void Player::addBalance(int amount) { balance += amount; }
+
+std::string getHumanPosition(std::shared_ptr<Player> player) {
+  return player->positions[player->getPosition()];
+}
 
 void pay(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2,
          int amount) {
@@ -28,5 +32,5 @@ std::ostream& operator<<(std::ostream& os, std::shared_ptr<Player> p) {
   if (p == nullptr) return os << "nullptr";
   return os << "Id: " << p->getId()
             << ", Posizione: " << p->positions[p->getPosition()]
-            << ", Saldo: " << p->getMoney();
+            << ", Saldo: " << p->getBalance();
 }

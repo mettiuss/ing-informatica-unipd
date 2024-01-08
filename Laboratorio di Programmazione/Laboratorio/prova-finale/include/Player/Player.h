@@ -39,18 +39,20 @@ class Player {
   virtual bool wantBuy() const = 0;
 
   // Funzioni const get
-  int getMoney() const { return money; }
+  int getBalance() const { return balance; }
   int getPosition() const { return position; }
   int getId() const { return id; }
 
  protected:
   // Costruttore
-  Player() : money{100}, position{0}, id{playerId++} {}
+  Player() : balance{100}, position{0}, id{playerId++} {}
 
   // Variabili membro
-  int money, position, id;
+  int balance, position, id;
   static int playerId;
 };
+
+std::string getHumanPosition(std::shared_ptr<Player> player);
 
 void pay(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2,
          int amount);

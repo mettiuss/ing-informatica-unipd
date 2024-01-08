@@ -47,11 +47,6 @@ void PlayerTester() {
   ai.advance(steps);
 
   cout << "I due giocatori sono:" << endl << human << endl << ai << endl;*/
-
-  HumanPlayer player1 = HumanPlayer();
-  AIPlayer player2 = AIPlayer();
-
-  std::cout << player1 << std::endl << player2 << std::endl;
 }
 
 /*void BoardTester() {
