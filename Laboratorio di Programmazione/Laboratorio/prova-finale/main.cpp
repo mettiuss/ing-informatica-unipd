@@ -20,7 +20,7 @@ bool humanPlayer(int argc, char *argv[]) {
   return std::string(argv[1]) == "human";
 }
 
-ofstream fout("report.txt");
+std::ofstream fout("log.txt");
 
 void writeLog(std::shared_ptr<Player> p, std::string value) {
   std::cout << "Giocatore " << p->getId() << " " << value << std::endl;
