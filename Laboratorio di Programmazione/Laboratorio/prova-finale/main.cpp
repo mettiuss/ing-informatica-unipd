@@ -20,11 +20,12 @@ bool humanPlayer(int argc, char *argv[]) {
   return std::string(argv[1]) == "human";
 }
 
+//Creazione del file "report.txt"
 ofstream fout("report.txt");
 
 void writeLog(std::shared_ptr<Player> p, std::string value) {
   std::cout << "Giocatore " << p->getId() << " " << value << std::endl;
-  std::fout << writeLog(std::shared_ptr<Player> p, std::string value);
+  fout << "Giocatore " << p->getId() << " " << value << std::endl;
 }
 
 void nextTurn(Game &game, std::shared_ptr<Player> currentPlayer,
