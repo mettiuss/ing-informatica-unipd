@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <ctime>
 #include <exception>
 #include <fstream>
@@ -118,9 +119,16 @@ int main(int argc, char *argv[]) {
   if (game.getPlayers().size() == 1) {
     writeLog(game.getPlayers()[0], "ha vinto la partita");
   } else {
+    auto players = game.getPlayers();
+
+    std::sort(players.begin(), players.end());
+    std::reverse(players.begin(), players.end());
     // TODO classifica in base ai punti
-    for (auto player : game.getPlayers()) {
-      writeLog(player, "ha pareggiato");
+    for (int i = 0; i < players.size(); i++) {
+      writeLog(players[i], "ha pareggiato arrivando in posizione " +
+                               std::to_string(i + 1) + " con " +
+                               std::to_string(players[i]->getBalance()) +
+                               " fiorini");
     }
   }
 

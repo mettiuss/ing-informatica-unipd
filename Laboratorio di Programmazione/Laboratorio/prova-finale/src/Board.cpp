@@ -90,8 +90,7 @@ std::ostream& operator<<(std::ostream& os, Board board) {
     // riempite completamente
     if (i == 0) {
       for (int j = 0; j < 8; j++) {
-        board.getTiles()[j];
-        // os << board.getTiles()[j];
+        os << board.getTiles()[j];
       }
       os << std::endl;
       continue;

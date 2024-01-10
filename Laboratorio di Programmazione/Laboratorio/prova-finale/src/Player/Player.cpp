@@ -23,3 +23,8 @@ bool operator==(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
   if (p1 == nullptr || p2 == nullptr) return false;
   return p1->getId() == p2->getId();
 }
+
+bool operator<(std::shared_ptr<Player> p1, std::shared_ptr<Player> p2) {
+  if (p1 == nullptr || p2 == nullptr) return false;
+  return p1->getBalance() < p2->getBalance();
+}
