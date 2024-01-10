@@ -31,7 +31,9 @@ class Player {
   void removeBalance(int amout);
 
   // Funzione virtuale wantBuy
-  virtual bool wantBuy() const = 0;
+  virtual bool wantBuy(std::string question) const = 0;
+
+  virtual bool showBoard() const = 0;
 
   // Funzioni const get
   int getBalance() const { return balance; }

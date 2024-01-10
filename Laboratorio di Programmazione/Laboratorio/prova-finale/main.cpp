@@ -20,7 +20,6 @@ bool humanPlayer(int argc, char *argv[]) {
   return std::string(argv[1]) == "human";
 }
 
-// Crea il file "log.txt"
 std::ofstream fout("log.txt");
 
 void writeLog(std::shared_ptr<Player> p, std::string value) {
@@ -36,7 +35,7 @@ void nextTurn(Game &game, std::shared_ptr<Player> currentPlayer,
 }
 
 int main(int argc, char *argv[]) {
-  // Inizializzazione rand
+  // inizializzazione rand
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
   // Lettura args
@@ -47,10 +46,10 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // Creazione Dice
+  // creazione Dice
   Dice dice = Dice();
 
-  // Creazione Game
+  // creazione Game
   bool human = (std::string(argv[1]) == "human");
   Game game = Game(dice, human);
 
@@ -58,6 +57,10 @@ int main(int argc, char *argv[]) {
 
   while (!isOver(game)) {
     std::shared_ptr<Player> currentPlayer = game.getPlayers()[playerIndex];
+
+    while (currentPlayer->showBoard() == true) {
+      std::cout << game;
+    }
 
     int steps = dice.throwDice();
     writeLog(currentPlayer, "ha tirato i dadi ottenendo un valore di " +
@@ -71,7 +74,7 @@ int main(int argc, char *argv[]) {
       currentPlayer->addBalance(20);
     }
 
-    Tile &currentTile =
+    std::shared_ptr<Tile> currentTile =
         game.getBoard().getTiles()[currentPlayer->getPosition()];
 
     writeLog(currentPlayer,
@@ -79,15 +82,15 @@ int main(int argc, char *argv[]) {
                  game.getBoard().positions[currentPlayer->getPosition()]);
 
     // Check casella angolare
-    if (currentTile.getType() == Tile::Corner ||
-        currentTile.getType() == Tile::StartingCorner) {
+    if (currentTile->getType() == Tile::Corner ||
+        currentTile->getType() == Tile::StartingCorner) {
       nextTurn(game, currentPlayer, playerIndex);
       continue;
     }
 
     // Check casella di un altro giocatore
-    if (currentTile.getOwner() != nullptr &&
-        currentTile.getOwner() != currentPlayer) {
+    if (currentTile->getOwner() != nullptr &&
+        currentTile->getOwner() != currentPlayer) {
       if (!canRent(game.getBoard(), currentPlayer)) {
         // eliminazione del giocatore
         game.removePlayer(currentPlayer);
@@ -95,25 +98,27 @@ int main(int argc, char *argv[]) {
         nextTurn(game, currentPlayer, playerIndex);
         continue;
       }
-      // Pagamento affitto
+      // pagamento affitto
       rent(game.getBoard(), currentPlayer, writeLog);
       nextTurn(game, currentPlayer, playerIndex);
       continue;
     }
 
-    if (currentTile.getBuilding() != Tile::Hotel &&
+    if (currentTile->getBuilding() != Tile::Hotel &&
         canBuyOrUpgrade(game.getBoard(), currentPlayer) &&
-        currentPlayer->wantBuy()) {
+        currentPlayer->wantBuy(
+            questionBuyOrUpgrade(game.getBoard(), currentPlayer))) {
       buyOrUpgrade(game.getBoard(), currentPlayer, writeLog);
     }
 
     nextTurn(game, currentPlayer, playerIndex);
   }
 
-  // Schermata vittoria o pareggio
+  // schermata vittoria o pareggio
   if (game.getPlayers().size() == 1) {
     writeLog(game.getPlayers()[0], "ha vinto la partita");
   } else {
+    // TODO classifica in base ai punti
     for (auto player : game.getPlayers()) {
       writeLog(player, "ha pareggiato");
     }

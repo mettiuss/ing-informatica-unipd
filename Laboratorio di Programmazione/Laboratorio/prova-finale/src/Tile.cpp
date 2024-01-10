@@ -7,11 +7,12 @@
 #include "../include/Tile.h"
 
 #include <iostream>
+#include <memory>
 
 #include "../include/Board.h"
 
-std::ostream& operator<<(std::ostream& os, Tile t) {
-  switch (t.getType()) {
+std::ostream& operator<<(std::ostream& os, std::shared_ptr<Tile> t) {
+  switch (t->getType()) {
     case Tile::Economic:
       os << "|E";
       break;
@@ -31,7 +32,7 @@ std::ostream& operator<<(std::ostream& os, Tile t) {
       break;
   }
 
-  switch (t.getBuilding()) {
+  switch (t->getBuilding()) {
     case Tile::House:
       os << "*|";
       break;

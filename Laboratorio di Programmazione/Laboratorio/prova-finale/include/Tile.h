@@ -53,6 +53,6 @@ class Tile {
   std::shared_ptr<Player> owner;
 };
 
-std::ostream& operator<<(std::ostream& os, Tile t);
+std::ostream& operator<<(std::ostream& os, std::shared_ptr<Tile> t);
 
 #endif

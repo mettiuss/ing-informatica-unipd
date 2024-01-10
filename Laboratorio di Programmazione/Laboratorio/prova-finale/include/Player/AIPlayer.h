@@ -14,14 +14,16 @@
 // Classe HumanPlayer: (estende Player)
 // Rapresenta il giocatore umano,
 // eredita da player tutte le funzioni e le variabili membro.
-// Overloada la funzione wantBuy(), la quale decide se acquistare
+// Overload della funzione wantBuy(), la quale decide se acquistare
 // una proprietà, con una probabilità d'acquisto del 25%
 
 class AIPlayer : public Player {
  public:
   AIPlayer();
 
-  bool wantBuy() const override;
+  bool wantBuy(std::string question) const override;
+
+  bool showBoard() const override { return false; }
 };
 
 #endif

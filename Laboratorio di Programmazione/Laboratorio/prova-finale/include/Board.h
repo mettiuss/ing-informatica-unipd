@@ -37,17 +37,19 @@ class Board {
                                "H1", "G1", "F1", "E1", "D1", "C1", "B1"};
   Board();
 
-  std::vector<Tile>& getTiles() { return tiles; };
-  const std::vector<Tile>& getTiles() const { return tiles; };
+  std::vector<std::shared_ptr<Tile>>& getTiles() { return tiles; };
+  const std::vector<std::shared_ptr<Tile>>& getTiles() const { return tiles; };
 
  private:
-  std::vector<Tile> tiles;
+  std::vector<std::shared_ptr<Tile>> tiles;
 };
 
 bool canBuyOrUpgrade(Board& board, std::shared_ptr<Player> player);
 
 void buyOrUpgrade(Board& board, std::shared_ptr<Player> player,
                   void (*writeLog)(std::shared_ptr<Player>, std::string));
+
+std::string questionBuyOrUpgrade(Board& board, std::shared_ptr<Player> player);
 
 bool canRent(Board& board, std::shared_ptr<Player> player);
 

@@ -8,7 +8,6 @@
 #include "./Board.h"
 #include "./Dice.h"
 #include "./Player/Player.h"
-#include "./Tile.h"
 
 class Game {
  public:
@@ -25,8 +24,6 @@ class Game {
   Board& getBoard() { return board; }
   const Board& getBoard() const { return board; }
 
-  std::vector<int> getPlayerProperties(std::shared_ptr<Player> p) const;
-
   void nextTurn();
 
  private:
@@ -37,6 +34,8 @@ class Game {
 };
 
 bool isOver(Game& game);
+
+std::vector<int> getPlayerProperties(Game& game, std::shared_ptr<Player> p);
 
 std::ostream& operator<<(std::ostream& os, Game game);
 

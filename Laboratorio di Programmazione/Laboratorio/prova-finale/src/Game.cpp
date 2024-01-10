@@ -30,7 +30,7 @@ Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
 
 std::string printPlayers(int pos, Game game) {
   std::string value = "";
-  switch (game.getBoard().getTiles()[pos].getType()) {
+  switch (game.getBoard().getTiles()[pos]->getType()) {
     case Tile::Economic:
       value += "|E";
       break;
@@ -50,7 +50,7 @@ std::string printPlayers(int pos, Game game) {
       break;
   }
 
-  switch (game.getBoard().getTiles()[pos].getBuilding()) {
+  switch (game.getBoard().getTiles()[pos]->getBuilding()) {
     case Tile::House:
       value += "*";
       break;
@@ -63,19 +63,19 @@ std::string printPlayers(int pos, Game game) {
   auto players = game.getPlayers();
 
   for (int i = 0; i < players.size(); i++) {
-    if (players[i]->getPosition() == pos) value += std::to_string(i + 1);
+    if (players[i]->getPosition() == pos)
+      value += std::to_string(players[i]->getId());
   }
   value += "|";
   return value;
 }
 
-std::vector<int> Game::getPlayerProperties(std::shared_ptr<Player> p) const {
-  auto tiles = board.getTiles();
+std::vector<int> getPlayerProperties(Game& game, std::shared_ptr<Player> p) {
+  auto tiles = game.getBoard().getTiles();
   std::vector<int> properties;
 
   for (int i = 0; i < tiles.size(); i++) {
-    if (tiles[i].getOwner() == p) {
-      std::cout << i << std::endl;
+    if (tiles[i]->getOwner() != nullptr && tiles[i]->getOwner() == p) {
       properties.push_back(i);
     }
   }
@@ -133,15 +133,36 @@ std::ostream& operator<<(std::ostream& os, Game game) {
   }
   os << std::endl;
 
+  os << "Fiorini posseduti dai giocatori:" << std::endl;
+  for (auto player : game.getPlayers()) {
+    os << "Giocatore " << player->getId() << ": " << player->getBalance()
+       << " fiorini" << std::endl;
+  }
+
+  os << "Proprietà possedute dai giocatori:" << std::endl;
+  for (auto player : game.getPlayers()) {
+    os << "Giocatore " << player->getId() << ": ";
+    auto properties = getPlayerProperties(game, player);
+    for (int property : properties) {
+      std::shared_ptr<Tile> tile = game.getBoard().getTiles()[property];
+      os << game.getBoard().positions[property] << "("
+         << (tile->getBuilding() == Tile::House ? "House" : "")
+         << (tile->getBuilding() == Tile::Hotel ? "Hotel" : "") << ")"
+         << ", ";
+    }
+
+    os << std::endl;
+  }
+
   return os;
 }
 
 void Game::removePlayer(std::shared_ptr<Player> player) {
-  auto properties = getPlayerProperties(player);
+  auto properties = getPlayerProperties(*this, player);
 
   for (auto property : properties) {
-    board.getTiles()[property].setOwner(nullptr);
-    board.getTiles()[property].setBuilding(Tile::None);
+    board.getTiles()[property]->setOwner(nullptr);
+    board.getTiles()[property]->setBuilding(Tile::None);
   }
 
   for (int i = 0; i < players.size(); i++) {

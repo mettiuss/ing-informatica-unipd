@@ -26,7 +26,7 @@ Board::Board() {
 
   // Imposta la casella di partenza che deve avere posizione costante, in alto a
   // sinistra
-  tiles.push_back(Tile(Tile::StartingCorner));
+  tiles.push_back(std::make_shared<Tile>(Tile(Tile::StartingCorner)));
 
   // Questo vettore tiene in memoria quante caselle per tipo sono da piazzare,
   // 8 economiche, 10 standard e 6 luxury
@@ -35,7 +35,7 @@ Board::Board() {
     // se i == 7, 14, 21 allora la casella è in angolo, visualizzabile dallo
     // schema in alto
     if (i % 7 == 0) {
-      tiles.push_back(Tile(Tile::Corner));
+      tiles.push_back(std::make_shared<Tile>(Tile(Tile::Corner)));
       continue;
     }
 
@@ -56,7 +56,7 @@ Board::Board() {
         {0, Tile::Economic}, {1, Tile::Standard}, {2, Tile::Luxury}};
 
     // aggiunge la casella casuale
-    tiles.push_back(Tile(types[randomNumber]));
+    tiles.push_back(std::make_shared<Tile>(Tile(types[randomNumber])));
   }
 }
 
@@ -90,7 +90,8 @@ std::ostream& operator<<(std::ostream& os, Board board) {
     // riempite completamente
     if (i == 0) {
       for (int j = 0; j < 8; j++) {
-        os << board.getTiles()[j];
+        board.getTiles()[j];
+        // os << board.getTiles()[j];
       }
       os << std::endl;
       continue;
@@ -118,56 +119,73 @@ std::ostream& operator<<(std::ostream& os, Board board) {
 }
 
 bool canBuyOrUpgrade(Board& board, std::shared_ptr<Player> player) {
-  Tile tile = board.getTiles()[player->getPosition()];
-  if (tile.getOwner() == nullptr) {
-    return player->getBalance() > tile.propertyPrice[tile.getType()];
+  std::shared_ptr<Tile> tile = board.getTiles()[player->getPosition()];
+  if (tile->getOwner() == nullptr) {
+    return player->getBalance() > tile->propertyPrice[tile->getType()];
   }
-  if (tile.getBuilding() == Tile::None) {
-    return player->getBalance() > tile.housePrice[tile.getType()];
+  if (tile->getBuilding() == Tile::None) {
+    return player->getBalance() > tile->housePrice[tile->getType()];
   }
-  if (tile.getBuilding() == Tile::House) {
-    return player->getBalance() > tile.hotelPrice[tile.getType()];
+  if (tile->getBuilding() == Tile::House) {
+    return player->getBalance() > tile->hotelPrice[tile->getType()];
   }
   return false;
 }
 
 void buyOrUpgrade(Board& board, std::shared_ptr<Player> player,
                   void (*writeLog)(std::shared_ptr<Player>, std::string)) {
-  Tile tile = board.getTiles()[player->getPosition()];
-  if (tile.getOwner() == nullptr) {
+  std::shared_ptr<Tile> tile = board.getTiles()[player->getPosition()];
+  if (tile->getOwner() == nullptr) {
     // acquisto
-    tile.setOwner(player);
-    player->removeBalance(tile.propertyPrice[tile.getType()]);
+    tile->setOwner(player);
+    player->removeBalance(tile->propertyPrice[tile->getType()]);
 
     writeLog(player, "ha acquistato il terreno " +
                          board.positions[player->getPosition()]);
     return;
   }
-  if (tile.getBuilding() == Tile::None) {
+  if (tile->getBuilding() == Tile::None) {
     // costruisce casa
-    tile.setBuilding(Tile::House);
-    player->removeBalance(tile.housePrice[tile.getType()]);
+    tile->setBuilding(Tile::House);
+    player->removeBalance(tile->housePrice[tile->getType()]);
     writeLog(player, "ha costruito una casa sul terreno " +
                          board.positions[player->getPosition()]);
     return;
   }
-  if (tile.getBuilding() == Tile::House) {
+  if (tile->getBuilding() == Tile::House) {
     // costruisce albergo
-    tile.setBuilding(Tile::Hotel);
-    player->removeBalance(tile.hotelPrice[tile.getType()]);
+    tile->setBuilding(Tile::Hotel);
+    player->removeBalance(tile->hotelPrice[tile->getType()]);
     writeLog(player, "ha migliorato una casa in albergo sul terreno" +
                          board.positions[player->getPosition()]);
     return;
   }
 }
 
+std::string questionBuyOrUpgrade(Board& board, std::shared_ptr<Player> player) {
+  std::shared_ptr<Tile> tile = board.getTiles()[player->getPosition()];
+  if (tile->getOwner() == nullptr)
+    return "Vuoi comprare la casella in posizione " +
+           board.positions[player->getPosition()] + "?";
+
+  if (tile->getBuilding() == Tile::None)
+    return "Vuoi comprare la casa per la casella in posizione " +
+           board.positions[player->getPosition()] + "?";
+
+  if (tile->getBuilding() == Tile::House)
+    return "Vuoi comprare l'albergo per la casella in posizione " +
+           board.positions[player->getPosition()] + "?";
+
+  return "";
+}
+
 bool canRent(Board& board, std::shared_ptr<Player> player) {
-  Tile tile = board.getTiles()[player->getPosition()];
-  switch (tile.getBuilding()) {
+  std::shared_ptr<Tile> tile = board.getTiles()[player->getPosition()];
+  switch (tile->getBuilding()) {
     case Tile::House:
-      return player->getBalance() >= tile.rentPriceHouse[tile.getType()];
+      return player->getBalance() >= tile->rentPriceHouse[tile->getType()];
     case Tile::Hotel:
-      return player->getBalance() >= tile.rentPriceHotel[tile.getType()];
+      return player->getBalance() >= tile->rentPriceHotel[tile->getType()];
     default:
       return true;
   }
@@ -175,23 +193,23 @@ bool canRent(Board& board, std::shared_ptr<Player> player) {
 
 void rent(Board& board, std::shared_ptr<Player> player,
           void (*writeLog)(std::shared_ptr<Player>, std::string)) {
-  Tile tile = board.getTiles()[player->getPosition()];
+  std::shared_ptr<Tile> tile = board.getTiles()[player->getPosition()];
   int payedAmount;
-  switch (tile.getBuilding()) {
+  switch (tile->getBuilding()) {
     case Tile::House:
-      pay(player, tile.getOwner(), tile.rentPriceHouse[tile.getType()]);
-      payedAmount = tile.rentPriceHouse[tile.getType()];
+      pay(player, tile->getOwner(), tile->rentPriceHouse[tile->getType()]);
+      payedAmount = tile->rentPriceHouse[tile->getType()];
       break;
     case Tile::Hotel:
-      pay(player, tile.getOwner(), tile.rentPriceHotel[tile.getType()]);
-      payedAmount = tile.rentPriceHotel[tile.getType()];
+      pay(player, tile->getOwner(), tile->rentPriceHotel[tile->getType()]);
+      payedAmount = tile->rentPriceHotel[tile->getType()];
       break;
     default:
       return;
   }
   writeLog(player, "ha pagato " + std::to_string(payedAmount) +
                        " fiorini a giocatore " +
-                       std::to_string(tile.getOwner()->getId()) +
+                       std::to_string(tile->getOwner()->getId()) +
                        " per pernottamento nella casella " +
                        board.positions[player->getPosition()]);
 }

@@ -5,7 +5,7 @@
 
 AIPlayer::AIPlayer() : Player() {}
 
-bool AIPlayer::wantBuy() const {
+bool AIPlayer::wantBuy(std::string question) const {
   int probability = rand() % 4;
 
   return probability == 0;

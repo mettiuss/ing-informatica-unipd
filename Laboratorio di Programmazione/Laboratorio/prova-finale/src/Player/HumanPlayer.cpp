@@ -2,24 +2,45 @@
 
 #include <iostream>
 
+#include "../../include/Game.h"
+
 HumanPlayer::HumanPlayer() : Player() {}
 
-bool HumanPlayer::wantBuy() const {
-  char response = 'y';
-  char input;
+bool HumanPlayer::wantBuy(std::string question) const {
+  std::cout << question;
 
-  while (input != 'y' && input != 'n') {
+  while (true) {
+    char input;
     std::cin >> input;
 
     input = std::tolower(input);
 
-    if (input == 'y' || input == 'n') {
-      response = input;
-
-    } else if (input != ' ') {
-      std::cout << "Errore! Rispondere solo con 'y' o 'n'";
+    if (input != 's' && input != 'n') {
+      std::cout << "Errore! Rispondere solo con 's' o 'n'";
+      continue;
     }
-  }
 
-  return response == 'y';
+    return input == 's';
+  }
+}
+
+bool HumanPlayer::showBoard() const {
+  std::cout << "Giocatore " << id
+            << " specifica l'azione da eseguire:" << std::endl
+            << "Tira i dadi (D)" << std::endl
+            << "Visualizza il tabellone (S)";
+
+  while (true) {
+    char input;
+    std::cin >> input;
+
+    input = std::tolower(input);
+
+    if (input != 's' && input != 'd') {
+      std::cout << "Errore! Rispondere solo con 'S' o 'D'";
+      continue;
+    }
+
+    return input == 's';
+  }
 }
