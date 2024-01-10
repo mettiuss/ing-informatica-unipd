@@ -20,6 +20,7 @@ bool humanPlayer(int argc, char *argv[]) {
   return std::string(argv[1]) == "human";
 }
 
+// Crea il file "log.txt"
 std::ofstream fout("log.txt");
 
 void writeLog(std::shared_ptr<Player> p, std::string value) {
@@ -35,7 +36,7 @@ void nextTurn(Game &game, std::shared_ptr<Player> currentPlayer,
 }
 
 int main(int argc, char *argv[]) {
-  // inizializzazione rand
+  // Inizializzazione rand
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
   // Lettura args
@@ -46,10 +47,10 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  // creazione Dice
+  // Creazione Dice
   Dice dice = Dice();
 
-  // creazione Game
+  // Creazione Game
   bool human = (std::string(argv[1]) == "human");
   Game game = Game(dice, human);
 
@@ -94,7 +95,7 @@ int main(int argc, char *argv[]) {
         nextTurn(game, currentPlayer, playerIndex);
         continue;
       }
-      // pagamento affitto
+      // Pagamento affitto
       rent(game.getBoard(), currentPlayer, writeLog);
       nextTurn(game, currentPlayer, playerIndex);
       continue;
@@ -109,7 +110,7 @@ int main(int argc, char *argv[]) {
     nextTurn(game, currentPlayer, playerIndex);
   }
 
-  // schermata vittoria o pareggio
+  // Schermata vittoria o pareggio
   if (game.getPlayers().size() == 1) {
     writeLog(game.getPlayers()[0], "ha vinto la partita");
   } else {
