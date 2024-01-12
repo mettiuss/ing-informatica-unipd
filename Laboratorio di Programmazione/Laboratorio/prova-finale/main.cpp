@@ -132,5 +132,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  delete[] argv;
+
   return 0;
 }
