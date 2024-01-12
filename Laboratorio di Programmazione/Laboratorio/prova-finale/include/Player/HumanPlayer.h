@@ -16,6 +16,9 @@
 // eredita da player tutte le funzioni e le variabili membro.
 // Overload della funzione wantBuy(), la quale chiede al giocatore
 // la conferma per l'acquisto di una proprietà
+// Implementa showBoard(), chiede al giocatore che azione vuole
+// eseguire al turno successivo 
+// (lanciare i dati, visualizzare info sulle proprietà)
 
 class HumanPlayer : public Player {
  public:

@@ -1,3 +1,9 @@
+//
+//  Game.cpp
+//
+//  Creato da Matteo Cuzzolin (2066701)
+//
+
 #include "../include/Game.h"
 
 #include <iostream>
@@ -28,6 +34,8 @@ Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
   }
 }
 
+// Restituisce una stringa contenente i giocatori presenti
+// all'interno della cella passata tramite posizione
 std::string printPlayers(int pos, Game game) {
   std::string value = "";
   switch (game.getBoard().getTiles()[pos]->getType()) {
@@ -70,6 +78,7 @@ std::string printPlayers(int pos, Game game) {
   return value;
 }
 
+// Stampa la lista delle proprietà possedute dai vari giocatori
 std::vector<int> getPlayerProperties(Game& game, std::shared_ptr<Player> p) {
   auto tiles = game.getBoard().getTiles();
   std::vector<int> properties;
@@ -83,14 +92,25 @@ std::vector<int> getPlayerProperties(Game& game, std::shared_ptr<Player> p) {
   return properties;
 }
 
+// Passa al prossimo turno
 void Game::nextTurn() {
+
+  // Se esiste un giocatore umano, non incrementa turn
+  // poiché non c'è un numero max di turni per il gioco
   if (!human) turn++;
 }
 
+// Controlla se il gioco è terminato
 bool isOver(Game& game) {
+
+  // Il gioco termina quando:
+  //    - C'è un giocatore umano e tutti i giocatori tranne 1 hanno finito i soldi
+  //    - Non c'è un giocatore umano, tutti i giocatori tranne 1 hanno finito i soldi
+  //      oppure i giocatori hanno raggiunto il numero massimo di turni
   return (game.getPlayers().size() <= 1 || (game.getTurn() > game.getLimit()));
 }
 
+// Stampa a schermo il gioco
 std::ostream& operator<<(std::ostream& os, Game game) {
   os << "   ";
 
@@ -157,14 +177,17 @@ std::ostream& operator<<(std::ostream& os, Game game) {
   return os;
 }
 
+// Rimuove un giocatore dal gioco
 void Game::removePlayer(std::shared_ptr<Player> player) {
   auto properties = getPlayerProperties(*this, player);
 
+  // Resetta i gli owner delle proprietà possedute dal giocatore eliminato
   for (auto property : properties) {
     board.getTiles()[property]->setOwner(nullptr);
     board.getTiles()[property]->setBuilding(Tile::None);
   }
 
+  // Rimuove il giocatore dalla coda dei giocatori
   for (int i = 0; i < players.size(); i++) {
     if (players[i] == player) {
       players.erase(players.begin() + i);
