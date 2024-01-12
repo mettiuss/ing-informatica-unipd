@@ -37,8 +37,10 @@ class Tile {
   std::map<TileType, int> rentPriceHotel = {
       {Economic, 4}, {Standard, 8}, {Luxury, 14}};
 
+  // constructor
   Tile(TileType t) : type{t}, building{None}, owner{nullptr} {};
 
+  // getters and setters
   TileType getType() const { return type; };
 
   void setBuilding(Building b) { building = b; };

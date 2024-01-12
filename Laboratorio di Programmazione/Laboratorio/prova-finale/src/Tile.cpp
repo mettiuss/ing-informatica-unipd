@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& os, std::shared_ptr<Tile> t) {
       os << "| ";
       break;
     case Tile::StartingCorner:
-      os << "|>";
+      os << "|P";
       break;
     default:
       break;

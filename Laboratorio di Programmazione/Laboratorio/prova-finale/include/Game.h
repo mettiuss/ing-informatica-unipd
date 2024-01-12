@@ -4,7 +4,6 @@
 //  Creato da Matteo Cuzzolin (2066701)
 //
 
-
 #ifndef GAME_H
 #define GAME_H
 
@@ -16,20 +15,23 @@
 #include "./Dice.h"
 #include "./Player/Player.h"
 
+// Classe che gestisce la partita (quindi i suoi turni e i giocatori) e coordina
+// le interazioni tra tutte le altre classi.
+
 class Game {
  public:
   Game(Dice dice, bool humanPlayer);
-
-  const std::vector<std::shared_ptr<Player>>& getPlayers() const {
-    return players;
-  };
-  void removePlayer(std::shared_ptr<Player> player);
 
   // getters
   int getTurn() const { return turn; }
   int getLimit() const { return limit; }
   Board& getBoard() { return board; }
   const Board& getBoard() const { return board; }
+  const std::vector<std::shared_ptr<Player>>& getPlayers() const {
+    return players;
+  };
+
+  void removePlayer(std::shared_ptr<Player> player);
 
   void nextTurn();
 

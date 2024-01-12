@@ -14,11 +14,15 @@
 #include "../include/Player/AIPlayer.h"
 #include "../include/Player/HumanPlayer.h"
 
+// Costruttore, gestisce la creazione dell'array dei players, decidendone
+// l'ordine di gioco
 Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
   board = Board();
 
+  // utilizzo di una multimappa che contiene {risultato del tiro: giocatore}
   std::multimap<int, std::shared_ptr<Player>> playerMap;
 
+  // riempimento della multimappa
   if (humanPlayer) {
     int res = dice.throwDice();
     playerMap.insert(std::make_pair(res, std::make_shared<HumanPlayer>()));
@@ -29,8 +33,11 @@ Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
     playerMap.insert(std::make_pair(res, std::make_shared<AIPlayer>()));
   }
 
-  for (auto pair = playerMap.rbegin(); pair != playerMap.rend(); ++pair) {
-    players.push_back(pair->second);
+  // la multimappa in automatico tiene in ordine le sue chiavi, quindi è poi
+  // sufficiente iterare sulle coppie chiave valore per ottenere i giocatori
+  // ordinati in base al risultato del loro tiro dei dadi
+  for (auto pair : playerMap) {
+    players.push_back(pair.second);
   }
 }
 
@@ -52,7 +59,7 @@ std::string printPlayers(int pos, Game game) {
       value += "| ";
       break;
     case Tile::StartingCorner:
-      value += "|>";
+      value += "|P";
       break;
     default:
       break;
@@ -94,7 +101,6 @@ std::vector<int> getPlayerProperties(Game& game, std::shared_ptr<Player> p) {
 
 // Passa al prossimo turno
 void Game::nextTurn() {
-
   // Se esiste un giocatore umano, non incrementa turn
   // poiché non c'è un numero max di turni per il gioco
   if (!human) turn++;
@@ -102,10 +108,11 @@ void Game::nextTurn() {
 
 // Controlla se il gioco è terminato
 bool isOver(Game& game) {
-
   // Il gioco termina quando:
-  //    - C'è un giocatore umano e tutti i giocatori tranne 1 hanno finito i soldi
-  //    - Non c'è un giocatore umano, tutti i giocatori tranne 1 hanno finito i soldi
+  //    - C'è un giocatore umano e tutti i giocatori tranne 1 hanno finito i
+  //    soldi
+  //    - Non c'è un giocatore umano, tutti i giocatori tranne 1 hanno finito i
+  //    soldi
   //      oppure i giocatori hanno raggiunto il numero massimo di turni
   return (game.getPlayers().size() <= 1 || (game.getTurn() > game.getLimit()));
 }
