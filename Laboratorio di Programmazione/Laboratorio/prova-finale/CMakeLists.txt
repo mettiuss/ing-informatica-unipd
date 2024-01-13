@@ -13,4 +13,4 @@ add_library(Game include/Game.h src/Game.cpp)
 
 add_executable(Main main.cpp)
 
-target_link_libraries(Main Player HumanPlayer AIPlayer Dice Board Tile Game)
+target_link_libraries(Main Game Player HumanPlayer AIPlayer Dice Board Tile)
