@@ -123,7 +123,6 @@ int main(int argc, char *argv[]) {
 
     std::sort(players.begin(), players.end());
     std::reverse(players.begin(), players.end());
-    // TODO classifica in base ai punti
     for (int i = 0; i < players.size(); i++) {
       writeLog(players[i], "ha pareggiato arrivando in posizione " +
                                std::to_string(i + 1) + " con " +
@@ -131,8 +130,6 @@ int main(int argc, char *argv[]) {
                                " fiorini");
     }
   }
-
-  delete[] argv;
 
   return 0;
 }
