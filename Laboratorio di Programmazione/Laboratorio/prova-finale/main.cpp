@@ -56,25 +56,32 @@ int main(int argc, char *argv[]) {
 
   int playerIndex = 0;
 
+  // check fine partita
   while (!isOver(game)) {
     std::shared_ptr<Player> currentPlayer = game.getPlayers()[playerIndex];
 
+    // chiede al giocatore se vuole lanciare i dadi
+    // o visualizzare il tabellone
     while (currentPlayer->showBoard() == true) {
       std::cout << game;
     }
 
+    // lancia i dadi -> fa avanzare il giocatore
     int steps = dice.throwDice();
     writeLog(currentPlayer, "ha tirato i dadi ottenendo un valore di " +
                                 std::to_string(steps));
 
     int previousPos = currentPlayer->getPosition();
+    // il giocatore avanza di n steps
     currentPlayer->advance(steps);
 
+    // check passaggio dal via, se passa ritira 20 fiorini
     if (previousPos > currentPlayer->getPosition()) {
       writeLog(currentPlayer, "è passato dal via e ha ritirato 20 fiorini");
       currentPlayer->addBalance(20);
     }
 
+    // stampa la casella d'arrivo
     std::shared_ptr<Tile> currentTile =
         game.getBoard().getTiles()[currentPlayer->getPosition()];
 
@@ -105,6 +112,8 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
+    // check proprietà, se non è un hotel e la proprietà
+    // appartiene al giocatore, chiede se vuole comprare/migliorare
     if (currentTile->getBuilding() != Tile::Hotel &&
         canBuyOrUpgrade(game.getBoard(), currentPlayer) &&
         currentPlayer->wantBuy(
