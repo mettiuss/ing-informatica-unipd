@@ -148,7 +148,8 @@ int main(int argc, char *argv[]) {
 
     // Se è una casella di un'altro giocatore va pagato l'affitto o il giocatore
     // viene eliminato
-    if (currentTile->getOwner() != currentPlayer) {
+    if (currentTile->getOwner() != nullptr &&
+        currentTile->getOwner() != currentPlayer) {
       // eliminazione del giocatore se non può pagare
       if (!canRent(game.getBoard(), currentPlayer)) {
         game.removePlayer(currentPlayer);
