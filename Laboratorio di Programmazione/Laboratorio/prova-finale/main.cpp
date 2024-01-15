@@ -164,11 +164,30 @@ int main(int argc, char *argv[]) {
 
     std::sort(players.begin(), players.end());
     std::reverse(players.begin(), players.end());
-    for (int i = 0; i < players.size(); i++) {
-      writeLog(players[i], "ha pareggiato arrivando in posizione " +
-                               std::to_string(i + 1) + " con " +
-                               std::to_string(players[i]->getBalance()) +
+
+    writeLog(players[0], "ha vinto la partita con " +
+                               std::to_string(players[0]->getBalance()) +
                                " fiorini");
+
+    for (int i = 0; i < players.size() - 1;) {
+      
+      for(int j=i+1; j<players.size(); j++){
+
+        if(players[i]->getBalance() == players[j]->getBalance()){
+          writeLog(players[j], "ha pareggiato arrivando in posizione " +
+                               std::to_string(i + 1) + " con " +
+                               std::to_string(players[j]->getBalance()) +
+                               " fiorini");
+        } else {
+          writeLog(players[j], "e' arrivato in posizione " +
+                                  std::to_string(j + 1) + " con " +
+                                  std::to_string(players[j]->getBalance()) +
+                                  " fiorini");
+        }
+
+        i = j;
+      }
+
     }
   }
 
