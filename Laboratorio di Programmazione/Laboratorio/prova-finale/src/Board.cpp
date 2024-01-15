@@ -32,15 +32,20 @@ Board::Board() {
 
   // Imposta la casella di partenza che deve avere posizione costante, in alto a
   // sinistra
-  tiles.push_back(std::make_shared<Tile>(Tile(Tile::StartingCorner)));
 
   // Questo vettore tiene in memoria quante caselle per tipo sono da piazzare,
   // 8 economiche, 10 standard e 6 luxury
   std::vector<int> count{8, 10, 6};
-  for (int i = 1; i < 28; i++) {
+  for (int i = 0; i < 28; i++) {
     // se i == 7, 14, 21 allora la casella è in angolo, visualizzabile dallo
     // schema in alto
     if (i % 7 == 0) {
+      if(i == 14){
+        tiles.push_back(std::make_shared<Tile>(Tile(Tile::StartingCorner)));
+        continue;
+      }
+      
+      
       tiles.push_back(std::make_shared<Tile>(Tile(Tile::Corner)));
       continue;
     }
@@ -69,7 +74,7 @@ Board::Board() {
 // Stampa questo output
 /*
     1  2  3  4  5  6  7  8
- A |>||S||E||S||E||S||E|| |
+ A |P||S||E||S||E||S||E|| |
  B |L|                  |E|
  C |L|                  |E|
  D |S|                  |L|
@@ -171,15 +176,15 @@ std::string questionBuyOrUpgrade(Board& board, std::shared_ptr<Player> player) {
   std::shared_ptr<Tile> tile = board.getTiles()[player->getPosition()];
   if (tile->getOwner() == nullptr)
     return "Vuoi comprare la casella in posizione " +
-           board.positions[player->getPosition()] + "?";
+           board.positions[player->getPosition()] + "? Si, No, Show (vedi tabellone), Quit (esci dalla partita)\n";
 
   if (tile->getBuilding() == Tile::None)
-    return "Vuoi comprare la casa per la casella in posizione " +
-           board.positions[player->getPosition()] + "?";
+    return "Vuoi comprare la casa per la casella in posizione" +
+           board.positions[player->getPosition()] + "? Si, No, Show (vedi tabellone), Quit (esci dalla partita)\n";
 
   if (tile->getBuilding() == Tile::House)
     return "Vuoi comprare l'albergo per la casella in posizione " +
-           board.positions[player->getPosition()] + "?";
+           board.positions[player->getPosition()] + "? Si, No, Show (vedi tabellone), Quit (esci dalla partita)\n";
 
   return "";
 }

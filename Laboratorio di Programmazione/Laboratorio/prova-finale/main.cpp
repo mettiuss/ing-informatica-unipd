@@ -8,10 +8,12 @@
 #include "./include/Dice.h"
 #include "./include/Game.h"
 
+// Controlla la validità dell'argomento
 bool isValidInput(const std::string &input) {
   return input == "human" || input == "computer";
 }
 
+// Controlla se c'è un giocatore umano o no
 bool humanPlayer(int argc, char *argv[]) {
   if (argc != 2 || !isValidInput(argv[1])) {
     throw std::runtime_error(
@@ -21,13 +23,16 @@ bool humanPlayer(int argc, char *argv[]) {
   return std::string(argv[1]) == "human";
 }
 
+// Inizializzazione file di output per i logs
 std::ofstream fout("log.txt");
 
+// Scrittura in console e su file di output
 void writeLog(std::shared_ptr<Player> p, std::string value) {
   std::cout << "Giocatore " << p->getId() << " " << value << std::endl;
   fout << "Giocatore " << p->getId() << " " << value << std::endl;
 }
 
+// Passa al turno successivo, dunque al prossimo giocatore
 void nextTurn(Game &game, std::shared_ptr<Player> currentPlayer,
               int &playerIndex) {
   writeLog(currentPlayer, "ha finito il turno");
@@ -56,15 +61,28 @@ int main(int argc, char *argv[]) {
 
   int playerIndex = 0;
 
+  bool quit = false;
+
   // check fine partita
   while (!isOver(game)) {
     std::shared_ptr<Player> currentPlayer = game.getPlayers()[playerIndex];
 
     // chiede al giocatore se vuole lanciare i dadi
     // o visualizzare il tabellone
-    while (currentPlayer->showBoard() == true) {
+    while (true) {
+      std::string action = currentPlayer->beginTurn();
+
+      if (action == "tira") break;
+
+      if (action == "quit") {
+        quit = true;
+        break;
+      };
       std::cout << game;
     }
+
+    // se il giocatore vuole uscire, la partita si interrompe
+    if (quit) break;
 
     // lancia i dadi -> fa avanzare il giocatore
     int steps = dice.throwDice();
@@ -76,7 +94,7 @@ int main(int argc, char *argv[]) {
     currentPlayer->advance(steps);
 
     // check passaggio dal via, se passa ritira 20 fiorini
-    if (previousPos > currentPlayer->getPosition()) {
+    if (previousPos < 14 && currentPlayer->getPosition() >= 14) {
       writeLog(currentPlayer, "è passato dal via e ha ritirato 20 fiorini");
       currentPlayer->addBalance(20);
     }
@@ -114,11 +132,25 @@ int main(int argc, char *argv[]) {
 
     // check proprietà, se non è un hotel e la proprietà
     // appartiene al giocatore, chiede se vuole comprare/migliorare
-    if (currentTile->getBuilding() != Tile::Hotel &&
-        canBuyOrUpgrade(game.getBoard(), currentPlayer) &&
-        currentPlayer->wantBuy(
-            questionBuyOrUpgrade(game.getBoard(), currentPlayer))) {
-      buyOrUpgrade(game.getBoard(), currentPlayer, writeLog);
+    while (currentTile->getBuilding() != Tile::Hotel &&
+           canBuyOrUpgrade(game.getBoard(), currentPlayer)) {
+      std::string nextAction = currentPlayer->wantBuy(
+          questionBuyOrUpgrade(game.getBoard(), currentPlayer));
+
+      if (nextAction == "no") {
+        // il giocatore non vuole acquistare
+        break;
+      } else if (nextAction == "si") {
+        // il giocatore vuole acquistare
+        buyOrUpgrade(game.getBoard(), currentPlayer, writeLog);
+        break;
+      } else if (nextAction == "quit") {
+        quit = true;
+        break;
+      } else {
+        // il giocatore vuole vedere il tabellone
+        std::cout << game;
+      }
     }
 
     nextTurn(game, currentPlayer, playerIndex);

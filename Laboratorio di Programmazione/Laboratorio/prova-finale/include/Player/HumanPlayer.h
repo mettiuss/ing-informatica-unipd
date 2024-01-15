@@ -24,9 +24,9 @@ class HumanPlayer : public Player {
  public:
   HumanPlayer();
 
-  bool wantBuy(std::string question) const override;
+  std::string wantBuy(std::string question) const override;
 
-  bool showBoard() const override;
+  std::string beginTurn() const override;
 };
 
 #endif

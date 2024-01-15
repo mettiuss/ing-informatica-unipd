@@ -31,9 +31,9 @@ class Player {
   void removeBalance(int amout);
 
   // Funzione virtuale wantBuy
-  virtual bool wantBuy(std::string question) const = 0;
+  virtual std::string wantBuy(std::string question) const = 0;
 
-  virtual bool showBoard() const = 0;
+  virtual std::string beginTurn() const = 0;
 
   // Funzioni const get
   int getBalance() const { return balance; }
@@ -42,7 +42,8 @@ class Player {
 
  protected:
   // Costruttore
-  Player() : balance{100}, position{0}, id{playerId++} {}
+  // position 14 è la casella di partenza
+  Player() : balance{100}, position{14}, id{playerId++} {}
 
   // Variabili membro
   int balance, position, id;

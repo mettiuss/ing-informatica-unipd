@@ -13,11 +13,11 @@ AIPlayer::AIPlayer() : Player() {}
 
 // Esprime la volontà di acquistare / migliorare una
 // proprietà per conto del giocatore IA
-bool AIPlayer::wantBuy(std::string question) const {
+std::string AIPlayer::wantBuy(std::string question) const {
   
   // l'IA acquista / milgiora una proprietà con
   // una probabilità del 25%
   int probability = rand() % 4;
 
-  return probability == 0;
+  return probability == 0 ? "si" : "no";
 }

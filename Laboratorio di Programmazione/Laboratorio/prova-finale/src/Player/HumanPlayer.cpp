@@ -14,51 +14,57 @@ HumanPlayer::HumanPlayer() : Player() {}
 
 // Chiede all'utente se intende acquistare/migliorare la proprietà
 // (override della funzione wantBuy di player.h)
-bool HumanPlayer::wantBuy(std::string question) const {
+std::string HumanPlayer::wantBuy(std::string question) const {
   std::cout << question;
 
   while (true) {
-    char input;
+    std::string input;
     std::cin >> input;
 
-    input = std::tolower(input);
+    // Converto input in lowercase
+    for (int i = 0; i < input.length(); i++) {
+      input[i] = std::tolower(input[i]);
+    }
 
     // Se l'input non corrisponde ad un valore atteso
     // si richiede l'immissione della risposta
-    if (input != 's' && input != 'n') {
-      std::cout << "Errore! Rispondere solo con 's' o 'n'";
+    if (input != "si" && input != "no" && input != "show" && input != "quit") {
+      std::cout << "Errore! Rispondere solo con 'Si', 'No', 'Show' per vedere "
+                   "il tabellone o 'Quit' per uscire dalla partita\n";
       continue;
     }
 
-    // Se l'input corrisponde ad 's', si procede all'acquisto/miglioramento
-    // altrimenti si passa al giocatore successivo
-    return input == 's';
+    return input;
   }
 }
 
 // Chiede all'utente la prossima azione del gioco da eseguire
 // (Tirare i dati / Visualizzare il tabellone)
-bool HumanPlayer::showBoard() const {
+std::string HumanPlayer::beginTurn() const {
   std::cout << "Giocatore " << id
             << " specifica l'azione da eseguire:" << std::endl
-            << "Tira i dadi (D)" << std::endl
-            << "Visualizza il tabellone (S)";
+            << "Tira i dadi (Tira)" << std::endl
+            << "Visualizza il tabellone (Show)" << std::endl
+            << "Esci dalla partita (Quit)" << std::endl;
 
   while (true) {
-    char input;
+    std::string input;
     std::cin >> input;
 
-    input = std::tolower(input);
+    // Converto input in lowercase
+    for (int i = 0; i < input.length(); i++) {
+      input[i] = std::tolower(input[i]);
+    }
 
     // Se l'input non corrisponde ad un valore atteso
     // si richiede l'immissione della risposta
-    if (input != 's' && input != 'd') {
-      std::cout << "Errore! Rispondere solo con 'S' o 'D'";
+    if (input != "tira" && input != "show" && input != "quit") {
+      std::cout << "Errore! Rispondere solo con 'Tira', 'Show' o 'Quit";
       continue;
     }
 
     // Se l'input corrisponde ad 's', il giocatore visualizza il tabellone
     // altrimenti lancia i dadi
-    return input == 's';
+    return input;
   }
 }

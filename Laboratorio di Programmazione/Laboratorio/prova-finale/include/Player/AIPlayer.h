@@ -21,9 +21,9 @@ class AIPlayer : public Player {
  public:
   AIPlayer();
 
-  bool wantBuy(std::string question) const override;
+  std::string wantBuy(std::string question) const override;
 
-  bool showBoard() const override { return false; }
+  std::string beginTurn() const override { return "tira"; }
 };
 
 #endif
