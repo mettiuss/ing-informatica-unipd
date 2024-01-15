@@ -9,4 +9,4 @@ Programma scritto da Mattia Boscolo Meneguolo, Matteo Cuzzolin e Giacomo Dal Poz
 
 ## Esecuzione
 
-`./build/Main computer` oppure `./build/Main human`
+`./Main computer` oppure `./build/Main human`
