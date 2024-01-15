@@ -6,6 +6,7 @@
 
 #include "../include/Game.h"
 
+#include <algorithm>
 #include <iostream>
 #include <map>
 #include <memory>
@@ -14,24 +15,67 @@
 #include "../include/Player/AIPlayer.h"
 #include "../include/Player/HumanPlayer.h"
 
+bool duplicateThrows(
+    std::vector<std::pair<int, std::shared_ptr<Player>>> playerMap) {
+  for (int i = 0; i < playerMap.size(); i++) {
+    int n = 0;
+    for (int j = 0; j < playerMap.size(); j++) {
+      if (playerMap[i].first == playerMap[j].first) n++;
+    }
+    if (n > 1) return true;
+  }
+
+  return false;
+}
+
 // Costruttore, gestisce la creazione dell'array dei players, decidendone
 // l'ordine di gioco
-Game::Game(Dice dice, bool humanPlayer) : human{humanPlayer} {
+Game::Game(Dice& dice, bool humanPlayer) : human{humanPlayer} {
   board = Board();
 
-  // utilizzo di una multimappa che contiene {risultato del tiro: giocatore}
-  std::multimap<int, std::shared_ptr<Player>> playerMap;
+  std::vector<std::pair<int, std::shared_ptr<Player>>> playerMap;
 
-  // riempimento della multimappa
+  // riempimento del vettore
   if (humanPlayer) {
-    int res = dice.throwDice();
-    playerMap.insert(std::make_pair(res, std::make_shared<HumanPlayer>()));
+    playerMap.push_back(
+        std::make_pair(dice.throwDice(), std::make_shared<HumanPlayer>()));
   };
 
   while (playerMap.size() < 4) {
-    int res = dice.throwDice();
-    playerMap.insert(std::make_pair(res, std::make_shared<AIPlayer>()));
+    playerMap.push_back(
+        std::make_pair(dice.throwDice(), std::make_shared<AIPlayer>()));
   }
+
+  std::sort(playerMap.begin(), playerMap.end(),
+            [](const auto& a, const auto& b) { return a.first < b.first; });
+
+  while (duplicateThrows(playerMap)) {
+    int foundDuplicate = -1;
+    for (int i = 0; i < playerMap.size(); i++) {
+      if (foundDuplicate != -1 && playerMap[i].first > foundDuplicate) {
+        playerMap[i].first += 12;
+        continue;
+      }
+
+      if (playerMap[i].first == foundDuplicate) {
+        playerMap[i].first += dice.throwDice();
+        continue;
+      }
+
+      // controllo se il successivo è uguale al numero
+      if (i != playerMap.size() - 1 &&
+          playerMap[i].first == playerMap[i + 1].first) {
+        foundDuplicate = playerMap[i].first;
+        playerMap[i].first += dice.throwDice();
+      }
+    }
+
+    std::sort(playerMap.begin(), playerMap.end(),
+              [](const auto& a, const auto& b) { return a.first < b.first; });
+  }
+
+  std::sort(playerMap.begin(), playerMap.end(),
+            [](const auto& a, const auto& b) { return a.first > b.first; });
 
   // la multimappa in automatico tiene in ordine le sue chiavi, quindi è poi
   // sufficiente iterare sulle coppie chiave valore per ottenere i giocatori
@@ -111,8 +155,8 @@ bool isOver(Game& game) {
   // Il gioco termina quando:
   //    - C'è un giocatore umano e tutti i giocatori tranne 1 hanno finito i
   //    soldi
-  //    - Non c'è un giocatore umano, tutti i giocatori tranne 1 hanno finito i
-  //    soldi
+  //    - Non c'è un giocatore umano, tutti i giocatori tranne 1 hanno finito
+  //    i soldi
   //      oppure i giocatori hanno raggiunto il numero massimo di turni
   return (game.getPlayers().size() <= 1 || (game.getTurn() > game.getLimit()));
 }
