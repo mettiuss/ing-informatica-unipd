@@ -20,7 +20,7 @@
 
 class Game {
  public:
-  Game(Dice dice, bool humanPlayer);
+  Game(Dice& dice, bool humanPlayer);
 
   // getters
   int getTurn() const { return turn; }
