@@ -203,11 +203,11 @@ int main(int argc, char *argv[]) {
                                std::to_string(players[i]->getBalance()) +
                                " fiorini");
     } else {
+      position++;
       writeLog(players[i], "e' arrivato in posizione " +
                                std::to_string(position) + " con " +
                                std::to_string(players[i]->getBalance()) +
                                " fiorini");
-      position++;
     }
   }
 
