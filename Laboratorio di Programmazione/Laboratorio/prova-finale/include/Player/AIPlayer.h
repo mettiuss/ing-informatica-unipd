@@ -11,11 +11,11 @@
 
 #include "Player.h"
 
-// Classe HumanPlayer: (estende Player)
-// Rapresenta il giocatore umano,
-// eredita da player tutte le funzioni e le variabili membro.
-// Overload della funzione wantBuy(), la quale decide se acquistare
-// una proprietà, con una probabilità d'acquisto del 25%
+// Classe AIPlayer: (estende Player)
+// Rapresenta il giocatore computer, eredita da player tutte le funzioni e le
+// variabili membro.
+// Overload della funzione wantBuy(), la quale decide se
+// acquistare una proprietà, con una probabilità d'acquisto del 25%
 
 class AIPlayer : public Player {
  public:

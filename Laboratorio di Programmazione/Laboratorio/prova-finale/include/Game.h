@@ -31,8 +31,11 @@ class Game {
     return players;
   };
 
+  // funzione per eliminare un giocatore, ne libera tutte le caselle e lo
+  // rimuove dal vettore di giocatori
   void removePlayer(std::shared_ptr<Player> player);
 
+  // triggher per tenere conto del turno, utile per limitare le partite AI
   void nextTurn();
 
  private:
@@ -42,9 +45,13 @@ class Game {
   std::vector<std::shared_ptr<Player>> players;
 };
 
+// true se il gico è finito, quindi se è rimasto solo un giocatore o se i turni
+// sono finito
 bool isOver(Game& game);
 
-std::vector<int> getPlayerProperties(Game& game, std::shared_ptr<Player> p);
+// Ritorna una lista con le proprietà di uno specifico giocatore
+std::vector<int> getPlayerProperties(Game& game,
+                                     std::shared_ptr<Player> player);
 
 std::ostream& operator<<(std::ostream& os, Game game);
 
