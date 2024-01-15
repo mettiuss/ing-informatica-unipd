@@ -188,6 +188,8 @@ int main(int argc, char *argv[]) {
                            std::to_string(players[0]->getBalance()) +
                            " fiorini");
 
+  int position = 1;
+
   for (int i = 1; i < players.size(); i++) {
     bool tie = false;
     for (int j = 0; j < players.size(); j++) {
@@ -195,15 +197,18 @@ int main(int argc, char *argv[]) {
         tie = true;
     }
 
-    if (tie)
+    if (tie) {
       writeLog(players[i], "ha pareggiato arrivando in posizione " +
-                               std::to_string(i + 1) + " con " +
+                               std::to_string(position) + " con " +
                                std::to_string(players[i]->getBalance()) +
                                " fiorini");
-    else
-      writeLog(players[i],
-               "e' arrivato in posizione " + std::to_string(i + 1) + " con " +
-                   std::to_string(players[i]->getBalance()) + " fiorini");
+    } else {
+      writeLog(players[i], "e' arrivato in posizione " +
+                               std::to_string(position) + " con " +
+                               std::to_string(players[i]->getBalance()) +
+                               " fiorini");
+      position++;
+    }
   }
 
   return 0;
