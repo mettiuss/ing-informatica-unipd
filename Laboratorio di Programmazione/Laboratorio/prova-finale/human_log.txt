@@ -1,0 +1,127 @@
+Giocatore 0 ha tirato i dadi ottenendo un valore di 3
+Giocatore 0 è arrivato alla casella H5
+Giocatore 0 ha acquistato il terreno H5
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 3
+Giocatore 2 è arrivato alla casella H5
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 9
+Giocatore 3 è arrivato alla casella F1
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 11
+Giocatore 1 è arrivato alla casella D1
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 7
+Giocatore 0 è arrivato alla casella E1
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 5
+Giocatore 2 è arrivato alla casella G1
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 7
+Giocatore 3 è arrivato alla casella A3
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 7
+Giocatore 1 è arrivato alla casella A5
+Giocatore 1 ha acquistato il terreno A5
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 7
+Giocatore 0 è arrivato alla casella A4
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 5
+Giocatore 2 è arrivato alla casella B1
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 4
+Giocatore 3 è arrivato alla casella A7
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 11
+Giocatore 1 è arrivato alla casella H7
+Giocatore 1 è passato dal via e ha ritirato 20 fiorini
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 5
+Giocatore 0 è arrivato alla casella B8
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 6
+Giocatore 2 è arrivato alla casella A6
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 6
+Giocatore 3 è arrivato alla casella F8
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 9
+Giocatore 1 è arrivato alla casella E1
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 6
+Giocatore 0 è arrivato alla casella H8
+Giocatore 0 è passato dal via e ha ritirato 20 fiorini
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 4
+Giocatore 2 è arrivato alla casella C8
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 11
+Giocatore 3 è arrivato alla casella F1
+Giocatore 3 è passato dal via e ha ritirato 20 fiorini
+Giocatore 3 ha acquistato il terreno F1
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 7
+Giocatore 1 è arrivato alla casella A4
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 2
+Giocatore 0 è arrivato alla casella H6
+Giocatore 0 ha acquistato il terreno H6
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 3
+Giocatore 2 è arrivato alla casella F8
+Giocatore 2 ha acquistato il terreno F8
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 7
+Giocatore 3 è arrivato alla casella A3
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 7
+Giocatore 1 è arrivato alla casella D8
+Giocatore 1 ha acquistato il terreno D8
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 8
+Giocatore 0 è arrivato alla casella E1
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 6
+Giocatore 2 è arrivato alla casella H4
+Giocatore 2 è passato dal via e ha ritirato 20 fiorini
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 4
+Giocatore 3 è arrivato alla casella A7
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 9
+Giocatore 1 è arrivato alla casella H3
+Giocatore 1 è passato dal via e ha ritirato 20 fiorini
+Giocatore 1 ha acquistato il terreno H3
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 5
+Giocatore 0 è arrivato alla casella A2
+Giocatore 0 ha acquistato il terreno A2
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 10
+Giocatore 2 è arrivato alla casella A1
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 8
+Giocatore 3 è arrivato alla casella H8
+Giocatore 3 è passato dal via e ha ritirato 20 fiorini
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 12
+Giocatore 1 è arrivato alla casella A4
+Giocatore 1 ha finito il turno
+Giocatore 0 ha tirato i dadi ottenendo un valore di 8
+Giocatore 0 è arrivato alla casella C8
+Giocatore 0 ha acquistato il terreno C8
+Giocatore 0 ha finito il turno
+Giocatore 2 ha tirato i dadi ottenendo un valore di 11
+Giocatore 2 è arrivato alla casella E8
+Giocatore 2 ha finito il turno
+Giocatore 3 ha tirato i dadi ottenendo un valore di 8
+Giocatore 3 è arrivato alla casella G1
+Giocatore 3 ha finito il turno
+Giocatore 1 ha tirato i dadi ottenendo un valore di 6
+Giocatore 1 è arrivato alla casella C8
+Giocatore 1 ha finito il turno
+Giocatore 3 ha vinto la partita con 134 fiorini
+Giocatore 2 e' arrivato in posizione 2 con 114 fiorini
+Giocatore 1 e' arrivato in posizione 3 con 90 fiorini
+Giocatore 0 e' arrivato in posizione 4 con 78 fiorini
