@@ -36,6 +36,12 @@ docente: [COMIN MATTEO](http://www.dei.unipd.it/~ciompin/)
 
 ---
 
+## Fondamenti di Analisi 2 e Probabilità (FAMP)
+
+II Anno I semestre, 9 CFU
+
+docente: [MARICONDA CARLO](https://www.math.unipd.it/~maricond/)
+
 ## Dati e Algoritmi
 
 II Anno I semestre, 9 CFU
