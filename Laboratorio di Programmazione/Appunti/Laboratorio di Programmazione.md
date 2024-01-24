@@ -1,6 +1,65 @@
-```table-of-contents
-
-```
+-   [The basics of C++](#the-basics-of-c)
+    -   [1. Il Compilatore](#1-il-compilatore)
+        -   [1.1 Librerie](#11-librerie)
+    -   [2. Istruzioni](#2-istruzioni)
+        -   [2.1 Operatori](#21-operatori)
+        -   [2.2 Istruzioni](#22-istruzioni)
+    -   [3. Variabili e tipi](#3-variabili-e-tipi)
+        -   [3.1 Convenzioni](#31-convenzioni)
+        -   [3.2 Type safety](#32-type-safety)
+        -   [3.3 Variabili statiche e globali](#33-variabili-statiche-e-globali)
+-   [Abstraction Mechanisms](#abstraction-mechanisms)
+    -   [4. Scope](#4-scope)
+    -   [5. Funzioni](#5-funzioni)
+        -   [5.1 Argomenti per valore](#51-argomenti-per-valore)
+        -   [5.1 Argomenti per reference](#51-argomenti-per-reference)
+        -   [5.3 Chiamata a funzione](#53-chiamata-a-funzione)
+    -   [6. Classi](#6-classi)
+        -   [6.1 Interfaccia e Implementazione](#61-interfaccia-e-implementazione)
+        -   [6.2 Stato e Invarianti](#62-stato-e-invarianti)
+        -   [6.3 Definizioni delle funzioni membro](#63-definizioni-delle-funzioni-membro)
+        -   [6.4 Costruttori e Distruttori](#64-costruttori-e-distruttori)
+        -   [6.5 Overloading degli operatori](#65-overloading-degli-operatori)
+        -   [6.6 Costruttore di copia](#66-costruttore-di-copia)
+        -   [6.7 Costruttore Move](#67-costruttore-move)
+        -   [6.8 Progettazione di una classe high level](#68-progettazione-di-una-classe-high-level)
+    -   [7. Gestione del codice](#7-gestione-del-codice)
+        -   [7.1 Header](#71-header)
+        -   [7.2 Cmake](#72-cmake)
+        -   [7.3 Git](#73-git)
+    -   [8. Enumerazioni](#8-enumerazioni)
+    -   [9. Polimorfismo](#9-polimorfismo)
+    -   [10. Template](#10-template)
+        -   [10.1 Classi](#101-classi)
+        -   [10.2 Funzioni](#102-funzioni)
+    -   [11. Ereditarietà](#11-ereditarietà)
+        -   [11.1 Classi astratte](#111-classi-astratte)
+        -   [11.2 Slicing](#112-slicing)
+        -   [11.3 Virtual Pointer e Virtual Table](#113-virtual-pointer-e-virtual-table)
+-   [Memory managment](#memory-managment)
+    -   [12. Puntatori e Reference](#12-puntatori-e-reference)
+        -   [12.1 Puntatori](#121-puntatori)
+        -   [12.2 Puntatori vs Reference](#122-puntatori-vs-reference)
+        -   [12.3 Cast](#123-cast)
+    -   [13. Strutture dati](#13-strutture-dati)
+        -   [13.1 Array](#131-array)
+        -   [13.2 Stringhe](#132-stringhe)
+    -   [14. Allocazione dinamica della memoria](#14-allocazione-dinamica-della-memoria)
+        -   [14.1 Garbage Collector](#141-garbage-collector)
+    -   [15. Smart Pointer](#15-smart-pointer)
+        -   [15.1 unique_prt](#151-unique_prt)
+        -   [15.2 shared_pointer](#152-shared_pointer)
+-   [The Standard Library](#the-standard-library)
+    -   [16. Standard Template Library](#16-standard-template-library)
+    -   [16.1 Sequenze e iteratori](#161-sequenze-e-iteratori)
+        -   [16.2 Contenitori STL](#162-contenitori-stl)
+    -   [17. Algoritmi STL](#17-algoritmi-stl)
+        -   [17.1 If predicato](#171-if-predicato)
+        -   [17.2 Function object](#172-function-object)
+        -   [17.3 Lambda expression](#173-lambda-expression)
+    -   [18. Standard Exception](#18-standard-exception)
+        -   [18.1 Custom exceptions](#181-custom-exceptions)
+        -   [18.2 Gestione delle risorse dopo un'eccezione](#182-gestione-delle-risorse-dopo-uneccezione)
 
 # The basics of C++
 
@@ -10,7 +69,7 @@
 -   Verifica la sintassi e la correttezza
 -   Segnala eventuali errori
 
-![passaggi compilazione](src/passaggi_compilazione.png)
+![[passaggi_compilazione.png| 500]]
 
 -   Preprocessore
     Espande il file sorgente leggendo le istruzioni che iniziano con `#`
@@ -31,8 +90,7 @@ Gli header possono essere poi inclusi dall'utente in vari modi:
 -   `#include "board.h"` per gli header definiti dall'utente
     Questa struttura permette di raggruppare dichiarazioni e definizioni in due posti separati, rendendo più leggibile il codice.
 
-![compilazione delle librerie](src/compilazione_librerie.png)
-
+![[compilazione_librerie.png| 500]]
 Le librerie vengono poi linkate dal preprocessore e inserite dal linker nello stesso eseguibile.
 Questa strategia permette di ottenere file che portano con sé tutte le necessarie librerie.
 
@@ -302,6 +360,8 @@ Date next {2014, 2, 14};
 #oss Il costruttore di default viene disabilitato appena si costruisce un'altro costruttore
 Per questo spesso è necessario reimplementarlo.
 
+#oss Possiamo aggiungere la keyword `explicit` sul file `.h` per bloccare le chiamate implicite al costruttore con gli annessi possibili cast impliciti.
+
 Il distruttore è necessario per liberare la memoria nel free store.
 Uno di default viene creato dal compilatore se non ne viene scritto uno, ma va sovrascritto in tutti i casi in cui si usa direttamente l'allocazione dinamica della memoria
 `~NomeClasse(){};`
@@ -322,21 +382,21 @@ Di default fa la copia membro a membro, questo però è un problema con il free 
 Il costruttore di copia ci permette di ridefinire questo comportamento.
 
 ```cpp
-class MyVector {
+class vector {
 public:
 	// costruttore di copia
-	MyVector(const MyVector& v) : length{v.length} {
+	vector(const vector& v) : length{v.length} {
 		//è necessario qui inizializzare tutte le variabili
 		arr = new int[length];
 		std::copy(v.arr, v.arr + length, arr)
 	};
 
 	//copy assignment
-	Building& operator=(const Building& b) {
+	vector& operator=(const vector& v) {
 		if (this == &b) return *this; //self assignment check
-		length = b.length;
+		length = v.length;
 		cost = new int[length];
-		std::copy(b.cost, b.cost + b.length, cost);
+		std::copy(v.cost, v.cost + v.length, cost);
 
 		return *this;
 	}
@@ -366,7 +426,7 @@ public:
 	};
 
 	// move assignment
-	vector& operator=(vector&& a){
+	vector& operator=(vector&& b){
 		if (this == &b) return *this;
 		length = b.length;
 		cost = new int[length];
@@ -376,6 +436,8 @@ public:
 	}
 };
 ```
+
+#oss La notazione `&&` è chiamata _rvalue reference_
 
 ### 6.8 Progettazione di una classe high level
 
