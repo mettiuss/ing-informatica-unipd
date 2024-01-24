@@ -22,7 +22,6 @@
         -   [6.5 Overloading degli operatori](#65-overloading-degli-operatori)
         -   [6.6 Costruttore di copia](#66-costruttore-di-copia)
         -   [6.7 Costruttore Move](#67-costruttore-move)
-        -   [6.8 Progettazione di una classe high level](#68-progettazione-di-una-classe-high-level)
     -   [7. Gestione del codice](#7-gestione-del-codice)
         -   [7.1 Header](#71-header)
         -   [7.2 Cmake](#72-cmake)
@@ -71,18 +70,20 @@
 
 ![passaggi compilazione](src/passaggi_compilazione.png)
 
--   Preprocessore
+-   Preprocessore\
     Espande il file sorgente leggendo le istruzioni che iniziano con `#`
     Ci sono diversi comandi che può eseguire.
     L'azione più importante è la gestione delle librerie da importare e, più in generale la gestione di pezzi di codice che vengono inclusi in modo condizionato (ad es. in base al sistema operativo).
--   Compilatore
+
+-   Compilatore\
     Il compilatore traduce il codice in c++ in codice macchina
--   Linker
+
+-   Linker\
     Crea l'eseguibile a partire dal codice, includendo le varie librerie
 
 ### 1.1 Librerie
 
-Ogni libreria ha un file header (`.h`) che dichiara delle entità, ad esempio funzioni e classi
+Ogni libreria ha un file header (`.h`) che dichiara le entità contenute in essa, ad esempio funzioni e classi
 
 Gli header possono essere poi inclusi dall'utente in vari modi:
 
@@ -115,12 +116,11 @@ Un'istruzione è una parte di codice che specifica un'azione (termina con `;`)
 (non contano come istruzioni le direttive al preprocessore)
 #esempio Dichiarazioni, if, for, while, ..
 
-**Dichiarazioni**
-possono essere di variabili, di funzioni. Più in generale ogni nome deve essere dichiarato prima che possa essere usato
-
+**Dichiarazioni**\
+possono essere di variabili, di funzioni. Più in generale ogni nome deve essere dichiarato prima che possa essere usato\
 Una dichiarazione può avere effetto sulla memoria, ma non è certo
 
-**Definizioni**
+**Definizioni**\
 Una dichiarazione che specifica completamente l'oggetto
 
 ```cpp
@@ -132,9 +132,9 @@ Questa differenza è utile per sapere l'entità prima dell'implementazione
 
 ## 3. Variabili e tipi
 
-**Tipo:** Definisce una tipologia di contenuto, un range di valori e un insieme di operazioni per l'oggetto.
-**Oggetto:** Una regione di memoria con un tipo.
-**Valore:** L'elemento posto nella variabile.
+**Tipo:** Definisce una tipologia di contenuto, un range di valori e un insieme di operazioni per l'oggetto.\
+**Oggetto:** Una regione di memoria con un tipo.\
+**Valore:** L'elemento posto nella variabile.\
 **Variabile:** Un oggetto con un valore, un oggetto nel concreto.
 
 ### 3.1 Convenzioni
@@ -147,7 +147,7 @@ Questa differenza è utile per sapere l'entità prima dell'implementazione
 Utilizzo di snake_case per le variabili e PascalCase per classi/funzioni
 [Google Style Guide](https://google.github.io/styleguide/cppguide.html)
 
-#oss
+<code style="color : gold">OSS</code>
 Regole degli identificatori in C++:
 
 -   Possono iniziare SOLO con una lettera o un underscore `_`
@@ -167,14 +167,14 @@ double x {2.7};    // OK
 int y {x};         // errore: narrowing conversion
 ```
 
-Non è type safe utilizzare una variabile non inizializzata:
+<code style="color : gold">OSS</code> Non è type safe utilizzare una variabile non inizializzata:
 
 ```cpp
 double x;
 double y = x;
 ```
 
-Non inizializzando rimangono i valori precedenti nella memoria (_non vale per variabili globali o statiche che vengono inizializzate a 0_)
+Non inizializzando rimangono i valori precedenti nella memoria (_questo non vale per variabili globali o statiche che vengono inizializzate a 0_)
 
 ### 3.3 Variabili statiche e globali
 
@@ -187,22 +187,23 @@ void f() {
 }
 ```
 
--   Variabili Globali
+-   Variabili Globali\
     Inizializzate prima del main, esistono fino al termine del programma
     Sono sempre statiche.
     Nell'esempio, `program_name` è una variabile globale statica
--   Variabili Statiche
+-   Variabili Statiche\
     Vengono inizializzate solo la prima volta, mantengono il loro valore al di fuori dell scope
     Possono essere sia globali che locali
     Nell'esempio `i` è una variabile statica.
--   Variabili locali automatiche
+-   Variabili locali automatiche\
     Classiche variabili, vengono eliminate all'uscita dallo scope
 
-**Lvalue e Rvalue**
+**Lvalue e Rvalue**\
 l'operatore che si trova alla sinistra (o a destra) dell'operatore uguale
-Alcune espressioni possono essere sia usate come lvalue che come rvalue, altre no.
+Alcune espressioni possono essere sia usate come lvalue che come rvalue, altre no.\
+Si possono pensare gli rvalue come dei valori costanti che non variano nell'espressione, mentre gli lvalue sono quelli che stanno venendo modificati.
 
-**Costanti**
+**Costanti**\
 Si possono fare usando `constexpr` se il valore è noto in compilazione.
 Si può usare `const` se il valore è noto solo in esecuzione.
 
@@ -210,15 +211,14 @@ Si può usare `const` se il valore è noto solo in esecuzione.
 
 ## 4. Scope
 
-Una regione del testo di un programma, evidenziata dalle parentesi graffe.
+Una _regione del testo_ di un programma, evidenziata dalle parentesi graffe.
 Così da rendere locali le variabili, ciascuna variabile è valida solamente all'interno del suo scope.
 
 Il nome delle variabili dovrebbe rispecchiare la loro località, nomi più descrittivi sono adatti a variabili con uno scope più grande.
 
--   Scope Globale
-    al di fuori di ogni altro scope, vale all'interno di tutto il file
-    Le **funzioni** sono spesso definite nello scope globali
-    problematico per le **variabili**:
+-   Scope Globale\
+    al di fuori di ogni altro scope, vale all'interno di tutto il file\
+    Le **funzioni** sono spesso definite nello scope globali, ma è problematico farlo per le **variabili**:
     -   rende difficile la protezione (tutte le funzioni del file possono potenzialmente modificarla)
     -   rende quasi impossibile il debug
 -   scope di classe
@@ -238,13 +238,13 @@ Il nome delle variabili dovrebbe rispecchiare la loro località, nomi più descr
     TextLib::Text //namespace::membro -> fully qualified name
     ```
 
-````
-	Purtroppo l'uso di namespace può appesantire il codice, bisogna sempre specificare `TextLib`
-	Si può usare la keyword `using`
-	```cpp
-	using namespace TextLib;
-	Text;
-````
+    Purtroppo l'uso di namespace può appesantire il codice, bisogna sempre specificare `TextLib`\
+    Per risolvere si può usare la keyword `using`
+
+    ```cpp
+    using namespace TextLib;
+    Text;
+    ```
 
 ## 5. Funzioni
 
@@ -278,14 +278,14 @@ Per proteggere questo si può passare l'argomento per const reference `print(con
 La chiamata a funzione viene gestita, in modo simile a quanto fatto manualmente in assembly, da una struttura dati, chiamata _function activation record_:
 Essa è uno stack (pila) che contiene i parametri, le eventuali variabili locali e l'indirizzo a cui ritornare quando la funzione ha completato l'esecuzione.
 
--   Text segment:
+-   Text segment:\
     Contiene il codice del programma, viene copiato in memoria dal file eseguibile, è spesso read-only
--   Initialised data segment:
+-   Initialised data segment:\
     Contiene variabili globali e statiche
--   Uninitialized data segment:
+-   Uninitialized data segment:\
     Viene inizializzato a 0 dal sistema, contiene variabili globali e statiche non inizializzate
 -   Stack = Activation record
--   Heap:
+-   Heap:\
     Regione di memoria gestita in modo dinamico, tramite `new` e `delete`
 
 ## 6. Classi
@@ -303,7 +303,8 @@ Una classe comprende
 -   Funzioni
 
 All'interno della classe si può usare il puntatore this, una reference all'oggetto
-#oss this è immutabile, non può essere riassegnato
+
+<code style="color : gold">OSS</code> `this` è immutabile, non può essere riassegnato
 
 ### 6.1 Interfaccia e Implementazione
 
@@ -312,7 +313,8 @@ L'interfaccia è _public_ e definisce l'entità della classe, accessibile agli u
 -   L'Interfaccia deve essere completa
 -   Deve essere minimale, tutto ciò che può essere una helper function deve essere helper function
 -   Deve fornire costruttori
--   La copia deve essere supportata o proibita
+-   La copia deve essere supportata o proibita (Con il costruttore di copia E con l'assegnamento di copia)
+-   Lo spostamento deve essere supportato o proibito (Con il costruttore di move E con l'assegnamento di move)
 -   Usare tipi adeguati per controllare gli argomenti
 -   Identificare le funzioni membro costanti
 -   Liberare tutte le risorse nel distruttore
@@ -357,10 +359,10 @@ Date::Date(int yy, int mm, int dd): y{yy}, m{mm}, d{dd} { };
 Date next {2014, 2, 14};
 ```
 
-#oss Il costruttore di default viene disabilitato appena si costruisce un'altro costruttore
+<code style="color : gold">OSS</code> Il costruttore di default viene disabilitato appena si costruisce un'altro costruttore
 Per questo spesso è necessario reimplementarlo.
 
-#oss Possiamo aggiungere la keyword `explicit` sul file `.h` per bloccare le chiamate implicite al costruttore con gli annessi possibili cast impliciti.
+<code style="color : gold">OSS</code> Possiamo aggiungere la keyword `explicit` sul file `.h` per bloccare le chiamate implicite al costruttore con gli annessi possibili cast impliciti.
 
 Il distruttore è necessario per liberare la memoria nel free store.
 Uno di default viene creato dal compilatore se non ne viene scritto uno, ma va sovrascritto in tutti i casi in cui si usa direttamente l'allocazione dinamica della memoria
@@ -405,7 +407,7 @@ public:
 
 Va gestito anche l'assegnamento di copia `operator =`, molto simile al costruttore di copia, ma elimina i dati del vecchio vettore
 
-#oss attenzione all'auto assegnamento `v=v`
+<code style="color : gold">OSS</code> attenzione all'auto assegnamento `v=v`
 
 ### 6.7 Costruttore Move
 
@@ -437,19 +439,7 @@ public:
 };
 ```
 
-#oss La notazione `&&` è chiamata _rvalue reference_
-
-### 6.8 Progettazione di una classe high level
-
-Quando costruiamo una classe dovremmo considerare i seguenti elementi.
-
--   Costruttore con uno o più argomenti
--   Costruttore di default
--   Costruttore di copia (copy constructor)
--   Assegnamento di copia (copy assignment)
--   Costruttore di spostamento (move constructor)
--   Assegnamento di spostamento (move assignment)
--   Distruttore
+<code style="color : gold">OSS</code> La notazione `&&` è chiamata _rvalue reference_
 
 ## 7. Gestione del codice
 
@@ -526,8 +516,8 @@ enum class Month{
 
 Abilità di associare comportamenti specifici diversi a un'unica notazione
 
--   Polimorfismo statico: Templates
--   Polimorfismo dinamico: Ereditarietà
+-   Polimorfismo statico a tempo di compilazione: Templates
+-   Polimorfismo dinamico a tempo di esecuzione : Ereditarietà
 
 ## 10. Template
 
@@ -623,7 +613,7 @@ class B: public A {
 Se creo una classe `A` con 1 membro e una sua sottoclasse `B: public A` aggiunge un membro, arrivando a 2.
 Creando un `vector<A>` non è type safe aggiungere nel vettore elementi di `A` e `B`, in quanto il tipo `A` non possiede abbastanza spazio per far stare il membro aggiuntivo di B.
 
-#oss un altro caso dove si può ottenere slicing sono i costruttori di copia e `operator=`, per questo vanno disabilitati.
+<code style="color : gold">OSS</code> un altro caso dove si può ottenere slicing sono i costruttori di copia e `operator=`, per questo vanno disabilitati.
 
 ### 11.3 Virtual Pointer e Virtual Table
 
@@ -935,7 +925,7 @@ Le variabili locali possono essere catturate in vari modi:
 `[=]`: tutte le variabili per copia
 `[&, epsilon]`: tutte le variabili per reference, tranne epsilon per copia
 
-#oss Le variabili passate per copia sono _read_only_
+<code style="color : gold">OSS</code> Le variabili passate per copia sono _read_only_
 
 ## 18. Standard Exception
 
