@@ -69,7 +69,7 @@
 -   Verifica la sintassi e la correttezza
 -   Segnala eventuali errori
 
-![[passaggi_compilazione.png| 500]]
+![passaggi compilazione](src/passaggi_compilazione.png)
 
 -   Preprocessore
     Espande il file sorgente leggendo le istruzioni che iniziano con `#`
@@ -90,7 +90,7 @@ Gli header possono essere poi inclusi dall'utente in vari modi:
 -   `#include "board.h"` per gli header definiti dall'utente
     Questa struttura permette di raggruppare dichiarazioni e definizioni in due posti separati, rendendo più leggibile il codice.
 
-![[compilazione_librerie.png| 500]]
+![compilazione delle librerie](src/compilazione_librerie.png)
 Le librerie vengono poi linkate dal preprocessore e inserite dal linker nello stesso eseguibile.
 Questa strategia permette di ottenere file che portano con sé tutte le necessarie librerie.
 
