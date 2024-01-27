@@ -94,7 +94,7 @@ Ci sono solo 2 valori che il computer è in grado di interpretare:
 
 Una porta logica è un dispositivo con n ingressi e una sola uscita
 
-<img src="assets/gates_logici.jpg" width="450">
+<img src="src/gates_logici.jpg" width="450">
 
 Nota che ogni porta può essere ottenuta come combinazione di altre porte (per esempio ogni porta si può ricostruire combinando _OR e NOT_, _OR e AND_, _NOR_ o _NAND_)
 
@@ -124,13 +124,13 @@ Quarta riga: $A \cdot B$
 
 In totale $Y = \overline{A \cdot B} + \overline{A} \cdot B + A \cdot B$
 
-<img src="assets/rete_logica.png" width="250">
+<img src="src/rete_logica.png" width="250">
 
 #### 2.2.2 Mappe di Karnaugh
 
 Data la mappa:
 
-<img src="assets/mappa_di_Karnaugh.png" width="400">
+<img src="src/mappa_di_Karnaugh.png" width="400">
 
 $Y = \overline{A} \cdot C + A \cdot B + \overline{B} \cdot D$
 
@@ -144,14 +144,14 @@ In modo meno complicato è semplicemente possibile memorizzare in memoria gli ou
 
 ### 2.3 Registri
 
-<img src="assets/registro.jpg" width="250">
+<img src="src/registro.jpg" width="250">
 
 Un registro è in grado di memorizzare il valore X e mantenerlo in output Y
 w è il segnale di controllo, se w è `1` il registro memorizza il valore di X, se `0` lo ignora
 
-<img src="assets/diagramma_registro.png" width="400">
+<img src="src/diagramma_registro.png" width="400">
 
-<img src="assets/serie_registri.png" width="350">
+<img src="src/serie_registri.png" width="350">
 
 Si possono mettere più registri in serie per ottenere un "registro a scorrimento"
 ad ogni input i valori scorrono da sinistra verso destra
@@ -160,7 +160,7 @@ Se X = `0` si può effettuare la divisione per 2 del numero contenuto nel regist
 
 ### 2.4 Il bus
 
-<img src="assets/bus.png">
+<img src="src/bus.png">
 Trasferisce n elementi da un punto all'altro dell'elaboratore
 
 ## 2. Rappresentazione delle informazioni
@@ -198,9 +198,9 @@ Un numero naturale si può rappresentare semplicemente in rappresentazione posiz
 **Reali**
 Numeri floating point seguono uno standard _(IEEE 754)_
 
-<img src="assets/IEEE_754_Single_Floating_Point.jpg">
+<img src="src/IEEE_754_Single_Floating_Point.jpg">
 
-<img src="assets/IEEE_754_Double_Floating_Point.jpg">
+<img src="src/IEEE_754_Double_Floating_Point.jpg">
 
 Il bit di segno è 1 se e solo se il numero è negativo
 L'esponente è scritto in eccesso P, quindi per 32bit si tratta di sommare (o sottrarre) 127
@@ -224,7 +224,7 @@ Lo standard UNICODE invece utilizza fino a 32 bit per codificare tutte le lingue
 
 Le istruzioni del linguaggio asembly devono essere contenute in 32 bit, 1 word
 
-<img src="assets/ARM_operations.png">
+<img src="src/ARM_operations.png">
 
 -   Condizione:\
     3 bit che indicano in quale caso l'operazione dovrebbe essere eseguita
@@ -240,7 +240,7 @@ Le istruzioni del linguaggio asembly devono essere contenute in 32 bit, 1 word
 
 ### 3.1 Condizione
 
-<img src="assets/condition_codes.png" width="550">
+<img src="src/condition_codes.png" width="550">
 
 ### 3.2 Simboli
 
@@ -266,7 +266,7 @@ Indicano al compilatore delle sezioni di codice
    Caricare in memoria il programma e imposta il PC in modo che l'elaboratore inizi l'esecuzione
 5. Debugger
 
-![assembler](assets/assembler.jpg)
+![assembler](src/assembler.jpg)
 
 ### 4.1 Assemblatore
 
@@ -486,13 +486,13 @@ Ci sono più modi per implementare una funzione in assembly.
     	POP {FP, PC}
     ```
 
-<img src="assets/frame_pointer.jpeg">
+<img src="src/frame_pointer.jpeg">
 
 # Gestione della memoria
 
 ## 6. Memoria Cache
 
-<img src="assets/memoria.png">
+<img src="src/memoria.png">
 
 Un modo per risolvere il bottleneck dell'architettura di Von Neumann.
 
@@ -500,7 +500,7 @@ Una soluzione è utilizzare memorie cache estremamente veloci (di dimensioni lim
 
 1. I dati più utilizzati (_località temporale_)
 2. Per richiedere alla memoria un blocco (64-128 byte) al posto di un semplice word.
-   <img src="assets/cache.jpg" width="500">
+   <img src="src/cache.jpg" width="500">
    Caricare un block può tornare utile perché spesso è necessario leggere i word successivi a quello appena recuperato (_località spaziale_)
 
 |              |                                                                                 |
@@ -514,7 +514,7 @@ $T = T_{cache} \cdot p + T_{memoria} \cdot (1-p)$
 
 ### 6.1 Cache a mappatura diretta
 
-<img src="assets/cache_mappatura_diretta.jpg" width="500">
+<img src="src/cache_mappatura_diretta.jpg" width="500">
 Gli indirizzi di memoria vengono divisi, partendo dai bit meno significativi in:
 
 -   indirizzo dell'elemento nel blocco
@@ -526,7 +526,7 @@ Con questa tecnica si ottengono più blocchi che condividono uno stesso tag, qui
 Per esempio di una memoria con $2^5$ block di $2^6$ byte
 Quindi su un indirizzo di 16 bit i primi 10 individuano il blocco (solo i primi 5 sono il tag questo significa che ci sono $2^5$ blocchi con lo stesso tag) e gli altri 6 individuano la word nel blocco
 
-<img src="assets/cache_mappatura_diretta_indirizzi.jpg">
+<img src="src/cache_mappatura_diretta_indirizzi.jpg">
 
 Questa tecnica è semplice da implementare a lato hardware, ma spesso è inefficiente, lasciando parte della cache libera
 
@@ -544,11 +544,11 @@ al posto di aver un singolo elemento per ogni tag, si ha una serie di elementi c
 
 Per esempio sia una memoria associativa con linee di $2^6$ byte e $2^5$ set, allora il suo indirizzo sarà:
 
-<img src="assets/cache_set_associativa_indirizzi.jpg">
+<img src="src/cache_set_associativa_indirizzi.jpg">
 
 È un buon compromesso con le altre cache
 
-<img src="assets/cache_associativa.jpg" width="450">
+<img src="src/cache_associativa.jpg" width="450">
 
 ### 6.4 Algoritmi di rimpiazzo
 
@@ -574,7 +574,7 @@ Quando voglio sovrascrivere un blocco devo assicurarmi che non siano state effet
 
 Una serie di strumenti che poi vengono però utilizzati principalmente dal sistema operativo, il quale è il vero responsabile della gestione
 
-<img src="assets/gestione_memoria.jpg" width="400">
+<img src="src/gestione_memoria.jpg" width="400">
 
 Fare ciò rende molto più efficiente l'esecuzione del programma
 Per dare al sistema operativo la possibilità di fare ciò dobbiamo suddividere la memoria ram così che possa contenere il maggior numero di programmi possibile
@@ -593,12 +593,12 @@ Tradurre gli indirizzi logici in indirizzi fisici è il compito dell'MMU (mappin
 
 Si divide la memoria in blocchi (pagine), ognuna con un suo indirizzo (offset)
 
-<img src="assets/page_table.jpg" width="450">
+<img src="src/page_table.jpg" width="450">
 
 La paginazione inoltre aiuta a risolvere il problema della frammentazione
 Infatti grazie alla page table posso avere indirizzi consecutivi per elementi fisicamente lontani in memoria
 
-<img src="assets/paginazione.jpg" width="350">
+<img src="src/paginazione.jpg" width="350">
 
 Il problema della paginazione è che l'unità di misura è la pagina e posso associare solo una pagina per volta
 
@@ -615,7 +615,7 @@ Viene creata una segment table che specifica
 Ora per trasformare un indirizzo logico in uno fisico basta usare l'indirizzo logico come un offset da applicare all'indirizzo iniziale scritto nella segment table
 È necessario effetture un controllo affinché l'indirizzo richiesto non superi il segmento corrente, altrimenti si arriva ad un errore
 
-<img src="assets/segmentazione.jpg" width="450">
+<img src="src/segmentazione.jpg" width="450">
 
 ### 7.4 Memoria virtuale
 
@@ -627,7 +627,7 @@ Per fare questo ci deve essere una page table che traduce gli indirizzi della cp
 Accedere alla page table può essere dispendioso (servono 2 richieste alla memoria, uno per la page table e uno per il dato) quindi c'è un'altra cache (TLB, Translation Lookaside buffer) che accelera questo processo.
 Nella TLB viene salvato un indice di memoria ram e un indice di memoria fisica, che permette di collegare l'uno all'altro
 
-<img src="assets/memoria_virtuale.jpg">
+<img src="src/memoria_virtuale.jpg">
 
 ## 8. Dispositivi I᜵O
 
@@ -672,7 +672,7 @@ Questo significa che non vengono persi cicli nell'attesa che il dispositivo sia 
 -   IRQ (Interrupt ReQuest)
     Viene trasmessa attraverso una linea separata alla cpu, tutti i dispositivi I/O si collegano alla cpu utilizzando un OR logico
 
-![Interrupt](assets/Interrupt.jpg)
+![Interrupt](src/Interrupt.jpg)
 
 È necessario ottenere i dati dal dispositivo velocemente perché altrimenti quei dati potrebbero essere persi
 
@@ -683,7 +683,7 @@ Questo significa che non vengono persi cicli nell'attesa che il dispositivo sia 
 
     Per fare ciò si possono anche utilizzare i banked registers, ovvero avere più set di registri, e si può selezionare il gruppo di registri da utilizzare in base alla situazione
 
-      <img src="assets/salvataggio_contesto.jpg" width="350">
+      <img src="src/salvataggio_contesto.jpg" width="350">
 
 -   RSI (Routine di Servizio)
     Si può implementare via software oppure via hardware
@@ -698,9 +698,9 @@ Questo significa che non vengono persi cicli nell'attesa che il dispositivo sia 
     3.  Inizializzare l'RSI
         Ogni modulo di I/O ha un IVN identificativo, e una tabella fa il link tra questi valori e degli indirizzi di memoria, i quali contengono le istruzioni per l'RSI che gestisce quel dispositivo
 
-      <img src="assets/RSI.jpg" width="150">
+      <img src="src/RSI.jpg" width="150">
 
-<img src="assets/IO_differenze.jpg" width="450">
+<img src="src/IO_differenze.jpg" width="450">
 
 ### 8.1 Altre applicazioni
 
@@ -756,7 +756,7 @@ Questo viene chiamato _cycle stealing_
    Scrivi il risultato in memoria o in un registro
 
 Tutte queste fasi sono eseguite da componenti hardware separate, è quindi eseguirle tutte in parallelo, la pipeline
-<img src="assets/pipeline.jpg" width="650">
+<img src="src/pipeline.jpg" width="650">
 
 Il tempo di esecuzione per N operazioni:
 (k = numeri di fasi dell'operazione, t = tempo di esecuzione)
