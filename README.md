@@ -53,3 +53,9 @@ docente: [DALPASSO MARCELLO](https://didattica.unipd.it/off/docente/D7161CBB91A1
 II Anno I semestre, 6 CFU
 
 docente: [GHIDONI STEFANO](https://didattica.unipd.it/off/docente/FAC6E296A91D95297BD373A956B23C55)
+
+## Elementi di Fisica 2
+
+II Anno I semestre, 6 CFU
+
+docente: [VALLONE GIUSEPPE](http://www.dei.unipd.it/~vallone/index.html)

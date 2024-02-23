@@ -34,15 +34,6 @@ bool humanPlayer(int argc, char *argv[]) {
   return std::string(argv[1]) == "human";
 }
 
-//
-//
-////
-//
-////
-//
-////
-//
-//
 // Passa al turno successivo, dunque al prossimo giocatore
 void nextTurn(Game &game, std::shared_ptr<Player> currentPlayer,
               int &playerIndex) {

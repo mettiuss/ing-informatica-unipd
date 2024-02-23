@@ -31,7 +31,7 @@
     -   [6. Memoria Cache](#6-memoria-cache)
         -   [6.1 Cache a mappatura diretta](#61-cache-a-mappatura-diretta)
         -   [6.2 Cache completamente associativa](#62-cache-completamente-associativa)
-        -   [6.3Cache set-associativa a k vie](#63cache-set-associativa-a-k-vie)
+        -   [6.3 Cache set-associativa a k vie](#63-cache-set-associativa-a-k-vie)
         -   [6.4 Algoritmi di rimpiazzo](#64-algoritmi-di-rimpiazzo)
         -   [6.5 Bit di controllo della cache](#65-bit-di-controllo-della-cache)
     -   [7. Gestione della cache](#7-gestione-della-cache)
@@ -515,6 +515,7 @@ $T = T_{cache} \cdot p + T_{memoria} \cdot (1-p)$
 ### 6.1 Cache a mappatura diretta
 
 <img src="src/cache_mappatura_diretta.jpg" width="500">
+
 Gli indirizzi di memoria vengono divisi, partendo dai bit meno significativi in:
 
 -   indirizzo dell'elemento nel blocco
@@ -537,7 +538,7 @@ Quando leggo un blocco lo inserisco direttamente dove c'è un posto libero, salv
 Il problema è che per cercare devo andare controllare ogni singolo tag, questo viene fatto in parallelo, ma il circuito per farlo è complicato
 Serve implementare anche una politica di rimpiazzo, il cui circuito è ancora una volta complicato
 
-### 6.3Cache set-associativa a k vie
+### 6.3 Cache set-associativa a k vie
 
 È un misto tra la memoria a mappatura diretta e quella completamente associativa
 al posto di aver un singolo elemento per ogni tag, si ha una serie di elementi che vengono gestiti in modo completamente associativo

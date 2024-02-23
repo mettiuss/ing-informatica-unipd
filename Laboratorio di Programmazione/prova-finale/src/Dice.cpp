@@ -9,7 +9,7 @@
 #include <ctime>
 #include <iostream>
 
-Dice::Dice() {  }
+Dice::Dice() {}
 
 // Lancia 2 dadi, genera due numeri pseudo-randomici
 // ne ricava il resto della divisione per 6 e aggiunge 1,
