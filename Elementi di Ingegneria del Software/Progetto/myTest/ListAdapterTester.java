@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import myAdapter.*;
 
-// TODO
 /**
  * Test suite per la classe ListAdapter.
  * Verifica il corretto funzionamento della classe ListAdapter e ne verifica la
@@ -1670,6 +1669,7 @@ public class ListAdapterTester {
         list.add("D");
 
         HList subList = list.subList(1, 3);
+
         assertEquals(2, subList.size());
         assertEquals("B", subList.get(0));
         assertEquals("C", subList.get(1));

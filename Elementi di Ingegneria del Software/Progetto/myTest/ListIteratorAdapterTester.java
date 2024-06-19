@@ -108,6 +108,7 @@ public class ListIteratorAdapterTester {
         list.add("A");
         list.add("B");
         list.add("C");
+
         HListIterator it = list.listIterator(1);
 
         assertEquals("B", it.next());
@@ -326,6 +327,7 @@ public class ListIteratorAdapterTester {
         it.next(); // Moves to the first element
         it.set("Z");
         assertEquals(2, list.size());
+
         assertEquals("Z", list.get(0));
         assertEquals("B", list.get(1));
     }

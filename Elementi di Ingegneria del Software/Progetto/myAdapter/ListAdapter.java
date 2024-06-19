@@ -136,7 +136,7 @@ public class ListAdapter implements HList {
      * @return true se la lista contiene l'elemento, false altrimenti
      */
     public boolean contains(Object o) {
-        for (int i = startIndex(); i < size(); i++) {
+        for (int i = 0; i < size(); i++) {
             if (get(i).equals(o))
                 return true;
         }
@@ -239,7 +239,7 @@ public class ListAdapter implements HList {
      * @return l'iteratore degli elementi della lista
      */
     public IteratorAdapter iterator() {
-        return new IteratorAdapter(startIndex());
+        return new IteratorAdapter();
     }
 
     /**
@@ -299,7 +299,7 @@ public class ListAdapter implements HList {
      * @return l'iteratore degli elementi della lista
      */
     public HListIterator listIterator() {
-        return new ListIteratorAdapter(startIndex());
+        return new ListIteratorAdapter();
     }
 
     /**
@@ -324,7 +324,7 @@ public class ListAdapter implements HList {
     public Object remove(int index) {
         checkOutOfBounds(index);
         Object obj = get(index);
-        v.removeElementAt(index);
+        v.removeElementAt(getIndex(index));
         changeSize(-1);
         return obj;
     }
@@ -405,8 +405,8 @@ public class ListAdapter implements HList {
      */
     public Object set(int index, Object element) {
         checkOutOfBounds(index);
-        Object obj = v.elementAt(index);
-        v.setElementAt(element, index);
+        Object obj = get(index);
+        v.setElementAt(element, getIndex(index));
         return obj;
     }
 
@@ -426,7 +426,7 @@ public class ListAdapter implements HList {
         if (fromIndex < 0 || toIndex > size() || fromIndex > toIndex)
             throw new IndexOutOfBoundsException();
 
-        return new SubListAdapter(v, fromIndex, toIndex);
+        return new SubListAdapter(v, getIndex(fromIndex), getIndex(toIndex));
     }
 
     /**
@@ -528,17 +528,12 @@ public class ListAdapter implements HList {
         /**
          * Indice dell'attuale posizione dell'iteratore
          */
-        protected int cursor;
+        protected int cursor = 0;
 
         /**
          * Costruisce un iteratore
-         *
-         * @param cursor L'indice di partenza dell'iterazione
-         * @throws IndexOutOfBoundsException se {@code index < 0 || index > size()}
          */
-        public IteratorAdapter(int cursor) {
-            checkOutOfBoundsforAdd(cursor);
-            this.cursor = cursor;
+        public IteratorAdapter() {
         }
 
         /**
@@ -577,7 +572,7 @@ public class ListAdapter implements HList {
             if (lastReturned == -1)
                 throw new IllegalStateException();
 
-            v.removeElementAt(lastReturned);
+            v.removeElementAt(getIndex(lastReturned));
             changeSize(-1);
 
             if (cursor != 0)
@@ -593,12 +588,18 @@ public class ListAdapter implements HList {
     private class ListIteratorAdapter extends IteratorAdapter implements HListIterator {
         /**
          * Costruisce un iteratore
+         */
+        public ListIteratorAdapter() {
+        }
+
+        /**
+         * Costruisce un iteratore
          *
          * @param cursor L'indice di partenza dell'iterazione
          * @throws IndexOutOfBoundsException se {@code index < 0 || index >= size()}
          */
         public ListIteratorAdapter(int cursor) {
-            super(cursor);
+            this.cursor = cursor;
         }
 
         /**
@@ -647,7 +648,7 @@ public class ListAdapter implements HList {
                 throw new NoSuchElementException();
             cursor--;
             lastReturned = cursor;
-            return v.elementAt(cursor);
+            return get(cursor);
         }
 
         /**
@@ -671,23 +672,23 @@ public class ListAdapter implements HList {
         public void set(Object o) {
             if (lastReturned == -1)
                 throw new IllegalStateException();
-            v.setElementAt(o, lastReturned);
+            v.setElementAt(o, getIndex(lastReturned));
         }
     }
 
     /**
      * Classe privata di supporto al metodo subList()
      */
-    private class SubListAdapter extends ListAdapter {
+    public class SubListAdapter extends ListAdapter {
         /**
          * Indice di inizio della struttura dati
          */
-        private int startIndex;
+        public int startIndex;
 
         /**
          * Dimensione della struttura dati
          */
-        private int size;
+        public int size;
 
         /**
          * Costruttore
