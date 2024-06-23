@@ -1,4 +1,0 @@
-name   AGAT   AATG TATC
-Alice    5 2 8
-Bob      3 7 4
-Charlie  6 1 5
