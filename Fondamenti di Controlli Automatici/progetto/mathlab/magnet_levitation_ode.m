@@ -23,8 +23,7 @@ function [dxdt] = magnet_levitation_ode(z, z_dot, input_current, params)
     %   params.i_max - Maximum current limit [A]
 
     % Ensure input current stays within limits
-    %i = max(min(input_current, params.i_max), -params.i_max);
-    i = input_current;
+    i = max(min(input_current, params.i_max), -params.i_max);
 
     % Compute acceleration
     acceleration = (params.b_m / z + params.b_s * i / z - params.d * z_dot) / params.m - params.g;
