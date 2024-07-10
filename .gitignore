@@ -18,3 +18,18 @@ build
 .vscode
 *.exe
 log.txt
+
+#latex
+*.toc
+*.dvi
+*.log
+*.fls
+*.synctex.gz
+*.fdb_latexmk
+*.aux
+_minted*
+
+#Fondamenti di Informatica
+ADT/
+Laboratorio/
+Simulazioni/

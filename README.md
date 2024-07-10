@@ -1,6 +1,6 @@
 # ing-informatica-unipd
 
-Raccolta di esercizi e progetti svolti durante il corso di ingegneria informatica presso l'Università degli Studi di Padova
+Raccolta di schemi, progetti ed esercizi svolti durante il corso di ingegneria informatica unipd
 
 ## Anno 1
 
