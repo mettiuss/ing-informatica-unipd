@@ -80,4 +80,152 @@ Ma le radici più vicine all'origine hanno $|p| = 14.0071$
 
 Non è quindi possibile costruire un controllore proporzionale con i requisiti richiesti.
 
+\section{Esercizio 3}
+Scegliamo come indici di performace quelli richiesti dall'esercizio precedente, ovvero 1 secondo di settling time, quindi anche il tempo di salita deve essere inferiore al secondo.
+Inoltre cerchiamo un controllore che non faccia mai scendere il magnete sotto 0.05 e non lo faccia salire oltre il punto di partenza.
+
+\spacer
+Abbiamo prima utilizzato un noto metodo euristico, detto Ziegler-Nichols. Seguendo il semplice algoritmo abbiamo ottenuto i seguenti valori del controllore:
+
+$K_p = 0.024;$
+
+$K_i = 0.16;$
+
+$K_d = 0.0025;$
+
+\spacer
+Ottenendo così il seguente risultato:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{Images/PID-euristico.png}
+    \caption{Sistema controllato con PID ottenuto con il metodo Ziegler-Nichols}
+    \label{fig:Ziegler_Nichols_PID}
+\end{figure}
+
+Questo controllore non soddisfa le nostre richieste in quanto impiega circa 50 secondi a raggiungere il regime e scende al di sotto di 0.05.
+
+\spacer
+Per trovare un controllore con prestazioni migliori abbiamo utilizzato la funzione \texttt{pidTuner} di Mathlab.
+
+Utilizzando i valori restituiti dal tuner, ovvero:
+
+$K_p = 8.9131;$
+
+$K_i = 52.4269;$
+
+$K_d = 0.37883;$
+
+\spacer
+Ottenendo così il seguente risultato:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{Images/PID-tuner.png}
+    \caption{Sistema controllato con PID ottenuto con pidTuner}
+    \label{fig:pidTuner-PID}
+\end{figure}
+
+Il controllore ottenuto è di gran lunga migliore e soddisfa i requisiti che ci eravamo posti, porta il sistema a regime in poco meno di un secondo e non fa sposta il magenete troppo in basso o troppo in alto.
+
+\spacer
+Infine abbiamo voluto cercare un controllore con il minimo overshoot e undershoot, ignorando il limite di tempo.
+
+Utilizzando i seguenti valori:
+
+$K_p = 7.2786;$
+
+$K_i = 14.8316;$
+
+$K_d = 0.89298;$
+
+\spacer
+Ottenendo così il seguente risultato:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{Images/PID-tuner-no-overshoot.png}
+    \caption{Sistema controllato con PID ottenuto con pidTuner con richieste modificate}
+    \label{fig:pidTuner-PID-no-overshoot}
+\end{figure}
+
+\section{Esercizio 4}
+Per verificare l'altezza massima che il magnete è in grado di raggiungere impostiamo i solenoidi alla massima potenza a loro disponibile, ovvero $i = 0.02$.
+
+Per velocizzare la simulazione ed ottenere il valore finale in un tempo minore abbiamo aumentato l'attrito impostando $d = 0.1$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.5\textwidth]{Images/max-z.png}
+    \caption{Sistema controllato con i = 0.02}
+    \label{fig:max-z}
+\end{figure}
+
+Vediamo sperimentalmente che il valore massimo a regime che il sistema può raggiungere è $0.0764771$.
+
+\section{Esercizio 5}
+Per far seguire al magnete i segnali di riferimento richiesti abbiamo utilizzato in entrambi i casi un controllore PID con valori modificati per adattarsi meglio al problema.
+
+\spacer
+Nel caso del riferimento sinusoidale abbiamo utilizzato il controllore fornito dal tuner di mathlab:
+
+$K_p = 8.9131;$
+
+$K_i = 52.4269;$
+
+$K_d = 0.37883;$
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 1\textwidth]{Images/sine.png}
+            \caption{Sistema controllato con controllore PID}
+            \label{fig:PID-sine}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 1\textwidth]{Images/sine-error.png}
+            \caption{Errore del sistema}
+            \label{fig:PID-sine-error}
+        \end{figure}
+    \end{minipage}
+\end{figure}
+
+\spacer
+Nel caso del riferimento ad onda quadra abbiamo utilizzato dei valori forniti dal tuner, ma leggermente modificati:
+
+$K_p = 8.4028;$
+
+$K_i = 10.1198;$
+
+$K_d = 0.37896;$
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 1\textwidth]{Images/square.png}
+            \caption{Sistema controllato con controllore PID}
+            \label{fig:PID-square}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 1\textwidth]{Images/square-error.png}
+            \caption{Errore del sistema}
+            \label{fig:PID-square-error}
+        \end{figure}
+    \end{minipage}
+\end{figure}
+
+In entrambi i casi il magnete segue accuratamente il segnale di riferimento, all'interno dei requisiti posti dal problema.
+
 \end{document}
