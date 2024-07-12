@@ -82,16 +82,16 @@ Non è quindi possibile costruire un controllore proporzionale con i requisiti r
 
 \section{Esercizio 3}
 Scegliamo come indici di performace quelli richiesti dall'esercizio precedente, ovvero 1 secondo di settling time, quindi anche il tempo di salita deve essere inferiore al secondo.
-Inoltre cerchiamo un controllore che non faccia mai scendere il magnete sotto 0.05 e non lo faccia salire oltre il punto di partenza.
+Inoltre cerchiamo un controllore che abbia la minima sovraelongazione.
 
 \spacer
 Abbiamo prima utilizzato un noto metodo euristico, detto Ziegler-Nichols. Seguendo il semplice algoritmo abbiamo ottenuto i seguenti valori del controllore:
 
-$K_p = 0.024;$
+$K_p = 8.4028;$
 
-$K_i = 0.16;$
+$K_i = 10.1198;$
 
-$K_d = 0.0025;$
+$K_d = 0.37896;$
 
 \spacer
 Ottenendo così il seguente risultato:
@@ -103,7 +103,7 @@ Ottenendo così il seguente risultato:
     \label{fig:Ziegler_Nichols_PID}
 \end{figure}
 
-Questo controllore non soddisfa le nostre richieste in quanto impiega circa 50 secondi a raggiungere il regime e scende al di sotto di 0.05.
+Questo controllore non soddisfa le nostre richieste in quanto impiega circa 40 secondi a raggiungere il regime, tuttavia non presenta alcuna sovraelongazione.
 
 \spacer
 Per trovare un controllore con prestazioni migliori abbiamo utilizzato la funzione \texttt{pidTuner} di Mathlab.
@@ -126,10 +126,10 @@ Ottenendo così il seguente risultato:
     \label{fig:pidTuner-PID}
 \end{figure}
 
-Il controllore ottenuto è di gran lunga migliore e soddisfa i requisiti che ci eravamo posti, porta il sistema a regime in poco meno di un secondo e non fa sposta il magenete troppo in basso o troppo in alto.
+Il controllore ottenuto è di gran lunga migliore e soddisfa i requisiti che ci eravamo posti, porta il sistema a regime in poco meno di un secondo tuttavia ha una sovraelongazione importante.
 
 \spacer
-Infine abbiamo voluto cercare un controllore con il minimo overshoot e undershoot, ignorando il limite di tempo.
+Infine abbiamo voluto cercare un controllore con una minore sovraelongazione, ignorando il limite di tempo.
 
 Utilizzando i seguenti valori:
 
@@ -144,9 +144,9 @@ Ottenendo così il seguente risultato:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width = 0.5\textwidth]{Images/PID-tuner-no-overshoot.png}
+    \includegraphics[width = 0.5\textwidth]{Images/PID-tuner-overshoot.png}
     \caption{Sistema controllato con PID ottenuto con pidTuner con richieste modificate}
-    \label{fig:pidTuner-PID-no-overshoot}
+    \label{fig:pidTuner-PID-overshoot}
 \end{figure}
 
 \section{Esercizio 4}
