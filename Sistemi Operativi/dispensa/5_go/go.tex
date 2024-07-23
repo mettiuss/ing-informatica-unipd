@@ -1,0 +1,214 @@
+\chapter{Go}
+Durante il corso viene consigliato lo studio del linguaggio di programmazione Go in quanto rende semplice la creazione di programmi che supportano concorrenza.
+
+\section{Download}
+Pagina di Download: \href{https://go.dev/dl/}{https://go.dev/dl/}
+
+\section{Sintassi}
+
+\subsection{Packages}
+I \textit{package} sono alla base di ogni programma in Go, non è infatti possibile creare un programma senza il package main.
+
+\spacer
+La struttura del progetto dovrebbe essere:
+\begin{minted}{bash}
+progetto/
+    utils/
+        sum.go
+    main.go
+    go.mod
+\end{minted}
+
+\spacer
+Dove nel file \texttt{go.mod} inseriamo una definizione del progetto:
+\texttt{go.mod}:
+\begin{minted}{go}
+module progetto
+go 1.22
+\end{minted}
+
+\spacer
+Il package main deve contenere una funzione main dalla quale l'esecuzione del programma avrà inizio. Nel file \texttt{main.go} inseriamo quindi:
+\begin{minted}{go}
+package main
+
+import (
+    "fmt"
+    "progetto/utils"
+)
+
+func main() {
+    fmt.Println(utils.Sum(2, 3))
+}
+\end{minted}
+
+Dal file \texttt{sum.go} vengono esportate tutte le variabili e funzioni che iniziano con la lettera maiuscola, le altre rimangono locali al file.
+
+\subsection{if/switch}
+Gli \texttt{if} in go hanno una sintassi simile agli altri linguaggi, viene però aggiunta la possibilità di inserire un piccolo statement prima della condizione.
+\begin{minted}{go}
+if v := math.Pow(x, n); v < lim {
+    return v
+}
+\end{minted}
+
+Gli switch possono avere una o più condizioni
+\begin{minted}{go} 
+switch condition {
+	case x:
+		...
+	case y, z:
+		...
+	default:
+		...
+}
+\end{minted}
+
+\subsection{Cicli}
+In Go esiste un solo ciclo, il ciclo for, il quale ha una sintassi che può essere adattata per diventare un while ed un foreach.
+\begin{minted}{go}
+for i:=1; i<10; i++{ // for loop
+    ...
+}
+
+for num < 8 { // while loop
+    ...
+}
+
+for i := range sl { //foreach
+    fmt.Println(i, sl[i])
+}
+\end{minted}
+
+\subsection{Funzioni}
+In Go le funzioni hanno una sintassi semplice, vediamo la stessa funzione in una forma estesa e poi in una più compatta
+
+\begin{minted}{go}
+func calculate(x int, y int) (int, int) {
+    var sum = x + y
+    min := x - y
+    return sum, min
+}
+\end{minted}
+
+\begin{minted}{go}
+func calculate(x, y int) (a, b int) {
+    a = x + y
+    b = x - y
+    return //naked return
+}
+\end{minted}
+
+\subsection{struct}
+Sono una collezione di campi
+
+\begin{minted}{go}
+// Definizione
+type Books struct{
+    title string
+    author string
+}
+
+// Costruttore (di default)
+b := Books {"titolo", "autore"}
+
+// Accesso ai membri
+b.title
+b.author
+\end{minted}
+
+\subsection{defer}
+Permette di eseguire uno o più statement (in questo caso sono inseriti in uno stack LIFO) al termine della funzione chiamante.
+
+\begin{minted}{go}
+defer fmt.Println("primo")
+fmt.Println("secondo")
+// output => "secondo", "primo"
+\end{minted}
+
+\section{Concorrenza}
+Gli strumenti principali per la concorrenza in Go sono le goroutine, ovvero dei thread che vengono avviati da un'altro thread mediante la keyword \texttt{go}.
+
+\begin{minted}{go}
+func foo(){
+    fmt.Println("foo")
+}
+
+func main() {
+    go foo() // main avvia foo in un altro thread
+    fmt.Println("main")
+}
+\end{minted}
+
+\begin{note}
+    In questo caso spesso "foo" non viene stampato in quanto termina prima l'esecuzione della funzione main(), che di conseguenza termina il programma e tutte le sue subroutine.
+\end{note}
+
+\subsection{Channels}
+I channels sono degli strumenti che permettono la comunicazione tra due threads in Go.
+
+\spacer
+Vengono creati utilizzando la funzione \texttt{make(chan int, 100)}, dove il primo argomento specifica il tipo e il secondo il buffer.
+
+Si utilizza -> per inviare e ricevere i dati.
+
+\spacer
+Un thread si blocca fino a che l'istruzione di inviare o ricevere un elemento non si è completata.
+
+Da un channel chiuso si ottiene l'elemento zero della classe.
+
+\subsection{Select}
+Statement che permette di attendere il primo thread a completare l'esecuzione.
+La keyword default permette di continuare l'esecuzione quando non sono presenti elementi nei channel, default -> attende una certa quantità di tempo prima di proseguire.
+
+\begin{minted}{go}
+func main(){
+    c1 := make(chan int)
+    c2 := make(chan int)
+    ...
+    select{
+        case x := <- c1:
+            ...
+        case x := <- c2:
+            ...
+        case <-time.After(time.Duration(rand.Intn(5))*time.Second)
+            ...
+    }
+}
+\end{minted}
+
+\subsection{WaitGroup}
+Per attendere che un gruppo di thread completi l'esecuzione, si può utilizzare WaitGroup.
+
+\begin{sitemize}
+    \item \texttt{waitgroup.Add(n)} aggiunge all'oggetto un numero n di thread da aspettare
+    \item \texttt{waitgroup.Done()} comunica che il thread ha completato l'esecuzione
+    \item \texttt{waitgroup.Wait()} attende che tutti i thread abbiano chiamato Done()
+\end{sitemize}
+
+\begin{minted}{go}
+func worker(id int) {
+    fmt.Printf("Worker %d starting\n", id)
+
+    time.Sleep(time.Second)
+    fmt.Printf("Worker %d done\n", id)
+}
+
+func main() {
+    var wg sync.WaitGroup
+
+    for i := 1; i <= 5; i++ {
+        wg.Add(1)
+
+        go func() {
+            defer wg.Done()
+            worker(i)
+        }()
+    }
+    wg.Wait()
+}
+\end{minted}
+
+\begin{note}
+    L'oggetto waitgroup deve essere passato come puntatore
+\end{note}

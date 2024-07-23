@@ -1,0 +1,34 @@
+\section{Implementazioni}
+\subsection{Linux}
+Per quanto riguarda la \textbf{Memoria del Kernel} linux utilizza il sistema Buddy, un allocatore potenza di 2.
+Invece per le strutture dati, a partire dal kernel 2.4, viene utilizzato l'allocatore SLOB o SLUB.
+\begin{sitemize}
+    \item \textbf{SLOB:} Utilizzato per sistemi con poca memoria, mantiene 3 liste, per oggetti grandi, medi e piccoli.
+    \item \textbf{SLUB:} Allocatore a lastre ottimizzata per sistemi multicore.
+\end{sitemize}
+
+\spacer
+Invece la \textbf{Memoria Utente} viene gestita tramite paginazione su richiesta.
+La politica di sostituzione è detta Clock: vengono mantenute due liste, \texttt{active\_list} e \texttt{inactive\_list}, la prima che contiene le pagine in uso e la seconda contiene pagine non utilizzate di frequente che possono essere rimosse.
+
+\spacer
+Ogni pagina ha un bit di accesso.
+\begin{sitemize}
+    \item Quando una pagina viene \textbf{allocata} o \textbf{riferita} il bit viene impostato su 1 e viene inserita in coda a \texttt{active\_list}.
+    \item La pagina utilizzata meno di recente si sposta in testa alla lista \texttt{active\_list}, dalla quale viene \textbf{spostata} verso la lista \texttt{inactive\_list} per mantenere le due liste bilanciate.
+    \item Inoltre i bit di accesso vengono resettati periodicamente, riportando il sistema ad uno stato iniziale con tutti i processi in \texttt{inactive\_list}.
+    \item Il deamon \texttt{kswapd} si risveglia periodicamente e se la memoria non è sufficiente \textbf{termina} dei programmi dalla \texttt{inactive\_list}.
+\end{sitemize}
+
+\subsection{Windows}
+Per quanto riguarda la \textbf{Memoria del Kernel} Windows scrive i dati su un page file, ma quando questo non è possibile i dati vengono scritti su una pool di memoria non paginata. (ad es. quando Windows non può fare page fault perché sta gestendo un page fault.)
+
+\spacer
+Invece la \textbf{Memoria Utente} viene gestita tramite paginazione con clustering, quindi quando avviene un page fault viene caricato non solo la pagina richiesta, ma anche le pagine adiacenti.
+
+Ad un processo viene assegnato una dimensione minima e massima del working set, il minimo è il numero di pagine garantite dal sistema operativo, il numero massimo è il limite oltre il quale il processo non può allocare.
+
+Quando l'occupazione della memoria scende si effettua una riassegnazione dei working set aumentando i tetti massimi per processo.
+
+\spacer
+Windows fa inoltre uso di compressione delle pagine più vecchie, prima di ricorrere alla memoria virtuale. Quando poi i dati tornano ad essere utilizzati devono prima essere decompressi.

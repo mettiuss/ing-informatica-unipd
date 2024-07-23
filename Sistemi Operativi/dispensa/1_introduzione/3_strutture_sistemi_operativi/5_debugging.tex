@@ -1,0 +1,26 @@
+\section{Debugging e Tuning}
+Il \textbf{debugging} è l'attività di individuazione e risoluzione dei problemi, il che comprende sia la risoluzione dei bug che il performance tuning.
+
+\spacer
+Il sistema operativo aiuta nel processo con la generazione di \textbf{file di log} che danno informazioni sugli errori rilevati durante l'esecuzione.
+Inoltre il sistema operativo fornisce un \textbf{core dump}, ovvero una copia della memoria impiegata dal processo al momento della terminazione anomala.
+
+\begin{note}
+    \textbf{Kernel}
+
+    Quando avviene un errore al kernel viene chiamato \textbf{crash}. Quando questo avviene viene creato un \textbf{crash dump} che viene inserito in un'apposita sezione della memoria.
+
+    \spacer
+    È necessario di scrivere su un'area riservata di memoria perché quando si ottiene un crash lo stato del sistema non è garantito ed è difficile comprendere quali sezioni della memoria sono libere.
+\end{note}
+
+\subsection{Tuning}
+Anche i problemi che condizionano le prestazioni sono considerati bachi e vanno quindi trovati e risolti.
+Il performance tuning è l'insieme delle tecniche atte ad ottimizzare le prestazioni del sistema ed ad eliminare i colli di bottiglia.
+
+\spacer
+Per fare ciò ci sono varie tecniche, è possibile eseguire del codice che misuri le prestazioni del sistema e poi ne salvi i risultati su un file di log.
+
+Oppure possono essere utilizzati degli strumenti grafici del sistema operativo, ad es. task manager di Windows.
+
+Infine esiste anche il profiling che punta a visualizzare quali chiamate a sistema vengono utilizzare maggiormente così da ottimizzarle, quando possibile.

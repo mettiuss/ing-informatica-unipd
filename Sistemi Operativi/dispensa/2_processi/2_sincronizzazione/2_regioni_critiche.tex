@@ -1,0 +1,22 @@
+\section{Regioni Critiche}
+Definiamo \textbf{Regioni Critiche} di un processo quelle regioni dove si accede ai dati in comune. Ci si deve quindi assicurare che solo un processo per volta possa entrare nella sua sezione critica.
+
+\spacer
+È importante gestire correttamente la sincronizzazione dei processi, ogni processo deve richiedere il permesso di entrare nella sezione critica e deve attendere che questo permesso gli sia garantito.
+
+\spacer
+Il protocollo di cooperazione tra processi deve garantire:
+\begin{sitemize}
+    \item \textbf{Mutua Esclusione:} un solo processo nella sezione critica per volta
+    \item \textbf{Progresso:} Quando uno o più processi richiedono di entrare nella sezione critica la decisione deve essere fatta solo da processi che stanno già eseguendo la loro sezione critica o che potrebbero eseguirla in futuro. Ricordando sempre che la decisione non può essere rimandata indefinitamente.
+    \item \textbf{Attesa Limitata:} Per evitare la \textit{starvation} è necessario limitare il tempo massimo di attesa.
+\end{sitemize}
+
+\subsubsection*{Kernel}
+Anche le strutture dati del kernel, comprese quelle incaricate di gestire le risorse condivise, sono a loro volta suscettibili a race condition.
+
+\spacer
+È possibile risolvere questo problema utilizzando un kernel senza diritto di prelazione, quindi con processi che non escono dalla modalità kernel finché essi non si bloccano o restituiscono volontariamente il controllo alla CPU.
+
+Questa è la soluzione utilizzata da Windows XP e Windows 2000, ma è particolarmente inefficiente per i sistemi multiprocessore e real-time.
+Linux supporta la prelazione a partire dalla versione 2.6

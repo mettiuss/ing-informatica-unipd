@@ -1,0 +1,96 @@
+\section{Servizi}
+
+Alcune classi di servizi che il sistema operativo può fornire nei confronti dell'utente:
+\begin{sitemize}
+    \item \textbf{Interfaccia Utente:}
+
+    Quasi tutti i sistemi operativi sono dotati di un'interfaccia utente, che può prendere molte forme diverse, la linea di comando, un'interfaccia grafica, ...
+
+    Si può interagire con essa in molti modi, con mouse e tastiera, con uno schermo touch, ...
+
+    \item \textbf{Esecuzione di Programmi:}
+
+    Il sistema deve essere in grado di caricare un programma in memoria ed eseguirlo, inoltre deve essere in grado di rilevare e gestire situazioni di errore.
+
+    \item \textbf{Operazioni I/O:}
+
+    Il sistema operativo fornisce ai programmi dell'utente un modo per accedere ai dispositivi I/O.
+
+    \item \textbf{Gestione del File-System:}
+
+    I programmi utente devono essere in grado di creare, leggere, scrivere ed eliminare file e devono potersi muovere nella struttura dell'archiviazione.
+
+    \item \textbf{Comunicazioni:}
+
+    I programmi devono essere in grado di comunicare ad altri processi presenti sullo stesso sistema oppure ad altri sistemi connessi via rete.
+    La comunicazione può essere implementata tramite memoria condivisa, oppure come scambio di messaggi
+
+    \item \textbf{Rilevamento di Errori:}
+
+    Il sistema operativo deve tenere sotto costante controllo CPU, memoria e dispositivi I/O per rilevare e gestire gli errori che sorgono durante l'esecuzione dei programmi utente.
+\end{sitemize}
+
+\spacer
+Ci sono altri servizi che il sistema operativo deve eseguire per assicurarsi che il sistema funzioni in modo efficiente:
+
+\begin{sitemize}
+    \item \textbf{Allocazione di Risorse:}
+
+    Quando ci sono più processi o più utenti diventa fondamentale gestire in modo efficiente le risorse hardware tra di essi, in particolare la CPU e la memoria.
+    I dispositivi I/O spesso vengono gestiti in modo meno rigido utilizzando delle regole generali.
+
+    \item \textbf{Logging:}
+
+    Risolta essere importante registrare quali programmi e in quali quantità utilizzano le risorse del sistema.
+    Queste statistiche sono preziose per gli amministratori che possono capire l'effettiva necessità di risorse.
+
+    \item \textbf{Protezione e Sicurezza:}
+
+    Ai possessori di informazioni su un sistema multiutente o distribuito deve essere garantito i propri dati da accessi indesiderati.
+
+    La protezione riguarda il controllo di tutti gli accessi alle risorse di sistema.
+
+    La sicurezza si basa sull'obbligo di autenticazione mediante password o sistema equivalente.
+\end{sitemize}
+
+\subsection{Interfaccia Utente}
+Vista la sua importanza dal punto di vista dell'utente può essere utile approfondire le interfacce che permettono agli utenti di comunicare con il sistema operativo.
+
+\subsubsection*{Command Line Interpreter (CLI)}
+
+L'interfaccia a linea di comando permette di impartire comandi direttamente al sistema operativo.
+Viene talvolta implementata dal kernel oppure attraverso programmi di sistema, inoltre può essere anche installata dall'utente, il sistema operativo può offrire più \textit{shell}.
+
+\spacer
+I comandi impartiti dall'utente possono essere eseguiti secondo due modalità:
+
+\begin{sitemize}
+    \item Se il codice del comando è relativo all'interprete viene chiamata direttamente la funzione richiesta dall'utente.
+
+    \item Se invece il codice del comando viene implementato da un altro programma di sistema l'interprete utilizza il comando per accedere al file contenente il codice per l'esecuzione e lo inizializza.
+\end{sitemize}
+
+\begin{note}
+    Spesso nei sistemi operativi non sono disponibili tutte le funzionalità tramite l'interfaccia grafica, in questi casi si può accedervi tramite l'interprete a linea di comando.
+
+    \spacer[4pt]
+    Inoltre la linea di comando risulta essere utile per l'esecuzione di comandi ripetuti in quanto è programmabile
+\end{note}
+
+\subsubsection*{Graphical User Interface (GUI)}
+
+L'interfaccia grafica user-friendly realizza la metafora della scrivania (\textit{desktop}).
+
+L'utente può muovere un cursore su icone che rappresentano programmi, file, cartelle e funzioni di sistema.
+
+Questo rende semplice l'interazione con il sistema tramite mouse, tastiera e monitor.
+
+\begin{note}
+    L'interfaccia grafica nasce dal lavoro del centro di ricerca \textit{Xerox Palo Alto Research Center (PARC)}, le cui idee vennero poi riprese da Steve Jobs nella creazione del software per il primo Machintosh.
+
+    \spacer[4pt]
+    Gli sviluppatori di apple non hanno però mai avuto accesso al codice, quindi provarono ad ricrearlo partendo da una semplice dimostrazione, nella maggior parte delle situazioni riusciranno addirittura a migliorare le funzionalità del sistema della Xerox.
+
+    \spacer[4pt]
+    La storia ha un triste epilogo con la Xerox che provò a fare causa ad apple sul copyright dell'interfaccia, ma una corte statunitense porrà fine alla causa un anno dopo scagionando apple.
+\end{note}

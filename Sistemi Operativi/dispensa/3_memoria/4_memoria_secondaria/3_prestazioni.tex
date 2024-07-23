@@ -1,0 +1,15 @@
+\section{Misurazione delle Prestazioni}
+L'interfaccia SATA inserisce le richieste I/O in una singola coda con lunghezza massima di 256. Per questo motivo i dischi a stato solido (SSD) utilizzano l'interfaccia PCIexpress, che fornisce ~64000 code ognina con lunghezza massima di ~640000.
+
+\spacer
+Questo ci permette di comprendere meglio gli indicatori utilizzati per misurare le prestazioni i quali utilizzano degli indicatori: \texttt{[Seq] [block size] Q[queue size]T[thread number]}
+\begin{sitemize}
+    \item \texttt{Seq} indica se la lettura avviene in modo sequenziale, se non è presente si assume che gli accessi siano casuali
+    \item È possibile specificare la dimensione dei blocchi che vengono letti
+    \item Dopo la lettera \texttt{Q} troviamo la quantità di elementi che sono inseriti nella queue
+    \item Dopo la lettera \texttt{T} troviamo il livello di multiprogrammazione utilizzato.
+\end{sitemize}
+
+\spacer
+Definiamo il \textbf{tempo medio di I/O} come:
+$$T_{\text{medio, I/O}} = \text{seek time} + \text{latenza media} + \frac{\text{quantità di dati da trasferire}}{\text{velocità di trasferimento}} + \text{overhead}$$

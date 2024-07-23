@@ -1,0 +1,29 @@
+\section{Prestazioni di un Elaboratore}
+
+Sia un processore con una frequenza di clock $F$ e quindi con periodo di clock $T = \frac{1}{F}$. Questo è il tempo necessario per eseguire un ciclo di \textit{data path}.
+
+\subsubsection*{Istruzioni al secondo}
+Per svolgere un'istruzione che richiede $n$ cicli di \textit{data path} $t_{i} = n \cdot T$
+
+Quindi il numero di istruzioni processate al secondo sarà $N = \frac{1}{t_{i}} = \frac{F}{n}$
+
+\subsubsection*{Tempo di esecuzione di un processo}
+$$T_{es} = T \cdot (\sum_{i=1}^n N_i \cdot CPI_i )$$
+
+Dove $N_i$ è il numero di istruzioni di tipo $i$ e $CPI_i$ (Cicli Per Istruzione) è il numero di cicli richiesto per l'esecuzione di quel tipo di istruzioni.
+(Questo calcolo si applica per una CPU ad un core senza pipeline.)
+
+\subsubsection*{Confronto delle Prestazioni tra due Processori}
+Definiamo la prestazione di un sistema come $P = \frac{1}{T_{es}}$.
+
+Il fattore di speedup tra due sistemi, A e B è $\frac{P_A - P_B}{P_B} = \frac{T_B - T_A}{T_A}$
+
+\spacer
+La \textit{Legge di Amdahl} ci permette calcolare il miglioramento che si ottiene accelerando di un fattore $a$ un determinato sotto insieme di istruzioni ($p$ è la percentuale di operazioni accelerate).
+
+$$T_{es, finale} = \frac{p \cdot T_{es, iniziale}}{a} + (1-p) \cdot T_{es, iniziale}$$
+
+\subsubsection*{Misurare le Prestazioni di un Processore}
+Un'unità di misura sono le \textit{Instruction Per Second}, $IPS = \frac{f}{CPI}$.
+
+Oppure si possono utilizzare i \textit{Mega FLOting point Per Second (MFLOPS)}, una misura che indica quante operazioni di tipo floating point riesce ad eseguire un elaboratore.

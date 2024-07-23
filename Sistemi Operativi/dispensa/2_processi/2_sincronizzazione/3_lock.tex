@@ -1,0 +1,29 @@
+\section{Lock}
+In generale qualsiasi soluzione al problema della sezione critica utilizza il \textbf{lock}. Per accedere ad una sezione critica il processo deve acquisire un lock, che restituisce poi all'uscita dalla sezione critica.
+
+\begin{minted}{java}
+{
+    //acquisisce il lock
+    sezione critica
+    //restituisce il lock
+    sezione non critica
+}
+\end{minted}
+
+\subsubsection*{Supporto Hardware}
+Molte architetture forniscono il supporto hardware per implementare efficacemente i lock, inoltre alcune forniscono anche direttamente delle istruzioni atomiche.
+
+\subsubsection*{Supporto Sistema Operativo}
+Dato che le implementazioni hardware sono spesso inaccessibili ai programmatori, il sistema operativo fornisce degli strumenti per risolvere il problema.
+
+Il più semplice è il \textbf{lock mutex}, permette di proteggere le sezioni critiche aggiungendo \texttt{acquire()} prima del segmento e \texttt{release()} al termine
+\begin{minted}{java}
+acquire() {
+    while(!available) {}; // busy wait
+    available = false;
+}
+
+release() {
+    available = true;
+}
+\end{minted}

@@ -1,0 +1,53 @@
+\section{Apertura di un File}
+Prima di un qualsiasi accesso ai dati del file occorre trovare l'indirizzo fisico dei dati, ovvero è necessario "aprire" il file.
+
+Il sistema operativo tiene poi in memoria una tabella dei file aperti che permette di accedere rapidamente ai file in uso.
+
+Le system call che gestiscono questa funzione sono:
+\begin{sitemize}
+    \item \textbf{open(F):} ricerca il file nella directory del disco e copia il puntatore ai dati nella tabella dei file.
+
+    \item \textbf{close(F):} copia il contenuto residente nella memoria principale alla memoria secondaria e rimuove il file dalla tabella.
+\end{sitemize}
+
+\subsection{Sistemi multiprogrammati}
+Nei sistemi multiprogrammati la gestione dei file aperti è più complicata in quanto file possono essere aperti da più processi.
+
+Il sistema operativo mantiene due tipi di tabelle dei file, una a livello del sistema e un'altra per ogni processo.
+
+\subsubsection{Tabella di Sistema}
+La tabella di sistema mantiene riferimenti a tutti i file aperti nel sistema, per ogniuno essa salva:
+
+\begin{sitemize}
+    \item \textbf{Posizione} del file nel disco
+    \item \textbf{Dimensione} del file
+    \item Date di \textbf{ultimo accesso} e \textbf{ultima modifica}
+    \item \textbf{Contatore} di aperture
+\end{sitemize}
+
+\spacer
+In particolare il \textbf{contatore di aperture} permette di assicurarsi di chiudere il file al livello del sistema operativo solamente quando tutti i processi hanno smesso di utilizzarlo.
+
+\subsubsection{Tabella del Processo}
+La tabella associata al processo mantiene riferimenti a tutti i file aperti dal processo, per ogniuno essa salva:
+
+\begin{sitemize}
+    \item Puntatore alla posizione corrente nel file
+\end{sitemize}
+
+\spacer
+Inoltre alcuni sistemi operativi forniscono un \textbf{lock} per mediare sull'accesso dei file.
+Esso può essere \textbf{obbligatorio} oppure \textbf{consigliato}.
+
+Nei sistemi in cui il lock è obbligatorio (Windows) non è possibile accedere ai file che sono già aperti da un'altro processo, invece nei sistemi con un lock consigliato (Unix) viene passato allo sviluppatore il compito di mantenere l'integrità dei dati.
+
+\subsection{Condivisione}
+Nei sistemi multiutente è utile che i file vengano condivisi tra più utenti, tuttavia questo deve avvenire seguendo un preciso schema di protezione.
+
+\spacer
+Il modello più diffuso prevede un \textbf{propretario} di ogni file, il suo creatore, che può cambiare gli attributi tra i quali si trova il gruppo di utenti che possono accedere al file.
+
+\subsubsection{Coerenza}
+Quando più utenti possono apportare modifiche allo stesso file si possono verificare delle situazioni simili alle race condition che avvengono nella sincronizzazione fra processi.
+
+Spesso si impone che le scritture di un utente risultino immediatamente visibili agli altri utenti, il file ha quindi un'unica immagine a cui tutti gli utenti accedono.

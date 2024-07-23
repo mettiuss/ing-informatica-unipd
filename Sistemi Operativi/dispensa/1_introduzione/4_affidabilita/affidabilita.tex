@@ -1,0 +1,94 @@
+\chapter{Affidabilità}
+
+Il capitolo viene svolto alla fine del corso nelle ultime slide, viene posizionato qui in quanto non rientra in nessuno dei macroargomenti del corso, ma riguarda il sistema in generale.
+
+\section{Guasti}
+I guasti possono avere una di due caratteristiche rispetto al tempo:
+\begin{sitemize}
+    \item \textbf{Temporanei:} Quindi guasti non sempre presenti in tutte le condizioni. Questi guasti possono essere transitori (avvengono una sola volta) oppure intermittenti (avvengono ad intervalli irregolari).
+
+    \item \textbf{Permanenti:} Guasti che, una volta verificati, rimangono presenti finché il componente non viene sostituito o riparato.
+\end{sitemize}
+
+Invece rispetto alla loro importanza definiamo:
+\begin{sitemize}
+    \item \textbf{Guasti significativi:} guasti che degradano significativamente le prestazioni di un sistema.
+    \item \textbf{Guasti maggiori:} Impediscono il completamento della missione.
+\end{sitemize}
+
+\subsubsection*{Tolleranza ai Guasti}
+Una caratteristica importante di un sistema è la sua tolleranza ai possibili guasti che possono emergere, tipicamente richiede una qualche forma di ridondanza, con lo scopo di aumentare l'affidabilità del sistema.
+
+\subsubsection*{Ridondanza}
+\begin{sitemize}
+    \item \textbf{Spaziale:} Richiede l'utilizzo di diversi componenti in grado di svolgere la stessa operazione, in modo da averne uno disponibile in caso di guasto.
+    \item \textbf{Temporale:} Ritentare l'operazione quando si incontra un errore, permette di risolvere i guasti temporanei.
+    \item \textbf{Informazione:} I dati vengono scritti in modo che possano verificare e correggere i possibili errori.
+\end{sitemize}
+
+\section{Affidabilità}
+Si definisce affidabilità di un dispositivo la probabilità che esso funzioni correttamente, per un dato tempo, date certe condizioni.
+
+\spacer
+\begin{sitemize}
+    \item \textbf{Affidabilità logistica:} Si riferisce alla probabilità che nessun guasto si verifichi
+    \item \textbf{Affidabilità di missione:} Probabilità che non si verifichino guasti "gravi", ovvero tali da pregiudicare le funzionalità del sistema.
+    \item \textbf{Sicurezza:} Probabilità che non si verifichino guasti con conseguenze catastrofiche, tali da produrre danni a persone e cose.
+\end{sitemize}
+
+\subsubsection*{Esempio}
+\begin{center}
+    \begin{tabular}{ | c | c | c | }
+        \hline
+        dispositivo & Ore di funzionamento & Minuti di riparazione \\
+        \hline \hline
+        1           & 490                  & 140                   \\
+        2           & 760                  & 130                   \\
+        3           & 2350                 & 80                    \\
+        4           & 1400                 & 90                    \\
+        5           & 1560                 & 110                   \\
+        6           & 970                  & 150                   \\
+        7           & 2300                 & 70                    \\
+        8           & 1190                 & 90                    \\
+        9           & 1130                 & 110                   \\
+        10          & 300                  & 120                   \\
+        \hline
+        Somma:      & 12450                & 1090                  \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsubsection*{Affidabilità:}
+
+$$R(t) = \frac{n_{prod}(t)}{n_{prod}(t_o)}$$
+
+dove $n_{prod}(t)$ è il numero di dispositivi funzionanti al tempo $t$.
+
+\spacer
+In questo caso $R(1000) = \frac{6}{10} = 0.6$
+
+\subsubsection*{MTTF (Mean Time to Failure)}
+$$MTTF = \frac{\sum_{n=1}^{N}T_n}{N}$$
+dove $N$ è il numero di dispositivi
+
+\spacer
+In questo caso $MTTF = \frac{12450}{10} = 1245$ ore
+
+\subsubsection*{MTTR (Mean Time to Repair)}
+$$MTTR = \frac{\sum_{n=1}^{N}R_n}{N}$$
+dove $N$ è il numero di dispositivi
+
+\spacer
+In questo caso $MTTR = \frac{1090}{10} = 109$ minuti
+
+\subsubsection*{Availability}
+Frazione di tempo in cui il dispositivo funziona correttamente.
+
+$$A = \frac{MTTF}{MTTF + MTTR}$$
+
+\spacer
+In questo caso $A \approx 99.86\%$
+
+\begin{note}
+    Sia la funzione di affidabilità $R(t)$ che quella di guasto $Q(t) = 1-R(t)$ sono delle distribuzioni di probabilità.
+\end{note}

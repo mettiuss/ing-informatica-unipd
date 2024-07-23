@@ -1,0 +1,23 @@
+\section{Memoria Virtuale}
+Abbiamo visto come la paginazione può permettere di condividere la memoria tra più processi, tuttavia è raro che un intero processo venga inserito nella memoria principale prima che venga eseguito.
+
+Questo perché non tutte le sezioni del programma vengono eseguite allo stesso tempo, è quindi conveniente caricarle in modo dinamico.
+
+\spacer
+In questo modo le dimensioni totali del programma non sono più limitate dalle dimensioni della memoria fisica e viene lasciato più spazio nella memoria per la multiprogrammazione.
+
+Inoltre l'utilizzo della memoria virtuale rende più semplice la condivisione di librerie o dati.
+
+\subsection{Spazio degli Indirizzi Virtuali}
+La memoria virtuale separa la memoria logica utilizzata dagli sviluppatori da quella fisica, rendendo così più semplice il lavoro del programmatore che non deve gestire manualmente le limitazioni fisiche della memoria principale.
+
+\spacer
+
+Nello spazio degli indirizzi virtuali i programmi sono allocati in modo contiguo, a partire da un certo indirizzo iniziale $0$ fino a quello finale $Max$.
+
+Nella memoria fisica invece il programma può essere allocato in pagine sparse. La MMU si occupa della conversione degli indirizzi logici in fisici.
+
+\spacer
+Condividere librerie è ora estremamente semplice, basterà mappare le pagine logiche agli stessi frame fisici.
+
+In questo modo entrambi i processi vedono gli indirizzi della libreria comune come propri, ma in realtà i dati non vengono duplicati.

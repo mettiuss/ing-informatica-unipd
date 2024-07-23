@@ -1,0 +1,45 @@
+\section{Implementazione: Linux}
+Prima della versione 2.6 (2004) Linux utilizzava un kernel senza diritto di prelazione. Per ottenere delle sezioni critiche venivano disabilitati momentaneamente gli interrupt.
+
+\spacer
+Ad oggi Linux fornisce diversi strumenti per la sincronizzazione:
+\begin{itemize}
+    \item \textbf{Lock Mutex:} Una variabile booleana che indica se il lock è disponibile, modificata tramite chiamate a sistema.
+          \begin{minted}{cpp}
+#include <pthread.h>
+/* create and initialize the mutex lock */ 
+pthread mutex t mutex;
+pthread mutex init (&mutex, NULL);
+
+pthread mutex lock (&mutex); /* acquire the mutex lock */ 
+/* critical section */
+pthread mutex unlock (&mutex); /* release the mutex lock */ 
+    \end{minted}
+    \item \textbf{Spinlock:} Un ciclo di busy waiting che verifica periodicamente se il lock è libero. È particolarmente inefficiente per i sistemi single core, in quanto altri processi non vengono eseguiti e quindi la risorsa attesa non viene sbloccata. Mentre può fornire alcuni vantaggi su sistemi multicore in quanto il processo non esce dall'esecuzione.
+    \item \textbf{Semafori:} Ne esistono di due tipi, con e senza nome. I semafori con nome sono condivisi da tutti i processi imparentati, mentre quelli senza nome possono essere utilizzati solo nel contesto del processo.
+          \begin{minted}{cpp}
+#include <semaphore.h>
+/* Create the semaphore and initialize it to 1 */
+sem_t *sem;
+sem = sem open ("SEM", O CREAT, 0666, 1);
+
+sem_wait (sem); /* acquire the semaphore */
+/* critical section */
+sem-post (sem); /* release the semaphore */ 
+            \end{minted}
+    \item \textbf{Interi atomici:} Un tipo le cui operazioni sono tutte definite in modo atomico. Essi non risentono dell'overhead introdotto dai tradizionali meccanismi di lock.
+          \begin{minted}{cpp}
+atomic_t counter;
+atomic_set (&counter, 5); /* counter = 5 */
+atomic_add (10, &counter); /* counter = 15 */
+atomic_sub (4, &counter); /* counter = 11 */
+atomic_inc (&counter); /* counter = 12 */
+int value = atomic_read (&counter); /* value = 12 */
+    \end{minted}
+
+    \item \textbf{Variabili condition:} Sono le variabili utilizzate per la realizzazione di monitor, forniscono un wait e un signal che gestiscono in autonomia un lock.
+
+          Il wait acquisice periodicamente il lock, verifica la condition e poi libera il lock.
+
+\end{itemize}
+

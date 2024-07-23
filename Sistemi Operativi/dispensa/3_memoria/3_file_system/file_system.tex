@@ -1,0 +1,20 @@
+\chapter{File System}
+
+La struttura logica con la quale il sistema operativo gestisce i file prende il nome di \textit{file system}.
+
+Essa fornisce meccanismi di registrazione, accesso e protezione ai dati e programmi degli utenti e del sistema.
+
+\spacer
+Tutti i moderni sistemi operativi utilizzano un file system \textbf{gerarchico} a cui gli utenti sono abituati.
+
+L'organizzazione gerarchica non viene rispecchiata fisicamente nel disco, è solo una particolare astrazione dei dati.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.36\linewidth]{assets/HFS.jpg}
+\end{figure}
+
+Il file system ha il compito di fornire all'utente una serie di funzioni ad alto livello che permettono di lavorare sui file mascherando i dettagli implementativi. Tutto questo deve essere svolto a prescindere dalle caratteristiche fisiche delle memorie secondarie.
+
+\input{3_memoria/3_file_system/1_directory.tex}
+\input{3_memoria/3_file_system/2_implementazioni.tex}

@@ -1,0 +1,87 @@
+\documentclass[a4paper,10pt]{report}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage[french,italian]{babel}
+\usepackage[most]{tcolorbox}
+\usepackage{minted}
+\frenchspacing
+
+\setlength{\parindent}{0pt}
+
+\newcommand{\spacer}[1][8pt]{
+    \par\vspace{#1}
+}
+
+\newenvironment{sitemize}{%
+    \begin{list}{\labelitemi}{%
+        \setlength{\itemsep}{0pt}%
+        \setlength{\parskip}{0pt}%
+        \setlength{\parsep}{0pt}%
+        \setlength{\topsep}{0pt}%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\leftmargin}{1.5em}%
+        \setlength{\labelwidth}{1em}%
+        \setlength{\labelsep}{0.5em}%
+    }%
+}{%
+    \end{list}%
+}
+
+\newtcolorbox{note}{
+    enhanced,
+    breakable,
+    colback=lightgray!20,
+    colframe=gray!50,
+    borderline west={2pt}{0pt}{gray!80},
+    arc=0mm,
+    boxrule=0mm,
+    boxsep=2mm,
+    left=6pt,
+    right=6pt,
+    fonttitle=\bfseries,
+    fontupper=\small\color{black!80}
+}
+
+\title{\Huge \textbf{Sistemi Operativi}\\ \large Ingegneria Informatica - Unipd}
+\date{}
+\author{}
+
+\lstset{basicstyle=\small}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\part{Introduzione}
+\include{1_introduzione/1_architettura_elaboratore/architettura_elaboratore.tex}
+\include{1_introduzione/2_sistemi_operativi/sistemi_operativi.tex}
+\include{1_introduzione/3_strutture_sistemi_operativi/strutture_sistemi_operativi.tex}
+\include{1_introduzione/4_affidabilita/affidabilita.tex}
+
+\part{Gestione dei Processi}
+\include{2_processi/1_threads_concorrenza/threads_concorrenza.tex}
+\include{2_processi/2_sincronizzazione/sincronizzazione.tex}
+\include{2_processi/3_scheduling/scheduling.tex}
+
+\part{Gestione della Memoria}
+\include{3_memoria/1_memoria_principale/memoria_principale.tex}
+\include{3_memoria/2_file/file.tex}
+\include{3_memoria/3_file_system/file_system.tex}
+\include{3_memoria/4_memoria_secondaria/memoria_secondaria.tex}
+
+\part{Sistemi Operativi Moderni}
+\include{4_sistemi/1_sistemi/sistemi.tex}
+
+\part{Programmazione Concorrente}
+\include{5_go/go.tex}
+
+\end{document}

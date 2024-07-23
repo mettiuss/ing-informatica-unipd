@@ -1,0 +1,8 @@
+\section{Comunicazione tra Processi}
+La comunicazione tra processi è necessaria in diverse situazioni e viene implementata mediante diverse tecniche:
+\begin{sitemize}
+    \item \textbf{Scambio di Messaggi:} Richiede un overhead da parte del sistema operativo, ma non presenta conflitti ed è di più semplice utilizzo.
+    \item \textbf{Memoria Condivisa:} Richiede l'intervento del kernel solo nell'allocazione iniziale, tuttavia gli accessi successivi devono essere gestiti direttamente dai processi.
+    \item \textbf{Pipes Ordinarie:} Permettono la comunicazione unidirezionale tra due processi (produttore-consumatore).
+    \item \textbf{Pipes Nominate:} Permettono la comunicazione bidirezionale a molteplici processi, questo avviene grazie ad un file di tipo speciale. Sono supportate sia da Unix che da Windows.
+\end{sitemize}

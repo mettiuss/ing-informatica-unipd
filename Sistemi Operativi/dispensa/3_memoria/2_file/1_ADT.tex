@@ -1,0 +1,35 @@
+\section{Tipo di Dati Astratto}
+Un file è un tipo di dati astratto su cui sono definite le operazioni di:
+\begin{sitemize}
+    \item \textbf{Creazione}
+
+    Reperisce dello spazio per memorizzare il file nella memoria e crea un nuovo elemento nella directory.
+
+    \item \textbf{Scrittura}
+
+    Viene fatta una \textit{system call} che specifica il file su cui scrivere e i dati da scrivere.
+    Il sistema operativo mantiene un puntatore di scrittura per continuare una scrittura sequenziale.
+
+    \item \textbf{Lettura}
+
+    \textit{system call} con riferimento al file e indirizzo di memoria principale su cui scrivere i dati. Anche in questo caso il sistema operativo mantiene un puntatore di lettura per le letture sequenziali.
+
+    \item \textbf{Posizionamento del File}
+
+    Riposiziona il puntatore di lettura/scrittura ad un diverso punto del file.
+
+    \item \textbf{Cancellazione}
+
+    Si rilascia lo spazio allocato al file e lo si rimuove dalla directory. (I bit non vengono azzerati quindi i dati del file possono essere ancora letti)
+
+    \item \textbf{Troncamento}
+
+    Elimina il contenuto del file, ma ne mantiene tutti gli attributi
+
+    \item \textbf{Impostazione degli attributi}
+
+    Reperimento/aggiornamento delle informazioni del file nel relativo elemento della directory
+\end{sitemize}
+
+Da queste operazioni elementari è possibile poi costruirne di più complesse facendone una combinazione.
+
