@@ -29,7 +29,36 @@ log.txt
 *.aux
 _minted*
 
-#Fondamenti di Informatica
+# Comune
+Libri
+
+# Analisi 1
+Analisi 1/Esercizi
+
+# Fondamenti di Informatica
 ADT/
 Laboratorio/
 Simulazioni/
+Fondamenti di Informatica/Slide.pdf
+
+# Fisica 1
+Fisica 1/Esercizi
+Fisica 1/Problemi
+
+# Architettura degli Elaboratori
+Architettura degli Elaboratori/Esercizi
+Architettura degli Elaboratori/Slides
+
+# Dati e Algoritmi
+Dati e Algoritmi/Slide.pdf
+Dati e Algoritmi/Esercizi
+Dati e Algoritmi/Esame.pdf
+
+# Laboratorio di Programmazione
+Laboratorio di Programmazione/Slide.pdf
+
+# Sistemi Operativi
+Sistemi Operativi/Zibaldone
+
+# Teoria Dei Circuiti
+Teoria Dei Circuiti/Slide.pdf
