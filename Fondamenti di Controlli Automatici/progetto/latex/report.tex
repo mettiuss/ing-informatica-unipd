@@ -150,18 +150,18 @@ Ottenendo così il seguente risultato:
 \end{figure}
 
 \section{Esercizio 4}
-Per verificare l'altezza massima che il magnete è in grado di raggiungere impostiamo i solenoidi alla massima potenza a loro disponibile, ovvero $i = 0.02$.
+Per verificare l'altezza massima che il magnete è in grado di raggiungere utilizziamo un controllore instabile, trovato durante il nostro lavoro di ricerca dell'esercizio 2, in particolare un controllore proporzionale con $K = 1$.
 
-Per velocizzare la simulazione ed ottenere il valore finale in un tempo minore abbiamo aumentato l'attrito impostando $d = 0.1$.
+Otteniamo poi il valore massimo simulando l'evoluzione del sistema e prendendo il valore massimo.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width = 0.5\textwidth]{Images/max-z.png}
-    \caption{Sistema controllato con i = 0.02}
+    \caption{Sistema controllato con controllore instabile}
     \label{fig:max-z}
 \end{figure}
 
-Vediamo sperimentalmente che il valore massimo a regime che il sistema può raggiungere è $0.0764771$.
+Vediamo sperimentalmente che il valore massimo a regime che il sistema può raggiungere è $0.25213$.
 
 \section{Esercizio 5}
 Per far seguire al magnete i segnali di riferimento richiesti abbiamo utilizzato in entrambi i casi un controllore PID con valori modificati per adattarsi meglio al problema.
