@@ -60,7 +60,7 @@ Lo scheduler Linux è ottimizzato anche per sistemi NUMA, implementando delle st
 Le CPU Alder Lake causano non pochi problemi allo scheduler Linux < 5.16, infatti esso non si aspetta di vedere processori con livelli di prestazione diversi, ottimizzati per diverse situazioni.
 
 \subsubsection{Windows 10}
-Implementa livelli di priorità da 0 a 31, ogniuno con la sua coda. Lo scheduler poi seleziona l'ultimo processo dalla coda a priorità più alta non vuota.
+Implementa livelli di priorità da 0 a 31, ognuno con la sua coda. Lo scheduler poi seleziona l'ultimo processo dalla coda a priorità più alta non vuota.
 
 \spacer
 I thread che hanno una priorità compresa tra 0 e 15 vengono gestiti dinamicamente, quando uno di essi viene portato in foreground, oppure riceve un input dall'utente, la sua priorità viene aumentata.

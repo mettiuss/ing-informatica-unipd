@@ -16,7 +16,7 @@ Nei sistemi multiprogrammati la gestione dei file aperti è più complicata in q
 Il sistema operativo mantiene due tipi di tabelle dei file, una a livello del sistema e un'altra per ogni processo.
 
 \subsubsection{Tabella di Sistema}
-La tabella di sistema mantiene riferimenti a tutti i file aperti nel sistema, per ogniuno essa salva:
+La tabella di sistema mantiene riferimenti a tutti i file aperti nel sistema, per ognuno essa salva:
 
 \begin{sitemize}
     \item \textbf{Posizione} del file nel disco
@@ -29,7 +29,7 @@ La tabella di sistema mantiene riferimenti a tutti i file aperti nel sistema, pe
 In particolare il \textbf{contatore di aperture} permette di assicurarsi di chiudere il file al livello del sistema operativo solamente quando tutti i processi hanno smesso di utilizzarlo.
 
 \subsubsection{Tabella del Processo}
-La tabella associata al processo mantiene riferimenti a tutti i file aperti dal processo, per ogniuno essa salva:
+La tabella associata al processo mantiene riferimenti a tutti i file aperti dal processo, per ognuno essa salva:
 
 \begin{sitemize}
     \item Puntatore alla posizione corrente nel file
