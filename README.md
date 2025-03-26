@@ -1,6 +1,7 @@
 # ing-informatica-unipd
 
-Raccolta di schemi, progetti ed esercizi svolti durante il corso di ingegneria informatica unipd
+Raccolta di appunti, progetti ed esercizi svolti durante il corso di ingegneria informatica all'Università di Padova.
+Questa repository non vuole fornire tutto il materiale necessario allo studio dei corsi, si trovano principalmente appunti scritti con l'intento di comprendere al meglio i concetti più complessi incontrati nello studio. Spesso le spiegazioni sono diverse da quelle fornite dal professore e credo che per un certo tipo di studente possano tornare utili.
 
 ## Anno 1
 
@@ -95,7 +96,10 @@ docente: [MIGLIARDI MAURO](https://www.dei.unipd.it/persona/73DA434479FD4EEDCB49
 III Anno, 9 CFU
 
 tutore universitario: [MIGLIARDI MAURO](https://www.dei.unipd.it/persona/73DA434479FD4EEDCB49BB2801009477)
+
 tutore aziendale: [LORENZO BRAGHETTO](https://www.linkedin.com/in/lorenzo-braghetto)
+
+---
 
 ### Fondamenti di Elettronica
 
@@ -119,4 +123,27 @@ docente: [SALVAGNIN DOMENICO](https://www.dei.unipd.it/~salvagni/)
 
 III Anno I Semestre, 9 CFU
 
-docente: [GIORGIO MARIA DI NUNZIO](https://www.dei.unipd.it/~dinunzio/MyAcademicPage/Welcome.html)
+docente: [DI NUNZIO GIORGIO MARIA](https://www.dei.unipd.it/~dinunzio/MyAcademicPage/Welcome.html)
+
+---
+
+### Segnali e Sistemi
+
+III Anno II Semestre, 9 CFU
+
+docente: [ERSEGHE TOMASO](https://www.dei.unipd.it/persona/C71FC6B2F953B40F5730E58CE243C96F)
+
+### Reti di Calcolatori
+
+III Anno II Semestre, 9 CFU
+
+docenti: [ZINGIRIAN NICOLA](https://www.unipd.it/en/contatti/rubrica/?detail=Y&ruolo=1&checkout=cerca&persona=ZINGIRIAN&key=8BFDC8A060C44B20DC7B8D5D3D40DE14)
+[CAGNAZZO MARCO](https://www.dei.unipd.it/persona/6ADD4BF61A9F7E8DC8B0CF9692F04DFA)
+
+### Tesi
+
+III Anno II Semestre, 3 CFU
+
+relatore: [ZAMPIERI SANDRO](https://www.dei.unipd.it/persona/39B4D0B872DC530EA55A7BA82D6C7AE9)
+
+titolo:

@@ -28,6 +28,13 @@ log.txt
 *.fdb_latexmk
 *.aux
 _minted*
+*.xmpi
+*.xdv
+*.blg
+*.bbl
+*.auxlock
+*.md5
+*.xml
 
 # Comune
 Libri
