@@ -8,7 +8,7 @@ I blocchi logici non devono essere uguali a quelli fisici, se ho blocchi fisici 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{assets/allocazione-contigua.png}
+    \includegraphics[width=0.4\linewidth]{assets/allocazione-contigua.jpeg}
 \end{figure}
 
 \subsubsection{Allocazione Concatenata}
@@ -16,7 +16,7 @@ Il file può essere sparso in tutto il disco, ogni blocco contiene un puntatore 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{assets/allocazione-contigua.png}
+    \includegraphics[width=0.4\linewidth]{assets/allocazione-contigua.jpeg}
 \end{figure}
 
 
@@ -34,7 +34,7 @@ Per ogni file si stabilisce un blocco indice, il quale contiene tutti i puntator
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{assets/allocazione-indicizzata.png}
+    \includegraphics[width=0.5\linewidth]{assets/allocazione-indicizzata.jpg}
 \end{figure}
 
 Qualora i 512 puntatori non dovessero essere sufficienti si possono utilizzare delle tabelle concatenate con 511 puntatori a blocchi di memoria ciascuna.
@@ -50,7 +50,7 @@ Il primo, più semplice, prevede dei blocchi che puntano direttamene ai blocchi 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{assets/schema-concatenato.png}
+    \includegraphics[width=0.5\linewidth]{assets/schema-concatenato.jpeg}
 \end{figure}
 
 \spacer
@@ -58,7 +58,7 @@ Il secondo utilizza più livelli per indicizzare una quantità maggiore di memor
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{assets/indici-multilivello.png}
+    \includegraphics[width=0.4\linewidth]{assets/indici-multilivello.jpeg}
 \end{figure}
 
 \subsubsection{Schema Combinato}
@@ -66,7 +66,7 @@ Una soluzione ibrida viene spesso utilizzata nei sistemi operativi, ad esempio i
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{assets/inode-ibrido.png}
+    \includegraphics[width=0.4\linewidth]{assets/inode-ibrido.jpeg}
 \end{figure}
 
 \begin{sitemize}
@@ -91,7 +91,7 @@ Poi quando si crea un nuovo file si cercano blocchi liberi dalla struttura dati 
 \subsubsection{Bitmap}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{assets/bitmap-libero.png}
+    \includegraphics[width=0.4\linewidth]{assets/bitmap-libero.jpeg}
 \end{figure}
 
 È possibile mantenere un vettore dove ogni bit rappresenta un blocco, questa struttura dati ha buone prestazioni quando il vettore può essere mantenuto in memoria principale.
@@ -101,7 +101,7 @@ Tutti i blocchi liberi si collegano mediante puntatori e si mantiene il puntator
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\linewidth]{assets/spazio-libero-lista-concatenata.png}
+    \includegraphics[width=0.3\linewidth]{assets/spazio-libero-lista-concatenata.jpg}
 \end{figure}
 
 

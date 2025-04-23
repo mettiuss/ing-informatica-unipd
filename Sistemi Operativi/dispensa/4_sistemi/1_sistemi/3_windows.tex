@@ -20,7 +20,7 @@ Con Windows 8 Microsoft prova ad avvicinarsi al mondo dei dispositivi mobile, co
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{assets/Windows-structure.png}
+    \includegraphics[width=0.75\linewidth]{assets/Windows-structure.jpeg}
 \end{figure}
 
 Il primo strato sopra all'hardware è formato dall'hypervisor il quale gira sopra l'hardware e supporta l'esecuzione concorrente di più sistemi operativi.
@@ -50,7 +50,7 @@ In Windows oltre a processi e thread vengono introdotti anche i job, che raggrup
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{assets/Windows-job.png}
+    \includegraphics[width=0.75\linewidth]{assets/Windows-job.jpeg}
 \end{figure}
 
 Al contrario di unix la procedura di creazione di un thread non è così leggera come una chiamata a fork(), questo ha dei vantaggi, ma anche un aumento del tempo di esecuzione.
@@ -66,7 +66,7 @@ I thread possono avere come priorità: time critical, altissima, sopra il normal
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{assets/Windows-priority.png}
+    \includegraphics[width=0.75\linewidth]{assets/Windows-priority.jpeg}
 \end{figure}
 
 Il sistema mantiene poi 32 liste di thread e quando deve selezionare un processo prende il primo processo che trova scendendo le liste.
@@ -131,7 +131,7 @@ Ciascun elemento della tabella contiene gli attributi del file, come il suo nome
 Vediamo una tipica MFT per un file di 9 blocchi.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{assets/Windows-MFT.png}
+    \includegraphics[width=0.75\linewidth]{assets/Windows-MFT.jpeg}
 \end{figure}
 
 NTFS supporta anche la compressione trasparente all'utente, essa funziona nel seguente modo:
@@ -139,7 +139,7 @@ Il file viene diviso in sezioni di 16 blocchi, su ogniuna si prova ad applicare 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{assets/windows-MFT-compression.png}
+    \includegraphics[width=0.75\linewidth]{assets/windows-MFT-compression.jpeg}
 \end{figure}
 
 Windows infine fornisce anche Bitlocker, uno strumento di cifratura del disco, questo è particolarmente utile per i laptop che sono più semplici da smarrire o rubare.
