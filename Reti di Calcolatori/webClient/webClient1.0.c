@@ -24,7 +24,11 @@ unsigned short invert_byte_order(unsigned short in)
 int main()
 {
     // creating a file descriptor
-    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    int sock;
+    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+        perror("Socket fallito");
+        return 1;
+    }
 
     struct sockaddr_in server;
     server.sin_family = AF_INET;
@@ -34,10 +38,11 @@ int main()
     server.sin_port = invert_byte_order(80);
 
     unsigned char* p = (unsigned char*)&server.sin_addr.s_addr;
+    // google ip is 216.58.213.4
     p[0] = 216;
     p[1] = 58;
     p[2] = 213;
-    p[3] = 4; // google ip is 216.58.213.4
+    p[3] = 4;
 
     // connecting the socket to the google server
     if (connect(sock, (struct sockaddr*)&server, sizeof(struct sockaddr_in)) == -1) {
