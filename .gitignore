@@ -1,17 +1,18 @@
-#cpp
+# ========== FILE IGNORE ==========
+# cpp
 *
 !/**/
 !*.*
 *.out
 *.o
 
-#java
-*.class
-
 #cmake
 build
 
-#general
+# java
+*.class
+
+# general
 .DS_Store
 .prettierrc.json
 .vs
@@ -19,7 +20,7 @@ build
 *.exe
 log.txt
 
-#latex
+# latex
 *.toc
 *.dvi
 *.log
@@ -35,6 +36,14 @@ _minted*
 *.auxlock
 *.md5
 *.xml
+
+# matlab
+*.asv
+
+# obsidian
+.obsidian
+
+# ========== COPYRIGHT IGNORE ==========
 
 # Comune
 Libri
@@ -80,3 +89,6 @@ Basi di Dati/Esercizi/Quiz.apkg
 
 # Modelli e Software per l'Ottimizzazione Discreta
 Modelli e Software per l'Ottimizzazione Discreta/Esercizi/Esercizi.pdf
+
+# Elementi di Ingegneria del Software
+Elementi di Ingegneria del Software/*/docs
