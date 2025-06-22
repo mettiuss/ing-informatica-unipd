@@ -15,6 +15,8 @@
 
 \setlength{\parindent}{0pt}
 
+\pagenumbering{roman} % comincia a mostrare il numero di pagina
+
 \newcommand{\spacer}[1][8pt]{
     \par\vspace{#1}
 }
@@ -60,6 +62,12 @@
 \maketitle
 
 \tableofcontents
+
+\cleardoublepage
+
+\pagestyle{plain} % comincia a mostrare il numero di pagina
+\setcounter{page}{1}
+\pagenumbering{arabic}
 
 \part{Introduzione}
 \include{1_introduzione/1_architettura_elaboratore/architettura_elaboratore.tex}
