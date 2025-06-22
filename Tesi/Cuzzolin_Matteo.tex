@@ -1,0 +1,143 @@
+% le caratteristiche richieste dall'università sono elencate qui: https://stem.elearning.unipd.it/mod/book/view.php?id=234&chapterid=46#modalita
+% 12pt: font richiesto dall'università
+% twoside: i margini interni ed esterni sono scambiati per le pagine "a sinistra" e "a destra"
+% openright: i capitoli cominciano in pagine dispari ("a destra")
+% extreport: supporta 12pt
+\documentclass[12pt,a4paper,twoside]{extreport}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath}                            % per avere più controllo sulle equazioni 
+\usepackage{csquotes}                           % per le citazioni
+\usepackage{enumitem}                           % per avere più controllo sulle enumerazioni
+\usepackage[
+    a4paper,
+    top=2cm,bottom=2cm,
+    outer=2cm,inner=3cm,
+    includeheadfoot
+]{geometry}                                     % margini richiesti dall'università
+\usepackage{graphicx}                           % per le immagini
+\usepackage{minted}                             % per il codice con la colorazione della sintassi
+\usepackage[a-1b]{pdfx}                         % formato richiesto dall'università
+\usepackage[output-decimal-marker={,}]{siunitx} % per le unità di misura
+\usepackage{subcaption}                         % per le sottodidascalie
+\usepackage{svg}             
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[most]{tcolorbox}
+\usepackage[italian]{babel}
+\selectlanguage{italian}
+
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\bibliography{bibliografia.bib}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman} % carattere richiesto dall'università
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+\usepackage{amssymb}
+
+\usepackage{setspace}
+\onehalfspacing % interlinea richiesta dall'università
+
+\setlength{\parindent}{0pt}
+
+\newenvironment{sitemize}{
+    \begin{list}{\labelitemi}{
+        \setlength{\itemsep}{0pt}
+        \setlength{\parskip}{0pt}
+        \setlength{\parsep}{0.25em}
+        \setlength{\topsep}{0.5em}
+        \setlength{\leftmargin}{1em}
+        \setlength{\labelwidth}{1em}
+        \setlength{\labelsep}{0.5em}
+    }
+}{
+    \end{list}
+}
+
+\newtcolorbox{note}{
+    enhanced,
+    breakable,
+    colback=lightgray!20,
+    colframe=gray!50,
+    borderline west={2pt}{0pt}{gray!80},
+    arc=0mm,
+    boxrule=0mm,
+    boxsep=2mm,
+    left=6pt,
+    right=6pt,
+    fonttitle=\bfseries,
+    fontupper=\small\color{black!80}
+}
+
+\def\defequal{\overset{\scriptscriptstyle\Delta}{=}}
+
+\sloppy % per evitare che il testo in \verb finisca oltre i margini
+
+% questi valori vengono usati nella composizione del frontespizio
+\title{Modellazione e controllo laterale e longitudinale di un Boeing 747}
+\author{Cuzzolin Matteo}
+\date{21/07/2025}
+\newcommand{\supervisor}{Prof. Zampieri Sandro}
+
+\begin{document}
+\allowdisplaybreaks
+\pagenumbering{roman}
+\pagestyle{empty} % per le prime pagine, non mostrare il numero di pagina
+
+\input{Capitoli/frontespizio}
+\cleardoublepage
+
+\abstract
+
+Il Boeing 747, come molti velivoli moderni, è dotato di sistemi di controllo automatico progettati per mitigare gli effetti degli agenti atmosferici e per assistere il pilota nelle operazioni di volo.
+Nella presente tesi viene sviluppato un modello matematico dell'aeromobile in grado di descriverne la dinamica e la cinematica, basato sulle equazioni del moto di un corpo rigido e sui dati del report tecnico NASA CR-2144.
+Successivamente, vengono descritti due controllori: un autopilota, utilizzabile per assistere il pilota nel mantenimento di una determinata altitudine, e un controllore progettato per mitigare un fenomeno noto come "Dutch Roll", al quale sono particolarmente soggetti i velivoli di grandi dimensioni con ali a freccia positiva, come il Boeing 747.
+
+% english
+%The Boeing 747, like many modern aircraft, is equipped with automatic control systems designed to mitigate the effects of atmospheric disturbances and to assist the pilot during flight operations.
+%In this thesis, a mathematical model of the aircraft is developed, capable of describing its dynamics and kinematics. The model is based on the equations of motion of a rigid body and parameterized using data from NASA technical report CR-2144.
+%Subsequently, two controllers are described: an autopilot, which can be used to assist the pilot in maintaining a desired altitude, and a controller designed to mitigate a phenomenon known as Dutch Roll, to which large aircraft with swept wings, such as the Boeing 747, are particularly susceptible.
+
+\cleardoublepage
+
+
+\pagestyle{plain} % comincia a mostrare il numero di pagina
+\setcounter{page}{1}
+\tableofcontents
+
+\cleardoublepage
+\thispagestyle{empty}
+\null
+\newpage
+
+\pagenumbering{arabic}
+
+\chapter{Descrizione del Sistema Boeing 747}
+\input{Capitoli/1_sistema/1_sistemi_di_riferimento.tex}
+\input{Capitoli/1_sistema/2_trasformazioni.tex}
+\input{Capitoli/1_sistema/3_superfici.tex}
+\chapter{Modellizzazione}
+\input{Capitoli/2_modellazione/1_variabili.tex}
+\input{Capitoli/2_modellazione/2_equazioni.tex}
+\input{Capitoli/2_modellazione/3_linearizzazione.tex}
+\input{Capitoli/2_modellazione/4_derivate.tex}
+\input{Capitoli/2_modellazione/5_risultati_numerici.tex}
+\chapter{Analisi}
+\input{Capitoli/3_analisi/1_longitudinali.tex}
+\input{Capitoli/3_analisi/2_laterali.tex}
+\chapter{Controllo}
+\input{Capitoli/4_controllo/1_longitudinali.tex}
+\input{Capitoli/4_controllo/2_laterali.tex}
+
+\appendix
+\chapter{Report Tecnico NASA CR-2144}\label{appendix:report}
+\input{Capitoli/appendice/report.tex}
+
+\cleardoublepage
+
+\printbibliography[heading=bibintoc]
+\end{document}

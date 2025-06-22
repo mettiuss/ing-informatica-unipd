@@ -1,0 +1,256 @@
+\section{Derivate di Stabilità}\label{sec:derivateStabilita}
+
+Le equazioni ottenute in precedenza non sono ancora lineari a causa della presenza dei termini $X$, $Y$, $Z$, $L$, $M$, $N$ e $T$. Infatti, essi dipendono in modo non lineare da $u$, $v$, $w$, $p$, $q$, $r$, $\delta_a$, $\delta_e$, $\delta_r$, $\delta_t$ e derivate.
+
+Le derivate di stabilità, proposte per la prima volta da Bryan nel 1911 \cite{bryan_stability_aviation}, permettono di linearizzare anche questi termini e si sono dimostrate un metodo efficace per analizzare la meccanica del volo degli aeromobili in quanto forniscono risultati verificabili nei test di volo.
+
+Si applica il teorema di Taylor-McLaurin nel seguente modo:
+
+\begin{equation*}
+    \begin{split}
+        X(t) & = f(u, \dot{u}, v, \dot{v}, w, \dot{w}, p, \dot{p}, q, \dot{q}, r, \dot{r}, \delta_a, \dot{\delta_a}, \delta_e, \dot{\delta_e}, \delta_r, \dot{\delta_r}, \delta_t, \dot{\delta_t})                                                                                               \\
+             & = \bar{X} + \widetilde{X}(t) = \bar{X} + \left.\frac{\partial X}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial X}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial X}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t)
+        \\ &\vdots
+    \end{split}
+\end{equation*}
+
+Quindi:
+\begin{equation*}
+    \begin{split}
+        \widetilde{X}(t) & = \left.\frac{\partial X}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial X}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial X}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+        \widetilde{Y}(t) & = \left.\frac{\partial Y}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial Y}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial Y}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+        \widetilde{Z}(t) & = \left.\frac{\partial Z}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial Z}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial Z}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+        \widetilde{L}(t) & = \left.\frac{\partial L}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial L}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial L}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+        \widetilde{M}(t) & = \left.\frac{\partial M}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial M}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial M}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+        \widetilde{N}(t) & = \left.\frac{\partial N}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial N}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial N}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+        \widetilde{T}(t) & = \left.\frac{\partial T}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial T}{\partial \dot{u}}\right|_0\dot{\widetilde{u}}(t) + \dots + \left.\frac{\partial T}{\partial \dot{\delta_t}}\right|_0\dot{\widetilde{\delta_t}}(t) \\
+    \end{split}
+\end{equation*}
+
+\subsection{Semplificazioni Sperimentali}
+
+Come specificato in \cite{bryson_control_spacecraft_aircraft}, è possibile semplificare notevolmente queste equazioni:
+\begin{sitemize}
+    \item La simmetria del velivolo lungo l'asse longitudinale garantisce che:\\
+    $Y$, $L$, $N$ sono funzioni di ($v$, $p$, $r$, $\delta_a$, $\delta_r$)\\
+    $X$, $Z$, $M$ sono funzioni di ($u$, $w$, $q$, $\delta_e$)\\
+    $T$ è una funzione di ($u$, $w$, $\delta_t$)
+    \item Le derivate rispetto a $\dot{\delta_a}$, $\dot{\delta_e}$, $\dot{\delta_r}$, $\dot{\delta_t}$ sono trascurabili.
+    \item Per via sperimentale si è osservato che tutte le derivate rispetto ad un'accelerazione ($\dot{u}$, $\dot{w}$, $\dot{q}$, $\dot{v}$, $\dot{p}$, $\dot{r}$) sono trascurabili, tranne $\left.\frac{\partial M}{\partial \dot{w}}\right|_0$.
+    \item Sono trascurabili anche le seguenti derivate, esse non sono riportate nel report tecnico \cite{heffley_handling_qualities} da cui successivamente saranno ottenuti i dati e sono quindi da assumere pari a zero:
+    \begin{equation*}
+        \left.\frac{\partial X}{\partial q}\right|_0 = \left.\frac{\partial T}{\partial w}\right|_0 = \left.\frac{\partial Y}{\partial p}\right|_0 = \left.\frac{\partial Y}{\partial r}\right|_0 = \left.\frac{\partial Y}{\partial \delta_a}\right|_0 = 0
+    \end{equation*}
+\end{sitemize}
+
+Applicando le semplificazioni si ottengono le seguenti equazioni:
+
+\begin{align*}
+    \widetilde{X}(t) & =  \left.\frac{\partial X}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial X}{\partial w}\right|_0\widetilde{w}(t) + \left.\frac{\partial X}{\partial \delta_e}\right|_0\widetilde{\delta_e}(t)                                                                                                                                            \\
+    \widetilde{Y}(t) & = \left.\frac{\partial Y}{\partial v}\right|_0\widetilde{v}(t) + \left.\frac{\partial Y}{\partial \delta_r}\right|_0\widetilde{\delta_r}(t)                                                                                                                                                                                                            \\
+    \widetilde{Z}(t) & =  \left.\frac{\partial Z}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial Z}{\partial w}\right|_0\widetilde{w}(t) + \left.\frac{\partial Z}{\partial q}\right|_0\widetilde{q}(t) + \left.\frac{\partial Z}{\partial \delta_e}\right|_0\widetilde{\delta_e}(t)                                                                             \\
+    \widetilde{L}(t) & = \left.\frac{\partial L}{\partial v}\right|_0\widetilde{v}(t) + \left.\frac{\partial L}{\partial p}\right|_0\widetilde{p}(t) + \left.\frac{\partial L}{\partial r}\right|_0\widetilde{r}(t) + \left.\frac{\partial L}{\partial \delta_a}\right|_0\widetilde{\delta_a}(t) + \left.\frac{\partial L}{\partial \delta_r}\right|_0\widetilde{\delta_r}(t) \\
+    \widetilde{M}(t) & = \left.\frac{\partial M}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial M}{\partial w}\right|_0\widetilde{w}(t) + \left.\frac{\partial M}{\partial \dot{w}}\right|_0\dot{\widetilde{w}}(t)  + \left.\frac{\partial M}{\partial q}\right|_0\widetilde{q}(t) + \left.\frac{\partial M}{\partial \delta_e}\right|_0\widetilde{\delta_e}(t)  \\
+    \widetilde{N}(t) & = \left.\frac{\partial N}{\partial v}\right|_0\widetilde{v}(t) + \left.\frac{\partial N}{\partial p}\right|_0\widetilde{p}(t) + \left.\frac{\partial N}{\partial r}\right|_0\widetilde{r}(t) + \left.\frac{\partial N}{\partial \delta_a}\right|_0\widetilde{\delta_a}(t) + \left.\frac{\partial N}{\partial \delta_r}\right|_0\widetilde{\delta_r}(t) \\
+    \widetilde{T}(t) & = \left.\frac{\partial T}{\partial u}\right|_0\widetilde{u}(t) + \left.\frac{\partial T}{\partial \delta_t}\right|_0\widetilde{\delta_t}(t)                                                                                                                                                                                                            \\
+\end{align*}
+
+Per rendere la notazione più compatta vengono definite le seguenti quantità:
+\begin{equation*}
+    \setlength{\arraycolsep}{1.5em}
+    \begin{array}{lll}
+        X_{(\cdot)} \defequal \displaystyle\frac{1}{m}\left.\displaystyle\frac{\partial X}{\partial (\cdot)}\right|_0 & L_{(\cdot)} \defequal \displaystyle\frac{1}{I_{xx}}\left.\displaystyle\frac{\partial L}{\partial (\cdot)}\right|_0 &                                                                                                               \\[1.5em]
+        Y_{(\cdot)} \defequal \displaystyle\frac{1}{m}\left.\displaystyle\frac{\partial Y}{\partial (\cdot)}\right|_0 & M_{(\cdot)} \defequal \displaystyle\frac{1}{I_{yy}}\left.\displaystyle\frac{\partial M}{\partial (\cdot)}\right|_0 & T_{(\cdot)} \defequal \displaystyle\frac{1}{m}\left.\displaystyle\frac{\partial T}{\partial (\cdot)}\right|_0 \\[1.5em]
+        Z_{(\cdot)} \defequal \displaystyle\frac{1}{m}\left.\displaystyle\frac{\partial Z}{\partial (\cdot)}\right|_0 & N_{(\cdot)} \defequal \displaystyle\frac{1}{I_{zz}}\left.\displaystyle\frac{\partial N}{\partial (\cdot)}\right|_0 &                                                                                                               \\
+    \end{array}
+\end{equation*}
+
+Dove con $(\cdot)$ si indica la generica variabile rispetto alla quale si calcola la derivata.
+
+\subsection{Forma Concisa delle Equazioni Cardinali}
+Sostituendo le derivate di stabilità nelle equazioni cardinali linearizzate \eqref{eq:primaEquazioneCardinaleLineare} e \eqref{eq:secondaEquazioneCardinaleLineare} si ottengono le seguenti equazioni:
+
+\begin{equation*}
+    \begin{split}
+        \dot{\widetilde{u}} & = (X_u + T_u \cos\epsilon)\widetilde{u} + X_w\widetilde{w} -\bar{w}\widetilde{q} -g\cos\bar{\theta}\:\widetilde{\theta} + X_{\delta_e}\widetilde{\delta_e} + T_{\delta_t}\cos\epsilon\:\widetilde{\delta_t}          \\
+        \dot{\widetilde{v}} & = Y_v\widetilde{v} - \bar{u}\widetilde{r} + \bar{w}\widetilde{p} + g\cos\bar{\theta}\:\widetilde{\phi} + Y_{\delta_r}\widetilde{\delta_r}                                                                            \\
+        \dot{\widetilde{w}} & = (Z_u - T_u\sin\epsilon)\widetilde{u} + Z_w\widetilde{w} + (\bar{u} + Z_q)\widetilde{q} - g\sin\bar{\theta}\:\widetilde{\theta} + Z_{\delta_e}\widetilde{\delta_e} - T_{\delta_t}\sin\epsilon\:\widetilde{\delta_t} \\
+        \dot{\widetilde{p}} & = \dot{\widetilde{r}}\frac{I_{xz}}{I_{xx}} + L_v\widetilde{v} + L_r\widetilde{r} + L_p\widetilde{p} + L_{\delta_r}\widetilde{\delta_r }+ L_{\delta_a}\widetilde{\delta_a}                                            \\
+        \dot{\widetilde{q}} & = M_u\widetilde{u} + M_w\widetilde{w} + M_{\dot{w}}\dot{\widetilde{w}} + M_q\widetilde{q} + M_{\delta_e}\widetilde{\delta_e}                                                                                         \\
+        \dot{\widetilde{r}} & = \dot{\widetilde{p}}\frac{I_{xz}}{I_{zz}} + N_v\widetilde{v} + N_r\widetilde{r} + N_p\widetilde{p} + N_{\delta_r}\widetilde{\delta_r} + N_{\delta_a}\widetilde{\delta_a}
+    \end{split}
+\end{equation*}
+
+\subsubsection{Semplificazioni}
+
+\begin{sitemize}
+    \item Viene introdotta la notazione:
+    \begin{equation*}
+        \setlength{\arraycolsep}{1.5em}
+        \begin{array}{lll}
+            X_u^* \defequal X_u + T_u\cos\epsilon & Z_u^* \defequal Z_u - T_u\sin\epsilon
+        \end{array}
+    \end{equation*}
+
+    \item Sostituendo $\dot{\widetilde{w}}$ nell'equazione per $\dot{\widetilde{q}}$ si ottiene:
+    \begin{equation*}
+        \dot{\widetilde{q}} \defequal M_u^*\widetilde{u} + M_w^*\widetilde{w} + M_q^*\widetilde{q} + M_{\theta}^*\widetilde{\theta} + M_{\delta_t}^*\widetilde{\delta_t} + M_{\delta_e}^*\widetilde{\delta_e}
+    \end{equation*}
+
+    Dove viene introdotta la notazione:
+    \begin{equation}
+        \label{eq:mStar}
+        \setlength{\arraycolsep}{1.5em}
+        \begin{array}{lll}
+            M_u^* \defequal M_u + M_{\dot{w}}Z_u^*                & M_w^* \defequal M_w + M_{\dot{w}}Z_w                            & M_q^* \defequal M_q + M_{\dot{w}}(\bar{u} + Z_q)               \\
+            M_{\theta}^* \defequal - M_{\dot{w}}g\sin\bar{\theta} & M_{\delta_e}^* \defequal M_{\delta_e} + M_{\dot{w}}Z_{\delta_e} & M_{\delta_t}^* \defequal - M_{\dot{w}}T_{\delta_t}\sin\epsilon
+        \end{array}
+    \end{equation}
+
+    \item Sostituendo $\dot{\widetilde{r}}$ nell'equazione per $\dot{\widetilde{p}}$ si ottiene:
+    \begin{equation*}
+        \dot{\widetilde{p}} \defequal L_v^*\widetilde{v} + L_r^*\widetilde{r} + L_p^*\widetilde{p} + L_{\delta_r}^*\widetilde{\delta_r }+ L_{\delta_a}^*\widetilde{\delta_a}
+    \end{equation*}
+
+    Dove viene introdotta la notazione: $$L_{(.)}^* \defequal \left(L_{(.)} + N_{(.)}\displaystyle\frac{I_{xz}}{I_{xx}}\right)\displaystyle\frac{I_{xx}I_{zz}}{I_{xx}I_{zz} - I_{xz}^2}$$
+
+    \item Similmente, sostituendo $\dot{\widetilde{p}}$ nell'equazione per $\dot{\widetilde{r}}$ si ottiene:
+    \begin{equation*}
+        \dot{\widetilde{r}} \defequal N_v^*\widetilde{v} + N_r^*\widetilde{r} + N_p^*\widetilde{p} + N_{\delta_r}^*\widetilde{\delta_r }+ N_{\delta_a}^*\widetilde{\delta_a}
+    \end{equation*}
+
+    Dove viene introdotta la notazione: $$L_{(.)}^* \defequal \left(L_{(.)} + N_{(.)}\displaystyle\frac{I_{xz}}{I_{zz}}\right)\displaystyle\frac{I_{xx}I_{zz}}{I_{xx}I_{zz} - I_{xz}^2}$$
+\end{sitemize}
+
+\subsection{Modello Lineare}
+Con le semplificazioni prima descritte si ottiene il modello lineare del sistema:
+
+\begin{equation}
+    \label{eq:modelloLineare}
+    \begin{split}
+        \dot{\widetilde{u}} & = X_u^* \widetilde{u} + X_w\widetilde{w} -\bar{w}\widetilde{q} -g\cos\bar{\theta}\:\widetilde{\theta} + X_{\delta_e}\widetilde{\delta_e} + T_{\delta_t}\cos\epsilon\:\widetilde{\delta_t}           \\
+        \dot{\widetilde{v}} & = Y_v\widetilde{v} - \bar{u}\widetilde{r} + \bar{w}\widetilde{p} + g\cos\bar{\theta}\:\widetilde{\phi} + Y_{\delta_r}\widetilde{\delta_r}                                                           \\
+        \dot{\widetilde{w}} & = Z_u^* \widetilde{u} + Z_w\widetilde{w} + (\bar{u} + Z_q)\widetilde{q} - g\sin\bar{\theta}\:\widetilde{\theta} + Z_{\delta_e}\widetilde{\delta_e} - T_{\delta_t}\sin\epsilon\:\widetilde{\delta_t} \\
+        \dot{\widetilde{p}} & = L_v^*\widetilde{v} + L_r^*\widetilde{r} + L_p^*\widetilde{p} + L_{\delta_r}^*\widetilde{\delta_r }+ L_{\delta_a}^*\widetilde{\delta_a}                                                            \\
+        \dot{\widetilde{q}} & = M_u^*\widetilde{u} + M_w^*\widetilde{w} + M_q^*\widetilde{q} + M_{\theta}^*\widetilde{\theta} + M_{\delta_e}^*\widetilde{\delta_e} + M_{\delta_t}^*\widetilde{\delta_t}                           \\
+        \dot{\widetilde{r}} & = N_v^*\widetilde{v} + N_r^*\widetilde{r} + N_p^*\widetilde{p} + N_{\delta_r}^*\widetilde{\delta_r }+ N_{\delta_a}^*\widetilde{\delta_a}
+    \end{split}
+\end{equation}
+
+\textbf{Nota:} \textit{Per semplicità di lettura in questa sezione è omessa la dipendenza dal tempo di $\widetilde{u}$, $\widetilde{v}$, $\widetilde{w}$, $\widetilde{p}$, $\widetilde{q}$, $\widetilde{r}$, $\widetilde{\theta}$, $\widetilde{\phi}$, $\widetilde{\delta_a}$, $\widetilde{\delta_e}$, $\widetilde{\delta_t}$, $\widetilde{\delta_r}$ (e derivate).}
+
+\subsubsection{Segnali e Costanti del Sistema}
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[H]
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Costanti}}                                                                                                           \\
+        \hline
+        $m$           & massa del velivolo                                                                                                                \\
+        $g$           & accelerazione di gravità                                                                                                          \\
+        $\epsilon$    & angolo tra il vettore $\vec{T}$ e l'asse $\hat{x}_{FRD}$                                                                          \\
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Segnali}}                                                                                                            \\
+        \hline
+        $u$, $v$, $w$ & componenti del vettore $\vec{V}_{FRD}$ che rappresenta la velocità del sistema $FRD$ rispetto al sistema inerziale $NED$          \\
+        $p$, $q$, $r$ & componenti del vettore $\vec{w}_{FRD}$ che rappresenta la velocità angolare del sistema $FRD$ rispetto al sistema inerziale $NED$ \\
+        $\phi$        & angolo di rollio                                                                                                                  \\
+        $\theta$      & angolo di beccheggio                                                                                                              \\
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Ingressi}}                                                                                                           \\
+        \hline
+        $\delta_a$    & angolo di deflessione degli alettoni                                                                                              \\
+        $\delta_r$    & angolo di deflessione dell'equilibratore                                                                                          \\
+        $\delta_e$    & angolo di deflessione del timone                                                                                                  \\
+        $\delta_t$    & variazione del modulo della forza propulsiva rispetto all'equilibrio                                                              \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+Il modello linearizzato è composto da 6 equazioni che coinvolgono 12 variabili, di cui 4 rappresentano gli ingressi di controllo. Il sistema ha dunque 6 gradi di libertà, come ci si aspetta per le equazioni del moto di un corpo rigido che si muove nello spazio tridimensionale.
+
+\subsection{Equazioni dei Moti Longitudinali e Laterali}
+È possibile dividere le equazioni ottenute in due gruppi:
+\begin{itemize}
+    \item \textbf{Simmetriche} o \textbf{longitudinali}: descrivono il moto nel piano $x_{FRD}$-$z_{FRD}$. Le variabili coinvolte sono $u$, $w$, $q$, $\theta$, $\delta_e$, $\delta_t$.
+    \item \textbf{Asimmetriche} o \textbf{laterali}: descrivono il moto nel piano $y_{FRD}$-$z_{FRD}$. Le variabili coinvolte sono $v$, $r$, $p$, $\phi$, $\psi$, $\delta_a$, $\delta_r$.
+\end{itemize}
+
+Questa proprietà non è una conseguenza diretta delle leggi della fisica, è possibile perché è stato imposto che l'accoppiamento incrociato sia nullo. È tuttavia una buona approssimazione della realtà.
+
+\begin{note}
+    \textbf{Nota:} \textit{Per semplicità di lettura d'ora in poi non verrà più utilizzata la notazione $\widetilde{x}$, ma i sistemi di equazioni ottenuti rimangono validi solo per piccole variazioni dal punto di equilibrio.}
+\end{note}
+
+\subsubsection{Moti Longitudinali}
+Partendo dalle equazioni \eqref{eq:modelloLineare} per $\dot{u}$, $\dot{w}$ e $\dot{q}$ e sfruttando le seguenti relazioni:
+\begin{sitemize}
+    \item $\dot{\theta}(t) = q(t)$ ottenuta in \eqref{eq:EulerotoVelocitaAngolareLineare}
+    \item $\bar{w} = |\bar{V}_{FRD}|\sin\bar{\alpha}$ ottenuta in \eqref{eq:velocitaWind}
+\end{sitemize}
+
+\begin{equation*}
+    \begin{split}
+        \begin{bmatrix}
+            \dot{u} \\
+            \dot{w} \\
+            \dot{q} \\
+            \dot{\theta}
+        \end{bmatrix} & = \begin{bmatrix}
+                              X_u^* & X_w   & -|\bar{V}_{FRD}|\sin\bar{\alpha} & -g\cos\bar{\theta} \\
+                              Z_u^* & Z_w   & \bar{u} + Z_q                    & -g\sin\bar{\theta} \\
+                              M_u^* & M_w^* & M_q^*                            & M_{\theta}^*       \\
+                              0     & 0     & 1                                & 0
+                          \end{bmatrix} \begin{bmatrix}
+                                            u \\
+                                            w \\
+                                            q \\
+                                            \theta
+                                        \end{bmatrix} + \begin{bmatrix}
+                                                            X_{\delta_e}   & T_{\delta_t}\cos\epsilon  \\
+                                                            Z_{\delta_e}   & -T_{\delta_t}\sin\epsilon \\
+                                                            M_{\delta_e}^* & M_{\delta_t}^*            \\
+                                                            0              & 0
+                                                        \end{bmatrix} \begin{bmatrix}
+                                                                          \delta_e \\
+                                                                          \delta_t
+                                                                      \end{bmatrix}
+    \end{split}
+\end{equation*}
+
+\subsubsection{Moti Laterali}
+
+Partendo dalle equazioni \eqref{eq:modelloLineare} per $\dot{v}$, $\dot{p}$ e $\dot{r}$ e sfruttando le seguenti relazioni:
+\begin{sitemize}
+    \item  $\dot{\phi}(t) = p(t) + \tan\bar{\theta}\:r(t)$ ottenuta in \eqref{eq:EulerotoVelocitaAngolareLineare}
+    \item $\bar{w} = |\bar{V}_{FRD}|\sin\bar{\alpha}$ ottenuta in \eqref{eq:velocitaWind}
+\end{sitemize}
+
+\begin{equation*}
+    \begin{split}
+        \begin{bmatrix}
+            \dot{v} \\
+            \dot{r} \\
+            \dot{p} \\
+            \dot{\phi}
+        \end{bmatrix} & = \begin{bmatrix}
+                              Y_v   & -\bar{u}         & |\bar{V}_{FRD}|\sin\bar{\alpha} & g\cos\bar{\theta} \\
+                              N_v^* & N_r^*            & N_p^*                           & 0                 \\
+                              L_v^* & L_r^*            & L_p^*                           & 0                 \\
+                              0     & \tan\bar{\theta} & 1                               & 0
+                          \end{bmatrix} \begin{bmatrix}
+                                            v \\
+                                            r \\
+                                            p \\
+                                            \phi
+                                        \end{bmatrix} + \begin{bmatrix}
+                                                            Y_{\delta_r}   & 0              \\
+                                                            N_{\delta_r}^* & N_{\delta_a}^* \\
+                                                            L_{\delta_r}^* & L_{\delta_a}^* \\
+                                                            0              & 0
+                                                        \end{bmatrix} \begin{bmatrix}
+                                                                          \delta_r \\
+                                                                          \delta_a
+                                                                      \end{bmatrix}
+    \end{split}
+\end{equation*}

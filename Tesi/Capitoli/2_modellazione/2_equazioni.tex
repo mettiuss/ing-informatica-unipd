@@ -1,0 +1,106 @@
+\section{Equazioni del Moto}
+
+\subsection{Prima Equazione Cardinale}
+La prima equazione cardinale del moto è definita come:
+
+\begin{equation*}
+    \vec{F}_P(t) + \vec{F}_T(t) + \vec{F}_A = m\left(\frac{d}{dt}\vec{V}_{FRD}(t)\right)_{NED} = m\cdot\vec{a}_{NED}(t)
+\end{equation*}
+
+Sostituendo quanto trovato in \eqref{eq:Fpeso}, \eqref{eq:Fpropulsiva}, \eqref{eq:Faerodinamica} e \eqref{eq:accelerazioneNED} si ottiene:
+
+\begin{multline}
+    \label{eq:primaEquazioneCardinale}
+    m\begin{bmatrix}
+        \dot{u}(t) + \left(q(t)w(t) - r(t)v(t)\right) \\
+        \dot{v}(t) + \left(r(t)u(t) - p(t)w(t)\right) \\
+        \dot{w}(t) + \left(p(t)v(t) - q(t)u(t)\right)
+    \end{bmatrix} = \\
+    = mg\begin{bmatrix}
+        -\sin\theta(t)           \\
+        \sin\phi(t)\cos\theta(t) \\
+        \cos\phi(t)\cos\theta(t)
+    \end{bmatrix} + \begin{bmatrix}
+        T(t) \cos\epsilon \\
+        0                 \\
+        -T(t) \sin\epsilon
+    \end{bmatrix} + \begin{bmatrix}
+        -F_{A_x}(t) \cos\alpha(t) + F_{A_z}(t) \sin\alpha(t) \\
+        F_{A_y}(t)                                           \\
+        -F_{A_x}(t)\sin\alpha(t) - F_{A_z}(t)\cos\alpha(t)
+    \end{bmatrix}
+\end{multline}
+
+\subsection{Seconda Equazione Cardinale}
+La seconda equazione cardinale del moto è definita come:
+
+\begin{equation*}
+    \vec{M}(t) = \left(\frac{d}{dt}\vec{H}(t)\right)_{NED}
+\end{equation*}
+
+Sostituendo quanto trovato in \eqref{eq:momentoAngolare} e \eqref{eq:EulerotoVelocitaAngolare}, e applicando la relazione di Poisson si ottiene:
+
+\begin{equation*}
+    \begin{split}
+        \vec{M}(t) = \begin{bmatrix}
+                         L(t) \\
+                         M(t) \\
+                         N(t)
+                     \end{bmatrix} & = \left(\frac{d}{dt} \vec{H}(t)\right)_{NED} = \left(\frac{d}{d t} \vec{H}(t)\right)_{FRD} + \vec{w}_{FRD}(t)\times\vec{H}(t)
+        \\ & = I\left(\frac{d}{d t} \vec{w}_{FRD}(t)\right)_{FRD} + \vec{w}_{FRD}(t)\times \left(I\vec{w}_{FRD}(t)\right)
+        \\ & = \begin{bmatrix}
+            I_{xx}\dot{p} - I_{xz}\dot{r} \\
+            I_{yy}\dot{q}                 \\
+            - I_{xz}\dot{p} + I_{zz}\dot{r}
+        \end{bmatrix} + \begin{bmatrix}
+            q\left(- I_{xz}p + I_{zz}r\right) - r\left(I_{yy}q\right)           \\
+            r\left(I_{xx}p - I_{xz}r\right) - p\left(- I_{xz}p + I_{zz}r\right) \\
+            p\left(I_{yy}q\right) - q\left(I_{xx}p - I_{xz}r\right)
+        \end{bmatrix}
+    \end{split}
+\end{equation*}
+
+Complessivamente si ottiene:
+\begin{equation}
+    \label{eq:secondaEquazioneCardinale}
+    \begin{bmatrix}
+        L \\
+        M \\
+        N
+    \end{bmatrix} = \begin{bmatrix}
+        \dot{p}I_{xx} + qr\left(I_{zz} - I_{yy}\right) - \left(\dot{r} + pq\right)I_{xz} \\
+        \dot{q}I_{yy} + pr\left(I_{xx} - I_{zz}\right) + \left(p^2 - r^2\right)I_{xz}    \\
+        \dot{r}I_{zz} + pq\left(I_{yy} - I_{xx}\right) + \left(qr - \dot{p}\right)I_{xz}
+    \end{bmatrix}
+\end{equation}
+
+\textbf{Nota:} \textit{Per semplicità di lettura, sono omesse le dipendenze da altre variabili di L, M, N, p, q, r (e derivate).}
+
+\subsection{Segnali e Costanti del Sistema}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{table}[H]
+    \begin{tabularx}{\textwidth}{|c|X|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Costanti}}                                                                                                                                    \\
+        \hline
+        $m$                                    & Massa del velivolo                                                                                                                \\
+        $g$                                    & Accelerazione di gravità                                                                                                          \\
+        $\epsilon$                             & Angolo tra il vettore $\vec{T}$ e l'asse $\hat{x}_{FRD}$                                                                          \\
+        $I_{xx}$, $I_{yy}$, $I_{zz}$, $I_{xz}$ & Componenti del tensore di inerzia                                                                                                 \\
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Segnali}}                                                                                                                                     \\
+        \hline
+        $u$, $v$, $w$                          & Componenti del vettore $\vec{V}_{FRD}$ che rappresenta la velocità del sistema $FRD$ rispetto al sistema inerziale $NED$          \\
+        $p$, $q$, $r$                          & Componenti del vettore $\vec{w}_{FRD}$ che rappresenta la velocità angolare del sistema $FRD$ rispetto al sistema inerziale $NED$ \\
+        $\phi$                                 & Angolo di rollio                                                                                                                  \\
+        $\psi$                                 & Angolo di imbardata                                                                                                               \\
+        $\theta$                               & Angolo di beccheggio                                                                                                              \\
+        $L$, $M$, $N$                          & Componenti del momento meccanico                                                                                                  \\
+        $T$                                    & Modulo della forza propulsiva                                                                                                     \\
+        $F_{A_x}$, $F_{A_y}$, $F_{A_z}$        & Componenti delle forze aerodinamiche                                                                                              \\
+        \hline
+    \end{tabularx}
+\end{table}
+
+I 16 segnali e le 7 costanti sono legati da 9 equazioni (descritte in \eqref{eq:secondaEquazioneCardinale}, \eqref{eq:primaEquazioneCardinale}, \eqref{eq:EulerotoVelocitaAngolare}), che descrivono posizione e assetto del velivolo nello spazio.

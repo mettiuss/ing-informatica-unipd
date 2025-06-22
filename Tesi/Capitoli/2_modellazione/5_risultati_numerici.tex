@@ -1,0 +1,108 @@
+
+\section{Risultati Numerici per il Boeing 747}
+
+\subsection{Moti Longitudinali}
+Sostituendo i valori presenti nel report tecnico \cite{heffley_handling_qualities} e nell'articolo \cite{sanches_dynamic_stability_747} per un Boeing 747 in volo rettilineo ad un'altitudine di 20.000 ft (6.1 km) e velocità di Mach 0.8 ($\bar{u} = 830 \frac{ft}{s}$).
+
+Assumendo inoltre $\bar{\theta} = 0$ e ricordando l'equazione \eqref{eq:velocitaNEDZLineare} che può ora essere semplificata e invertita in $\dot{z}(t) = \bar{u}\theta(t) - w(t)$ si ottiene il sistema:
+
+\begin{equation}
+    \label{eq:motoLongitudinale}
+    \begin{split}
+        \begin{bmatrix}
+            \dot{u}      \\
+            \dot{w}      \\
+            \dot{q}      \\
+            \dot{\theta} \\
+            \dot{z}
+        \end{bmatrix} = \begin{bmatrix}
+                            -0.00643   & 0.0253    & 0       & -32.174 & 0 \\
+                            -0.0941    & -0.624    & 820.02  & 0       & 0 \\
+                            -0.0002021 & -0.001398 & -0.8418 & 0       & 0 \\
+                            0          & 0         & 1       & 0       & 0 \\
+                            0          & -1        & 0       & 830     & 0
+                        \end{bmatrix} \begin{bmatrix}
+                                          u      \\
+                                          w      \\
+                                          q      \\
+                                          \theta \\
+                                          z
+                                      \end{bmatrix} \\ + \begin{bmatrix}
+            0      & 9.652 \\
+            -32.7  & 0     \\
+            -2.073 & 0     \\
+            0      & 0     \\
+            0      & 0
+        \end{bmatrix} \begin{bmatrix}
+            \delta_e \\
+            \delta_t
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\subsection{Moti Laterali}
+Sostituendo i valori presenti nel report tecnico \cite{heffley_handling_qualities} per un Boeing 747 in volo rettilineo ad un'altitudine di 40.000 ft (12.2 km) e velocità di Mach 0.8 ($\bar{u} = 774 \frac{ft}{s}$) si ottiene il sistema:
+\begin{equation*}
+    \begin{split}
+        \begin{bmatrix}
+            \dot{v} \\
+            \dot{r} \\
+            \dot{p} \\
+            \dot{\phi}
+        \end{bmatrix} & = \begin{bmatrix}
+                              -43.2 & -774   & 62.074  & 32.174 \\
+                              0.598 & -0.115 & -0.0318 & 0      \\
+                              -3.05 & 0.388  & -0.465  & 0      \\
+                              0     & 0.0805 & 1       & 0
+                          \end{bmatrix} \begin{bmatrix}
+                                            v \\
+                                            r \\
+                                            p \\
+                                            \phi
+                                        \end{bmatrix} + \begin{bmatrix}
+                                                            0.00729 & 0       \\
+                                                            -0.475  & 0.00775 \\
+                                                            0.153   & 0.143   \\
+                                                            0       & 0
+                                                        \end{bmatrix} \begin{bmatrix}
+                                                                          \delta_r \\
+                                                                          \delta_a
+                                                                      \end{bmatrix}
+    \end{split}
+\end{equation*}
+
+È pratica comune sostituire $v$ con $\beta$ seguendo la relazione $\beta(t) = \displaystyle\frac{v(t)}{\bar{u}}$ ottenuta in \eqref{eq:angoloDerapataLineare}
+
+\begin{equation}
+    \label{eq:motoLaterale}
+    \begin{split}
+        \begin{bmatrix}
+            \dot{\beta} \\
+            \dot{r}     \\
+            \dot{p}     \\
+            \dot{\phi}
+        \end{bmatrix} & = \begin{bmatrix}
+                              -0.0558 & -1     & 0.0802  & 0.0416 \\
+                              0.598   & -0.115 & -0.0318 & 0      \\
+                              -3.05   & 0.388  & -0.465  & 0      \\
+                              0       & 0.0805 & 1       & 0
+                          \end{bmatrix} \begin{bmatrix}
+                                            \beta \\
+                                            r     \\
+                                            p     \\
+                                            \phi
+                                        \end{bmatrix} + \begin{bmatrix}
+                                                            0.00729 & 0       \\
+                                                            -0.475  & 0.00775 \\
+                                                            0.153   & 0.143   \\
+                                                            0       & 0
+                                                        \end{bmatrix} \begin{bmatrix}
+                                                                          \delta_r \\
+                                                                          \delta_a
+                                                                      \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\begin{note}
+    Maggiori informazioni su come sono stati estratti i dati dal report tecnico \cite{heffley_handling_qualities} si possono trovare nell'appendice \ref{appendix:report}.
+\end{note}

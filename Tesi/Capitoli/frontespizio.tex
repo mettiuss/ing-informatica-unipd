@@ -1,0 +1,46 @@
+\newfontfamily\gyre{TeX Gyre Termes}
+
+\begin{titlepage}
+    % solo il frontespizio deve essere simmetrico rispetto ai margini interno ed esterno
+    \newgeometry{hmargin=2.5cm,vmargin=2cm}
+        \begin{figure}
+            \centering
+            \begin{subfigure}[b]{0.4\textwidth}
+                \includegraphics[width=\textwidth]{Immagini/logo_unipd}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}[b]{0.3\textwidth}
+                \includegraphics[width=\textwidth]{Immagini/logo_dei}
+            \end{subfigure}
+        \end{figure}
+    
+        \vspace*{\stretch{0.5}}
+    
+        \begin{center}
+            \makeatletter % serve per poter usare \@...
+
+            % NOTA: il Times New Roman non supporta il maiuscoletto.
+            {\gyre{\textsc{DIPARTIMENTO DI INGEGNERIA DELL'INFORMAZIONE}}\\}
+            \vspace*{\stretch{0.1}}
+            {\gyre{\textsc{CORSO DI LAUREA IN INGEGNERIA INFORMATICA}}\\}
+    
+            \vspace*{\stretch{0.5}}
+            \LARGE
+            \textbf{\@title}
+    
+            \vspace*{\stretch{1}}
+            \normalsize
+            \begin{tabular*}{\textwidth}{l @{\extracolsep{\fill}} r}
+                \textbf{Relatore} & \textbf{Laureando} \\
+                \supervisor       & \@author           \\
+            \end{tabular*}
+    
+            \vspace*{\stretch{2}}
+            {\gyre{\textsc{ANNO ACCADEMICO 2024-2025}}\\}
+            \vspace*{\stretch{0.1}}
+            Data di laurea \@date
+        
+            \makeatother % serve dopo \makeatletter
+        \end{center}
+    \restoregeometry
+\end{titlepage}

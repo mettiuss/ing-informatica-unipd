@@ -1,0 +1,199 @@
+\section{Linearizzazione}
+Le equazioni ottenute in \eqref{eq:primaEquazioneCardinale} e \eqref{eq:secondaEquazioneCardinale} non sono lineari e non possono essere risolte analiticamente.
+Per questo motivo è utile determinare un modello lineare che approssimi il comportamento del sistema attorno ad un certo punto, nel nostro caso il volo rettilineo simmetrico uniforme.
+
+Per fare questo vengono risolte le equazioni del moto in un punto di equilibrio (indicheremo tali soluzioni con $\bar{x}$), così da poter riscrivere le variabili di stato come piccole perturbazioni rispetto a tale punto (che indicheremo con $\widetilde{x}(t)$), come descritto in \cite{zampieri_dispensa_controlli}.
+
+\begin{equation*}
+    x(t) = \bar{x} + \tilde{x}(t)
+\end{equation*}
+
+\subsection{Punto di Equilibrio}
+Il punto di equilibrio scelto è quello di volo rettilineo simmetrico uniforme, le cui ipotesi per un aeromobile sono:
+\begin{sitemize}
+    \item Velocità costante: $\dot{u}(t) = \dot{v}(t) = \dot{w}(t) = 0$.
+    \item Velocità angolare nulla, quindi accelerazione angolare nulla: $\bar{p} = \bar{q} = \bar{r} = \dot{p}(t) = \dot{q}(t) = \dot{r}(t) = 0$.
+    \item Ali livellate: $\bar{\phi} = 0$.
+    \item Angolo di derapata nullo: $\beta(t) = 0$.
+\end{sitemize}
+
+Nel caso in cui l'angolo di derapata sia nullo, l'equazione \eqref{eq:velocitaWind} diventa:
+\begin{equation*}
+    \begin{bmatrix}
+        \bar{u} \\
+        \bar{v} \\
+        \bar{w}
+    \end{bmatrix} = |\bar{V}_{FRD}| \begin{bmatrix}
+        \cos(\bar{\alpha}) \\
+        0                  \\
+        \sin(\bar{\alpha})
+    \end{bmatrix}
+\end{equation*}
+
+\begin{sitemize}
+    \item quindi: $\bar{v} = 0$.
+\end{sitemize}
+
+Inoltre, come descritto in \cite{bryson_control_spacecraft_aircraft}, le forze aerodinamiche possono essere riassunte nei tre termini $X, Y, Z$:
+\begin{equation*}
+    \begin{split}
+        X(t) & = -F_{A_{x}}(t)\cos\alpha(t)                         \\
+        Y(t) & = F_{A_y}(t)                                         \\
+        Z(t) & = -F_{A_x}(t)\sin\alpha(t) - F_{A_z}(t)\cos\alpha(t)
+    \end{split}
+\end{equation*}
+
+\begin{note}
+    Al fine di raggiungere un sistema di equazioni in cui $\delta_t(t)$ sia mantenuta come variabile di controllo, si è deciso di non incorporare la forza di propulsione $\vec{T}(t)$ nei termini ($X(t)$ $Y(t)$ $Z(t)$), anche se questa è un'alternativa valida che viene mostrata nel dettaglio in \cite{smith_aircraft_flight_mechanics}.
+\end{note}
+
+\subsubsection{Variabili del Sistema}
+
+È quindi possibile riscrivere le variabili del sistema come:
+\begin{equation*}
+    \setlength{\arraycolsep}{2.5em}
+    \begin{array}{lll}
+        u(t) = \bar{u} + \tilde{u}(t) & p(t) = \tilde{p}(t) & \phi(t) = \tilde{\phi}(t)                    \\
+        v(t) = \tilde{v}(t)           & q(t) = \tilde{q}(t) & \theta(t) = \bar{\theta} + \tilde{\theta}(t) \\
+        w(t) = \bar{w} + \tilde{w}(t) & r(t) = \tilde{r}(t) & \psi(t) = \bar{\psi} + \tilde{\psi}(t)       \\
+    \end{array}
+\end{equation*}
+
+\begin{equation*}
+    \setlength{\arraycolsep}{1.5em}
+    \begin{array}{lll}
+        X(t) = \bar{X} + \tilde{X}(t) & L(t) = \bar{L} + \tilde{L}(t) &                               \\
+        Y(t) = \bar{Y} + \tilde{Y}(t) & M(t) = \bar{M} + \tilde{M}(t) & T(t) = \bar{T} + \tilde{T}(t) \\
+        Z(t) = \bar{Z} + \tilde{Z}(t) & N(t) = \bar{N} + \tilde{N}(t) &                               \\
+    \end{array}
+\end{equation*}
+
+Ricordando il teorema di Taylor-McLaurin è possibile ricavare le seguenti approssimazioni per $\sin$ e $\cos$ per gli angoli di Eulero, tali espressioni saranno utili successivamente:
+
+\begin{equation}
+    \label{eq:EuleroSinCos}
+    \begin{split}
+        \sin(\bar{\theta} + \widetilde{\theta}(t)) & \approx \sin(\bar{\theta}) + \widetilde{\theta}(t)\cos(\bar{\theta}) \\
+        \cos(\bar{\theta} + \widetilde{\theta}(t)) & \approx \cos(\bar{\theta}) - \widetilde{\theta}(t)\sin(\bar{\theta}) \\
+        \sin(\widetilde{\phi}(t))                  & \approx \widetilde{\phi}(t)                                          \\
+        \cos(\widetilde{\phi}(t))                  & \approx 1
+    \end{split}
+\end{equation}
+
+\subsubsection{Equazioni Cardinali del Moto all'Equilibrio}
+
+Sotto le ipotesi di volo rettilineo simmetrico le equazioni cardinali del moto all'equilibrio sono:
+
+\begin{equation}
+    \label{eq:equilibrio}
+    \begin{split}
+        \begin{bmatrix}
+            0 \\
+            0 \\
+            0
+        \end{bmatrix} & = mg\begin{bmatrix}
+                                -sin\bar{\theta} \\
+                                0                \\
+                                cos\bar{\theta}
+                            \end{bmatrix} + \begin{bmatrix}
+                                                \bar{X} \\
+                                                \bar{Y} \\
+                                                \bar{Z}
+                                            \end{bmatrix} + \begin{bmatrix}
+                                                                \bar{T} \cos\epsilon \\
+                                                                0                    \\
+                                                                -\bar{T} \sin\epsilon
+                                                            \end{bmatrix}
+        \Rightarrow \begin{bmatrix}
+                        \bar{X} \\
+                        \bar{Y} \\
+                        \bar{Z}
+                    \end{bmatrix} = \begin{bmatrix}
+                                        mg\sin\bar{\theta} + \bar{T} \cos\epsilon \\
+                                        0                                         \\
+                                        -mg\cos\bar{\theta} - \bar{T} \sin\epsilon
+                                    \end{bmatrix}
+        \\
+        \begin{bmatrix}
+            \bar{L} \\
+            \bar{M} \\
+            \bar{N}
+        \end{bmatrix} & = \begin{bmatrix}
+                              0 \\
+                              0 \\
+                              0
+                          \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\subsection{Linearizzazione delle Equazioni}
+A questo punto è possibile sostituire nelle equazioni del moto le variabili di stato come piccole perturbazioni rispetto al punto di equilibrio, come descritto in \cite{zampieri_dispensa_controlli}.
+
+Per semplificare le equazioni, vengono utilizzate le relazioni trovate in \eqref{eq:EuleroSinCos} e si trascurano i termini di ordine superiore al primo in quanto le perturbazioni sono piccole ($\widetilde{x} \rightarrow 0$).
+
+\subsubsection{Linearizzazione della Velocità Angolare}
+Dall'equazione \eqref{eq:EulerotoVelocitaAngolare} che lega la velocità angolare con le derivate degli angoli di Eulero si ottiene la seguente relazione lineare:
+
+\begin{equation}
+    \label{eq:EulerotoVelocitaAngolareLineare}
+    \begin{split}
+        \begin{bmatrix}
+            \widetilde{p}(t) \\
+            \widetilde{q}(t) \\
+            \widetilde{r}(t)
+        \end{bmatrix} & = \begin{bmatrix}
+                              1 & 0                          & -\sin(\bar{\theta} + \widetilde{\theta}(t))                         \\
+                              0 & \cos(\widetilde{\phi}(t))  & \sin(\widetilde{\phi}(t))\cos(\bar{\theta} + \widetilde{\theta}(t)) \\
+                              0 & -\sin(\widetilde{\phi}(t)) & \cos(\widetilde{\phi}(t))\cos(\bar{\theta} + \widetilde{\theta}(t))
+                          \end{bmatrix}\begin{bmatrix}
+                                           \dot{\widetilde{\phi}}(t)   \\
+                                           \dot{\widetilde{\theta}}(t) \\
+                                           \dot{\widetilde{\psi}}(t)
+                                       \end{bmatrix} \\ &= \begin{bmatrix}
+            1 & 0 & -\sin\bar{\theta} \\
+            0 & 1 & 0                 \\
+            0 & 0 & \cos\bar{\theta}
+        \end{bmatrix}\begin{bmatrix}
+            \dot{\widetilde{\phi}}(t)   \\
+            \dot{\widetilde{\theta}}(t) \\
+            \dot{\widetilde{\psi}}(t)
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+\subsubsection{Linearizzazione delle Equazioni Cardinali}
+Dalle equazioni cardinali si ottengono le seguenti relazioni lineari:
+
+\begin{equation}
+    \label{eq:primaEquazioneCardinaleLineare}
+    \begin{split}
+        m\left(\dot{\widetilde{u}}(t) + \widetilde{q}(t)\bar{w}\right)                           & = -mg\widetilde{\theta}(t)\cos\bar{\theta} + \widetilde{X}(t) + \widetilde{T}(t)\cos\epsilon \\
+        m\left(\dot{\widetilde{v}}(t) + \widetilde{r}(t)\bar{u} - \widetilde{p}(t)\bar{w}\right) & = mg\cos(\bar{\theta})\widetilde{\phi}(t) + \widetilde{Y}(t)                                 \\
+        m\left(\dot{\widetilde{w}}(t) - \widetilde{q}(t)\bar{u}\right)                           & = -mg\widetilde{\theta}(t)\sin\bar{\theta} + \widetilde{Z}(t) - \widetilde{T}(t)\sin\epsilon
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \label{eq:secondaEquazioneCardinaleLineare}
+    \begin{split}
+        \widetilde{L}(t) & = \dot{\widetilde{p}}(t)I_{xx} - \dot{\widetilde{r}}(t)I_{xz} \\
+        \widetilde{M}(t) & = \dot{\widetilde{q}}(t)I_{yy}                                \\
+        \widetilde{N}(t) & = \dot{\widetilde{r}}(t)I_{zz} - \dot{\widetilde{p}}(t)I_{xz}
+    \end{split}
+\end{equation}
+
+\subsubsection{Linearizzazione Angolo di Derapata}
+
+Dall'equazione \eqref{eq:velocitaWind} e ipotizzando $v^2, w^2 \ll u^2$, come descritto in \cite{bryson_control_spacecraft_aircraft}, si ottiene la relazione:
+
+\begin{equation}
+    \label{eq:angoloDerapataLineare}
+    \beta(t) = \arcsin \frac{v(t)}{\left|\vec{V}_{FRD}(t)\right| } = \arcsin \frac{\widetilde{v}(t)}{\sqrt{u^2(t) + v^2(t) + w^2(t)}} \approx \frac{\widetilde{v}(t)}{\bar{u}}
+\end{equation}
+
+\subsubsection{Linearizzazione della Velocità Assoluta}
+Dall'equazione \eqref{eq:velocitaNED} si ottiene la seguente equazione per la componente della velocità lungo l'asse $\hat{z}_{NED}$:
+
+\begin{equation}
+    \label{eq:velocitaNEDZLineare}
+    \dot{\widetilde{z}}(t) = -\sin\bar{\theta}(\bar{u} + \widetilde{u}(t)) - \widetilde{\theta}(t)\bar{u} + \cos\bar{\theta}(\bar{w} + \widetilde{w}(t)) - \widetilde{\theta}(t)\bar{u}\sin\bar{\theta}
+\end{equation}
