@@ -1,6 +1,7 @@
 # ing-informatica-unipd
 
 Raccolta di appunti, progetti ed esercizi svolti durante il corso di ingegneria informatica all'Università di Padova.
+
 Questa repository non vuole fornire tutto il materiale necessario allo studio dei corsi, si trovano principalmente appunti scritti con l'intento di comprendere al meglio i concetti più complessi incontrati nello studio. Spesso le spiegazioni sono diverse da quelle fornite dal professore e credo che per un certo tipo di studente possano tornare utili.
 
 ## Anno 1
@@ -146,4 +147,4 @@ III Anno II Semestre, 3 CFU
 
 relatore: [ZAMPIERI SANDRO](https://www.dei.unipd.it/persona/39B4D0B872DC530EA55A7BA82D6C7AE9)
 
-titolo:
+titolo: Modellazione e controllo laterale e longitudinale di un Boeing 747
