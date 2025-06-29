@@ -1,8 +1,8 @@
-# ing-informatica-unipd
+# Ingegneria Informatica, Università degli Studi di Padova
 
 Raccolta di appunti, progetti ed esercizi svolti durante il corso di ingegneria informatica all'Università di Padova.
 
-Questa repository non vuole fornire tutto il materiale necessario allo studio dei corsi, si trovano principalmente appunti scritti con l'intento di comprendere al meglio i concetti più complessi incontrati nello studio. Spesso le spiegazioni sono diverse da quelle fornite dal professore e credo che per un certo tipo di studente possano tornare utili.
+> Questa repository non vuole fornire tutto il materiale necessario allo studio dei corsi, si trovano principalmente appunti scritti con l'intento di comprendere al meglio i concetti più complessi incontrati nello studio. Spesso le spiegazioni sono diverse da quelle fornite dal professore e credo che per un certo tipo di studente possano tornare utili.
 
 ## Anno 1
 
@@ -10,7 +10,7 @@ Questa repository non vuole fornire tutto il materiale necessario allo studio de
 
 I Anno I Semestre, 12 CFU
 
-docente: [CIRANT MARCO E GOFFI ALESSANDRO](https://www.math.unipd.it/dipartimento/persone/alessandro.goffi/)
+docente: [CIRANT MARCO](https://sites.google.com/site/marcocirant/), [GOFFI ALESSANDRO](https://sites.google.com/view/alessandrogoffi)
 
 ### Fondamenti di Informatica
 
@@ -138,7 +138,7 @@ docente: [ERSEGHE TOMASO](https://www.dei.unipd.it/persona/C71FC6B2F953B40F5730E
 
 III Anno II Semestre, 9 CFU
 
-docenti: [ZINGIRIAN NICOLA](https://www.unipd.it/en/contatti/rubrica/?detail=Y&ruolo=1&checkout=cerca&persona=ZINGIRIAN&key=8BFDC8A060C44B20DC7B8D5D3D40DE14)
+docenti: [ZINGIRIAN NICOLA](https://www.unipd.it/en/contatti/rubrica/?detail=Y&ruolo=1&checkout=cerca&persona=ZINGIRIAN&key=8BFDC8A060C44B20DC7B8D5D3D40DE14),
 [CAGNAZZO MARCO](https://www.dei.unipd.it/persona/6ADD4BF61A9F7E8DC8B0CF9692F04DFA)
 
 ### Tesi
