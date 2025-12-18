@@ -1,0 +1,16 @@
+# onlineDate
+
+### 📄 Description
+What about updating your profile information?
+
+### ⚙ How to run
+```bash
+./onlineDating
+```
+
+### ⛔ Rules
+- Do not patch this binary.
+- Do not modify or delete the `flag.txt` file.
+- You MUST solve the challenge by providing valid inputs.
+- You CANNOT just jump with the debugger to any function that directly prints the flag.
+- If you think you're breaking these rules with your solution, please ask the teachers.

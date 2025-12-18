@@ -12,6 +12,12 @@ build
 # java
 *.class
 
+# python
+venv
+env
+__pycache__
+*.pyc
+
 # general
 .DS_Store
 .prettierrc.json

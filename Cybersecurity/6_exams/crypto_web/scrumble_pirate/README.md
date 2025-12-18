@@ -1,0 +1,19 @@
+# Scrumble Pirate
+
+### 📄 Description
+We found an evelope with a weird content. One is a piece of paper 
+with a non-sense writing and an image:
+- `challenge.text`
+- `compass.png`
+
+The envelope presents only a description in the ouside:
+"This is the beginning of a new era, the era of the pirates!
+
+Are you able to find the treasure with the compass and the encrypted message?"
+
+Note: the final plaintext must have only "lowercase" letters
+
+### ⛔ Rules: 
+You cannot use online tools to solve the challenge automatically.
+
+Provide a Python solution, where you explain every consolidation you made to achieve the solution. 

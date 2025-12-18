@@ -1,0 +1,30 @@
+Esami, testi e riferimento FIUP del corso:
+https://github.com/FIUP/Cybersecurity-UNIPD
+
+Per riferimento a molti esercizi:
+https://github.com/augustozanellato/Cybersec2021/
+https://github.com/obviouslynotraffa/Cybersecurity
+
+Per riferimento a strumenti utili:
+https://github.com/trincaw/CybersecurityUnipd
+https://github.com/matnut2/CybersecurityToolsUNIPD
+
+Strumenti usati nel corso:
+Python - crittografia
+Wireshark - crittografia
+Browser/Docker/Docker Compose/Virtualenv - Web
+IDA/Radare/GDB Peda - Reverse Engineering/PWNing
+
+Consigliati (aggiuntivi) per pwning/reverse:
+Ghidra/Cutter/Ghidra in radare2 installandolo con r2pm
+
+Link utili:
+Solver vari -> https://www.dcode.fr/en
+Substitution Solver -> https://www.guballa.de/substitution-solver - https://www.quipqiup.com/ - 
+Crack Hash -> https://crackstation.net/
+Base64 -> https://www.base64decode.org/
+Vigenere -> https://www.guballa.de/vigenere-solver
+Caesar Cipher -> https://www.dcode.fr/caesar-cipher
+
+Altro insieme di strumenti:
+https://project-awesome.org/apsdehal/awesome-ctf

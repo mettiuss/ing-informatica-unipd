@@ -1,0 +1,22 @@
+https://drive.google.com/file/d/1HuVxCuVNJ1CLMIS3ybLGgxKg1D4Ui2tC/view?usp=sharing
+Password: ubuntu
+
+The OVA image already contains most of the tools we will use during the course, including docker, which might create problems for some of you.
+
+Before you begin:
+- Download the .ova file
+- Open VirtualBox under the "Files" tab
+and select "Import Virtual Machine"
+- Import the .ova file
+- Before starting it, select on "Settings"
+and then click on "Network" and enter "NAT"
+
+This should be enough to start the VM.
+
+Common VM problems and fixes:
+
+Virtualization not supported by host machine -> Enable it in your bios settings
+Network error -> Change network adapter to NAT
+Screen is small -> Change resolution directly in the VM after login
+People with M1 macs can use the UTM app (https://mac.getutm.app/) to create an Ubuntu arm virtual machine.
+Just use the Ubuntu server arm image and install Ubuntu Desktop with "sudo apt-get install ubuntu-desktop"
